@@ -3,6 +3,7 @@
 
 const CONFIG = {
   CACHE_VERSION: 'v60-multi',
+  CACHE_NAME: `tu-barrio-app-${CACHE_VERSION}`,
   CACHES: {
     STATIC: 'static',
     ASSETS: 'assets',

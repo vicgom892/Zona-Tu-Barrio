@@ -28,39 +28,56 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // --- SERVICE WORKER EN PRODUCCIÓN ---
   if ('serviceWorker' in navigator) {
-    // Registrar SW sin caché y con control de versiones
-    navigator.serviceWorker.register(`/sw.js?v=${APP_VERSION}`, {
-      updateViaCache: 'none'
-    }).then(registration => {
-      console.log('✅ SW registrado en producción:', APP_VERSION);
+    // SOLO registrar en LOCALIDADES, no en la raíz
+    const currentPath = window.location.pathname;
+    const isLocalidad = currentPath.includes('/castelar/') || 
+                       currentPath.includes('/moron/') || 
+                       currentPath.includes('/ituzaingo/') ||
+                       currentPath.includes('/ciudadela/') ||
+                       currentPath.includes('/merlo/') ||
+                       currentPath.includes('/haedo/') ||
+                       currentPath.includes('/ramos-mejia/') ||
+                       // También verificar si estamos en subpáginas de localidades
+                       (currentPath.split('/').filter(Boolean).length > 1 && 
+                        !currentPath.endsWith('/index.html'));
+    
+    if (isLocalidad) {
+      // Registrar SW sin caché y con control de versiones
+      navigator.serviceWorker.register(`/shared/js/sw.js?v=${APP_VERSION}`, {
+        updateViaCache: 'none'
+      }).then(registration => {
+        console.log('✅ SW registrado en producción para localidad:', APP_VERSION);
 
-      // Verificar actualizaciones periódicas (cada 10 minutos)
-      const checkForUpdates = () => {
-        if (registration.waiting) {
-          showUpdateModal(registration);
-        }
-      };
+        // Verificar actualizaciones periódicas (cada 10 minutos)
+        const checkForUpdates = () => {
+          if (registration.waiting) {
+            showUpdateModal(registration);
+          }
+        };
 
-      // Escuchar nuevas instalaciones
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing;
-        if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              checkForUpdates();
-            }
-          });
-        }
+        // Escuchar nuevas instalaciones
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                checkForUpdates();
+              }
+            });
+          }
+        });
+
+        // Verificar al cargar y periódicamente
+        checkForUpdates();
+        setInterval(() => registration.update(), 10 * 60 * 1000); // Cada 10 minutos
+
+      }).catch(err => {
+        console.error('❌ Error crítico en SW:', err);
+        // En producción, no mostramos errores al usuario, solo logueamos
       });
-
-      // Verificar al cargar y periódicamente
-      checkForUpdates();
-      setInterval(() => registration.update(), 10 * 60 * 1000); // Cada 10 minutos
-
-    }).catch(err => {
-      console.error('❌ Error crítico en SW:', err);
-      // En producción, no mostramos errores al usuario, solo logueamos
-    });
+    } else {
+      console.log('🏠 En raíz - SW Selector se encargará del registro');
+    }
   }
 
   // --- GESTIÓN DEL MODAL DE ACTUALIZACIÓN ---

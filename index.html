@@ -1159,15 +1159,82 @@
     </style>
 
 <script>
-// Registro del Service Worker para la página de selección
+// --- CONFIGURACIÓN PARA SELECTOR ---
+const SELECTOR_VERSION = 'v60-multi-selector';
+
+// --- SERVICE WORKER ESPECÍFICO PARA SELECTOR ---
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then(registration => {
-      console.log('SW registrado para selector:', registration);
-    })
-    .catch(error => {
-      console.log('Error registrando SW:', error);
+  // Detectar si estamos en la raíz
+  const isRoot = window.location.pathname === '/' || 
+                 window.location.pathname === '/index.html' ||
+                 window.location.pathname.split('/').filter(Boolean).length === 0;
+  
+  if (isRoot) {
+    console.log('🏠 Inicializando SW para selector...');
+    
+    // Registrar SW específico para selector
+    navigator.serviceWorker.register(`/sw-selector.js?v=${SELECTOR_VERSION}`, {
+      updateViaCache: 'none',
+      scope: './'
+    }).then(registration => {
+      console.log('✅ SW Selector registrado:', SELECTOR_VERSION);
+
+      // Sistema de actualizaciones (igual que tu main.js)
+      const checkForUpdates = () => {
+        if (registration.waiting) {
+          showUpdateModal(registration);
+        }
+      };
+
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              checkForUpdates();
+            }
+          });
+        }
+      });
+
+      checkForUpdates();
+      setInterval(() => registration.update(), 10 * 60 * 1000);
+
+      // Limpieza de SWs de localidades en raíz
+      cleanupLocalidadSWs();
+
+    }).catch(err => {
+      console.error('❌ Error en SW Selector:', err);
     });
+  }
+}
+
+// Limpiar SWs de localidades si están en raíz
+function cleanupLocalidadSWs() {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(registration => {
+      const isLocalidadSW = registration.scope.includes('/castelar/') || 
+                           registration.scope.includes('/moron/') ||
+                           registration.scope.includes('/ituzaingo/') ||
+                           registration.scope.includes('/ciudadela/') ||
+                           registration.scope.includes('/merlo/') ||
+                           registration.scope.includes('/haedo/') ||
+                           registration.scope.includes('/ramos-mejia/');
+      
+      if (isLocalidadSW && window.location.pathname === '/') {
+        console.log('🗑️ Desregistrando SW de localidad en raíz:', registration.scope);
+        registration.unregister();
+      }
+    });
+  });
+}
+
+// Función de actualización (igual que tu main.js)
+function showUpdateModal(registration) {
+  if (confirm('¡Nueva versión disponible! ¿Actualizar ahora?')) {
+    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    setTimeout(() => window.location.reload(), 500);
+  }
 }
 </script>
 </head>
