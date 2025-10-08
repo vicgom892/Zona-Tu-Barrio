@@ -2822,9 +2822,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <script>
-  // En castelar/index.html, moron/index.html, etc.
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('../shared/js/sw.js')
+  // Ruta CORRECTA para GitHub Pages
+  navigator.serviceWorker.register('/Zona-Tu-Barrio/shared/js/sw.js')
     .then(registration => {
       console.log('✅ SW Multi-localidad registrado:', registration.scope);
     })

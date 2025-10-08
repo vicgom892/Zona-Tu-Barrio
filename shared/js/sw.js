@@ -47,29 +47,29 @@ const CACHE_TTL = CONFIG.TTL;
 
 const SHARED_RESOURCES = [
   // Página de selección de localidad (raíz)
-  '/',
-  '/index.html',
-  '/robots.txt',
+  '/Zona-Tu-Barrio/',
+  '/Zona-Tu-Barrio/index.html',
+  '/Zona-Tu-Barrio/robots.txt',
   
   // Recursos compartidos - CSS
-  '/shared/css/styles.css',
-  '/shared/css/fondo.css',
-  '/shared/css/negocios.css',
+  '/Zona-Tu-Barrio/shared/css/styles.css',
+  '/Zona-Tu-Barrio/shared/css/fondo.css',
+  '/Zona-Tu-Barrio/shared/css/negocios.css',
   
   // Recursos compartidos - JS
-  '/shared/js/main-2.js',
-  '/shared/js/chat-2.js',
-  '/shared/js/form.js',
-  '/shared/js/install-app.js', 
-  '/shared/js/notificaciones.js',
-  '/shared/js/search-functionality.js',
-  '/shared/js/splash.js',
-  '/shared/js/testimonials.js',
+  '/Zona-Tu-Barrio/shared/js/main-2.js',
+  '/Zona-Tu-Barrio/shared/js/chat-2.js',
+  '/Zona-Tu-Barrio/shared/js/form.js',
+  '/Zona-Tu-Barrio/shared/js/install-app.js', 
+  '/Zona-Tu-Barrio/shared/js/notificaciones.js',
+  '/Zona-Tu-Barrio/shared/js/search-functionality.js',
+  '/Zona-Tu-Barrio/shared/js/splash.js',
+  '/Zona-Tu-Barrio/shared/js/testimonials.js',
   
   // Imágenes compartidas
 
-  '/shared/img/icon-192x192.png',
-  '/shared/img/icon-512x512.png'
+  '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
+  '/Zona-Tu-Barrio/shared/img/icon-512x512.png'
 ].filter(Boolean); // Filtra cualquier valor nulo o undefined
 
 // Páginas comunes por localidad (se cachearán dinámicamente)
