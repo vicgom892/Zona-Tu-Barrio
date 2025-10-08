@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MB | Cartelería Profesional</title>
-    <link rel="icon" href="../shared/img/logo.png">
+    <link rel="icon" href="/shared/img/icon-abeja-sola.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -1056,8 +1056,8 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     background: linear-gradient(135deg, var(--primary), #0d9667);
     border: 2px solid var(--neon);
     border-radius: 50%;
@@ -1077,6 +1077,11 @@
 .home-button-fixed.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.home-button-fixed.show img{
+    width: 70px;
+    height: 70px;
 }
 
 .home-button-fixed:hover {
@@ -1230,7 +1235,7 @@
         <div class="splash-grid"></div>
         <div class="splash-logo">
             <!--<i class="fas fa-store logo-icon"></i>-->
-            <img src="../shared/img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+            <img src="/shared/img/icon-192x192.png" class="logo-icon" alt="logo de la app">
         </div>
         <h1 class="splash-text">Tu Barrio A Un Clic</h1>
         <div class="loading-bar-container">
@@ -1243,18 +1248,18 @@
 
     <!-- Botón Home Fijo -->
     <a href="../index.html" class="home-button-fixed" id="homeButton" title="Volver al Inicio">
-        <i class="fas fa-home"></i>
+        <img src="/shared/img/icon-192x192.png" alt="">
     </a>
     <!-- HERO SECTION -->
     <section class="hero" id="hero">
         <div class="hero-content">
           <!-- Logo animado -->
             <div class="logo" id="mainLogo">
-                <img src="../shared/img/logo.png" alt="">
+                <img src="/shared/img/logo.png" alt="">
             </div>
             <!-- Logo fijo que aparece durante el scroll -->
             <div class="animated-logo" id="fixedLogo">
-                <img src="../shared/img/logo.png" alt="">
+                <img src="/shared/img/logo.png" alt="">
             </div> 
             <h1>Cartelería Profesional<br>Letras Corpóreas & Señalización</h1>
             <p>Hacemos visible tu negocio con diseños impactantes, iluminación LED y acabados metálicos premium</p>
@@ -1531,7 +1536,7 @@
     </div>
 </div>
 
-  <script src="../negocios/carteles.html"></script>
+  <script src="/shared/js/splash.js"></script>
 
     <script>
         // Gallery Modal
