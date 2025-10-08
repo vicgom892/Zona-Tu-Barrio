@@ -13,20 +13,20 @@ const CONFIG = {
 
 const SELECTOR_RESOURCES = [
   // Página principal del selector
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/robots.txt',
+  '/Zona-Tu-Barrio/',
+  '/Zona-Tu-Barrio/index.html',
+  '/Zona-Tu-Barrio/manifest.json',
+  '/Zona-Tu-Barrio/robots.txt',
   
   // Recursos compartidos críticos para el selector
-  '/shared/css/styles.css',
-  '/shared/js/main-2.js', // Tu main.js actual
-  '/shared/js/install-app.js',
+  '/Zona-Tu-Barrio/shared/css/styles.css',
+  '/Zona-Tu-Barrio/shared/js/main-2.js', // Tu main.js actual
+  '/Zona-Tu-Barrio/shared/js/install-app.js',
   
   // Imágenes del selector
-  '/shared/img/icon-192x192.png',
-  '/shared/img/icon-512x512.png',
-  '/shared/img/icon-abeja-sola.png',
+  '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
+  '/Zona-Tu-Barrio/shared/img/icon-512x512.png',
+  '/Zona-Tu-Barrio/shared/img/icon-abeja-sola.png',
   
   // CDN externos
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'

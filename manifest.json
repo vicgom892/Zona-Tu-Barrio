@@ -2,19 +2,19 @@
   "name": "Tu Barrio A Un Click - Multi Localidad",
   "short_name": "BarrioClick",
   "description": "Plataforma de comercios y comunidad local en tu zona",
-  "start_url": "/",
+  "start_url": "/Zona-Tu-Barrio/index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0ea5e9",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/shared/img/icon-192x192.png",
+      "src": "/Zona-Tu-Barrio/shared/img/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/shared/img/icon-512x512.png",
+      "src": "/Zona-Tu-Barrio/shared/img/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
