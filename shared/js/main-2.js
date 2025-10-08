@@ -29,10 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- SERVICE WORKER EN PRODUCCIÓN ---
   if ('serviceWorker' in navigator) {
     // Registrar SW sin caché y con control de versiones
-    navigator.serviceWorker.register(`/Zona-Tu-Barrio/shared/js/sw.js?v=${APP_VERSION}`, {
-       scope: '/Zona-Tu-Barrio/',
-       updateViaCache: 'none'
-     }).then(registration => {
+    navigator.serviceWorker.register(`./shared/js/sw.js?v=${APP_VERSION}`, {
+      updateViaCache: 'none'
+    }).then(registration => {
       console.log('✅ SW registrado en producción:', APP_VERSION);
 
       // Verificar actualizaciones periódicas (cada 10 minutos)
