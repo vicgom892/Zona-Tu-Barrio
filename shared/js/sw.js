@@ -1,9 +1,11 @@
 // shared/js/sw.js — Service Worker Multi-Localidad
 // Versión: v60 — Optimizado para estructura multi-localidad
 
+const CACHE_VERSION = 'v60-multi'; // ← Define primero la variable
+
 const CONFIG = {
-  CACHE_VERSION: 'v60-multi',
-  CACHE_NAME: `tu-barrio-app-${CACHE_VERSION}`,
+  CACHE_VERSION: CACHE_VERSION, // ← Ahora usa la variable ya definida
+  CACHE_NAME: `tu-barrio-app-${CACHE_VERSION}`, // ← Ahora funciona
   CACHES: {
     STATIC: 'static',
     ASSETS: 'assets',

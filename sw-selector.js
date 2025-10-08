@@ -1,7 +1,11 @@
-// sw-selector.js - Service Worker específico para el selector de localidades
+
+// PRIMERO define la variable
+const CACHE_VERSION = 'v60-multi-selector';
+
+// LUES usa la variable en CONFIG
 const CONFIG = {
-  CACHE_VERSION: 'v60-multi-selector',
-  CACHE_NAME: `tu-barrio-selector-${CACHE_VERSION}`,
+  CACHE_VERSION: CACHE_VERSION,
+  CACHE_NAME: `tu-barrio-selector-${CACHE_VERSION}`, // ← Ahora funciona
   TTL: {
     static: 24 * 60 * 60 * 1000 // 24 horas
   }
@@ -16,7 +20,7 @@ const SELECTOR_RESOURCES = [
   
   // Recursos compartidos críticos para el selector
   '/shared/css/styles.css',
-  '/shared/js/main.js', // Tu main.js actual
+  '/shared/js/main-2.js', // Tu main.js actual
   '/shared/js/install-app.js',
   
   // Imágenes del selector

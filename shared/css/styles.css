@@ -2979,6 +2979,7 @@ border: 2px solid #fffdfd;
         left: 15px;
         right: 15px;
         bottom: 80px;
+        max-height: 80vh;
       }
     }
 
