@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastBite - Comida Rápida deliciosa y rápida</title>
+    <style>
+        /* Reset y variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+        
+        :root {
+            --primary: #ff6b35;
+            --secondary: #e74c3c;
+            --dark: #0a192f;
+            --light: #0f1e38;
+            --accent: #f39c12;
+            --white: #ffffff;
+            --gray: #a0c4e8;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48cGF0dGVybiBpZD0iYmFja2dyb3VuZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJjdXJyZW50Q29sb3IiIG9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNiYWNrZ3JvdW5kKSIvPjwvc3ZnPg==');
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+        
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--white);
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+        }
+        
+        /* Filters */
+        .filters {
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .filter-btn {
+            background: rgba(255, 107, 157, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .filter-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+        
+        /* Menu Section */
+        .menu {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.9));
+            z-index: -1;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .menu-item {
+            background: rgba(15, 30, 56, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.1);
+        }
+        
+        .menu-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .menu-content {
+            padding: 1.8rem;
+        }
+        
+        .menu-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+        
+        .menu-desc {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .menu-price {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(255, 107, 157, 0.2), rgba(138, 43, 226, 0.2));
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            border: 1px solid rgba(255, 107, 157, 0.2);
+        }
+        
+        /* Delivery Info */
+        .delivery-info {
+            padding: 4rem 0;
+            background: rgba(10, 25, 47, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .delivery-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 107, 157, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .info-card {
+            background: rgba(15, 30, 56, 0.5);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 107, 157, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .info-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+        }
+        
+        .info-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .info-content {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 8rem 0;
+            background: rgba(10, 25, 47, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 107, 157, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-form {
+            background: rgba(15, 30, 56, 0.5);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 107, 157, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 107, 157, 0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 107, 157, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .btn-whatsapp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn-whatsapp:hover::before {
+            left: 100%;
+        }
+        
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+        
+        .note-message {
+            background: rgba(255, 107, 157, 0.1);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        
+        .success-message {
+            color: #2ed573;
+            font-size: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(10, 25, 47, 0.9);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 107, 157, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: rgba(10, 25, 47, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.3s ease;
+                box-shadow: 0 10px 10px rgba(255, 107, 157, 0.1);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .btn-whatsapp {
+                width: 100%;
+            }
+            
+            .note-message {
+                padding: 1rem;
+            }
+        }
+        
+        /* WhatsApp Button Icon */
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        /* Form validation styles */
+        .error-message {
+            color: #ff4757;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .form-control.error {
+            border-color: #ff4757;
+            box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+        }
+        
+        /* Back to Home Button in Header */
+        .home-button {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .home-button:hover {
+            background-color: rgba(255, 107, 157, 0.2);
+            border-color: rgba(255, 107, 157, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <img src="https://placehold.co/50x50/ff6b35/ffffff?text=FB" alt="FastBite Logo">
+                    <span class="logo-text">Fast<span>Bite</span></span>
+                </a>
+                <a href="#home" class="home-button">Inicio</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#delivery">Envío</a></li>
+                    <li><a href="#contact">Pedido</a></li>
+                </ul>
+                <button class="hamburger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filters Section -->
+    <section class="filters" id="menu">
+        <div class="container">
+            <h2 class="section-title">Nuestro Menú</h2>
+            <p class="text-center">Elige tu categoría favorita y descubre nuestros platillos más populares</p>
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="hamburguesas">Hamburguesas</button>
+                <button class="filter-btn" data-filter="pizzas">Pizzas</button>
+                <button class="filter-btn" data-filter="tacos">Tacos</button>
+                <button class="filter-btn" data-filter="ensaladas">Ensaladas</button>
+                <button class="filter-btn" data-filter="bebidas">Bebidas</button>
+                <button class="filter-btn" data-filter="postres">Postres</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu">
+        <div class="container">
+            <div class="menu-grid">
+                <div class="menu-item" data-category="hamburguesas">
+                    <img src="https://placehold.co/400x300/ff6b35/ffffff?text=Hamburguesa+Cl%C3%A1sica" alt="Hamburguesa Clásica" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Hamburguesa Clásica</h3>
+                        <p class="menu-desc">Carne jugosa, queso derretido, lechuga, tomate, cebolla y nuestra salsa especial.</p>
+                        <span class="menu-price">$12.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="hamburguesas">
+                    <img src="https://placehold.co/400x300/e74c3c/ffffff?text=Hamburguesa+Doble" alt="Hamburguesa Doble" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Hamburguesa Doble</h3>
+                        <p class="menu-desc">Dos carnes de res premium, doble queso cheddar, panceta crujiente y cebolla caramelizada.</p>
+                        <span class="menu-price">$16.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="pizzas">
+                    <img src="https://placehold.co/400x300/f39c12/ffffff?text=Pizza+Pepperoni" alt="Pizza Pepperoni" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Pizza Pepperoni</h3>
+                        <p class="menu-desc">Masa fina, salsa de tomate, mozzarella y generosa cantidad de pepperoni.</p>
+                        <span class="menu-price">$14.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="pizzas">
+                    <img src="https://placehold.co/400x300/8e44ad/ffffff?text=Pizza+Margherita" alt="Pizza Margherita" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Pizza Margherita</h3>
+                        <p class="menu-desc">Tomates frescos, albahaca, mozzarella y aceite de oliva extra virgen.</p>
+                        <span class="menu-price">$13.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="tacos">
+                    <img src="https://placehold.co/400x300/e67e22/ffffff?text=Tacos+de+Barbacoa" alt="Tacos de Barbacoa" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Tacos de Barbacoa</h3>
+                        <p class="menu-desc">Carne de res slow-cooked, cebolla morada, cilantro y salsa picante en tortillas de maíz.</p>
+                        <span class="menu-price">$9.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="tacos">
+                    <img src="https://placehold.co/400x300/2ecc71/ffffff?text=Tacos+de+Pollo" alt="Tacos de Pollo" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Tacos de Pollo</h3>
+                        <p class="menu-desc">Pollo marinado a la parrilla, aguacate, crema ácida y salsa verde.</p>
+                        <span class="menu-price">$10.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="ensaladas">
+                    <img src="https://placehold.co/400x300/27ae60/ffffff?text=Ensalada+C%C3%A9sar" alt="Ensalada César" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Ensalada César</h3>
+                        <p class="menu-desc">Lechuga romana, crutones, parmesano y aderezo César con pollo a la parrilla.</p>
+                        <span class="menu-price">$11.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="ensaladas">
+                    <img src="https://placehold.co/400x300/1abc9c/ffffff?text=Ensalada+Mexicana" alt="Ensalada Mexicana" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Ensalada Mexicana</h3>
+                        <p class="menu-desc">Maíz, frijoles negros, tomate, aguacate, cebolla y aderezo chipotle.</p>
+                        <span class="menu-price">$10.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="bebidas">
+                    <img src="https://placehold.co/400x300/e74c3c/ffffff?text=Coca+Cola" alt="Coca Cola" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Coca Cola</h3>
+                        <p class="menu-desc">Refresco clásico en botella de 500ml o vaso grande.</p>
+                        <span class="menu-price">$2.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="bebidas">
+                    <img src="https://placehold.co/400x300/3498db/ffffff?text=Batido+de+Fresa" alt="Batido de Fresa" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Batido de Fresa</h3>
+                        <p class="menu-desc">Fresas frescas, helado de vainilla y leche entera batidos hasta obtener consistencia cremosa.</p>
+                        <span class="menu-price">$5.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="postres">
+                    <img src="https://placehold.co/400x300/c0392b/ffffff?text=Brownie+Chocolate" alt="Brownie Chocolate" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Brownie Chocolate</h3>
+                        <p class="menu-desc">Brownie casero con chocolate fundido, helado de vainilla y salsa de caramelo.</p>
+                        <span class="menu-price">$7.99</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="postres">
+                    <img src="https://placehold.co/400x300/f1c40f/ffffff?text=Helado+Cono" alt="Helado Cono" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Helado Cono</h3>
+                        <p class="menu-desc">Helado de vainilla con cobertura de chocolate y galleta triturada en cono de azúcar.</p>
+                        <span class="menu-price">$4.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info Section -->
+    <section class="delivery-info" id="delivery">
+        <div class="container">
+            <h2 class="section-title">Envío a Domicilio</h2>
+            <p class="text-center">Comida deliciosa en tu puerta en menos de 30 minutos</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">🕒</div>
+                    <h3 class="info-title">Horarios de Atención</h3>
+                    <p class="info-content">Lunes - Domingo<br>10:00 AM - 11:00 PM</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3 class="info-title">Área de Envío</h3>
+                    <p class="info-content">Entregamos en un radio de 15 km desde nuestro local.<br>¡Consulta si te cubrimos!</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🚗</div>
+                    <h3 class="info-title">Tiempo de Entrega</h3>
+                    <p class="info-content">Promedio de 20-30 minutos desde que se confirma tu pedido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Haz tu Pedido</h2>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <input type="text" id="name" class="form-control" placeholder="Tu nombre completo" required>
+                            <div class="error-message" id="nameError">Por favor ingresa tu nombre</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" class="form-control" placeholder="Tu número de teléfono" required>
+                            <div class="error-message" id="phoneError">Por favor ingresa un número de teléfono válido</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="address" class="form-control" placeholder="Dirección completa" required>
+                            <div class="error-message" id="addressError">Por favor ingresa tu dirección</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="locality" class="form-control" placeholder="Localidad o barrio" required>
+                            <div class="error-message" id="localityError">Por favor ingresa tu localidad</div>
+                        </div>
+                        <div class="form-group">
+                            <select id="items" class="form-control" required>
+                                <option value="" disabled selected>Selecciona tus productos</option>
+                                <option value="Hamburguesa Clásica">Hamburguesa Clásica ($12.99)</option>
+                                <option value="Hamburguesa Doble">Hamburguesa Doble ($16.99)</option>
+                                <option value="Pizza Pepperoni">Pizza Pepperoni ($14.99)</option>
+                                <option value="Pizza Margherita">Pizza Margherita ($13.99)</option>
+                                <option value="Tacos de Barbacoa">Tacos de Barbacoa ($9.99)</option>
+                                <option value="Tacos de Pollo">Tacos de Pollo ($10.99)</option>
+                                <option value="Ensalada César">Ensalada César ($11.99)</option>
+                                <option value="Ensalada Mexicana">Ensalada Mexicana ($10.99)</option>
+                                <option value="Coca Cola">Coca Cola ($2.99)</option>
+                                <option value="Batido de Fresa">Batido de Fresa ($5.99)</option>
+                                <option value="Brownie Chocolate">Brownie Chocolate ($7.99)</option>
+                                <option value="Helado Cono">Helado Cono ($4.99)</option>
+                            </select>
+                            <div class="error-message" id="itemsError">Por favor selecciona al menos un producto</div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="notes" class="form-control" placeholder="Observaciones especiales (sin ajo, sin cebolla, etc.)"></textarea>
+                        </div>
+                        <button type="submit" class="btn-whatsapp">
+                            <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                               
+                            </svg>
+                            Enviar por WhatsApp
+                        </button>
+                        <div class="note-message">
+                            Para hacer efectivo tu pedido, espera el mensaje de confirmación de <strong>FastBite</strong>.
+                        </div>
+                        <div class="success-message" id="successMessage">¡Gracias por tu pedido! Nos pondremos en contacto contigo para confirmar tu orden.</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" id="backToTop">
+        ↑
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Inicio</a>
+                <a href="#menu">Menú</a>
+                <a href="#delivery">Envío</a>
+                <a href="#contact">Pedido</a>
+            </div>
+            <p class="copyright">© 2023 FastBite. Comida rápida que te encantará. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        // Filter buttons functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                menuItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Form validation and WhatsApp integration
+        const orderForm = document.getElementById('orderForm');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const addressInput = document.getElementById('address');
+        const localityInput = document.getElementById('locality');
+        const itemsSelect = document.getElementById('items');
+        const notesInput = document.getElementById('notes');
+        
+        const nameError = document.getElementById('nameError');
+        const phoneError = document.getElementById('phoneError');
+        const addressError = document.getElementById('addressError');
+        const localityError = document.getElementById('localityError');
+        const itemsError = document.getElementById('itemsError');
+        const successMessage = document.getElementById('successMessage');
+        
+        // Validate phone number (basic)
+        function isValidPhone(phone) {
+            const re = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+            return re.test(String(phone));
+        }
+        
+        // Show error message
+        function showError(input, errorElement, message) {
+            input.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // Hide error message
+        function hideError(input, errorElement) {
+            input.classList.remove('error');
+            errorElement.style.display = 'none';
+        }
+        
+        // Validate form inputs
+        function validateForm() {
+            let isValid = true;
+            
+            // Name validation
+            if (nameInput.value.trim() === '') {
+                showError(nameInput, nameError, 'Por favor ingresa tu nombre');
+                isValid = false;
+            } else {
+                hideError(nameInput, nameError);
+            }
+            
+            // Phone validation
+            if (phoneInput.value.trim() === '') {
+                showError(phoneInput, phoneError, 'Por favor ingresa tu número de teléfono');
+                isValid = false;
+            } else if (!isValidPhone(phoneInput.value)) {
+                showError(phoneInput, phoneError, 'Por favor ingresa un número de teléfono válido');
+                isValid = false;
+            } else {
+                hideError(phoneInput, phoneError);
+            }
+            
+            // Address validation
+            if (addressInput.value.trim() === '') {
+                showError(addressInput, addressError, 'Por favor ingresa tu dirección completa');
+                isValid = false;
+            } else {
+                hideError(addressInput, addressError);
+            }
+            
+            // Locality validation
+            if (localityInput.value.trim() === '') {
+                showError(localityInput, localityError, 'Por favor ingresa tu localidad o barrio');
+                isValid = false;
+            } else {
+                hideError(localityInput, localityError);
+            }
+            
+            // Items validation
+            if (itemsSelect.value === '') {
+                showError(itemsSelect, itemsError, 'Por favor selecciona al menos un producto');
+                isValid = false;
+            } else {
+                hideError(itemsSelect, itemsError);
+            }
+            
+            return isValid;
+        }
+        
+        // Submit form
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Prepare WhatsApp message
+                const name = encodeURIComponent(nameInput.value);
+                const phone = encodeURIComponent(phoneInput.value);
+                const address = encodeURIComponent(addressInput.value);
+                const locality = encodeURIComponent(localityInput.value);
+                const items = encodeURIComponent(itemsSelect.options[itemsSelect.selectedIndex].text);
+                const notes = notesInput.value ? encodeURIComponent(notesInput.value) : '';
+                
+                // Create WhatsApp URL
+                const whatsappUrl = `https://wa.me/15551234567?text=Hola%2C%20quiero%20hacer%20un%20pedido%20para%20entrega%20a%20domicilio.%0A%0ANombre%3A%20${name}%0ATel%C3%A9fono%3A%20${phone}%0ADirecci%C3%B3n%3A%20${address}%2C%20${locality}%0AProductos%3A%20${items}${notes ? `%0AObservaciones%3A%20${notes}` : ''}`;
+                
+                // Open WhatsApp in new tab
+                window.open(whatsappUrl, '_blank');
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    orderForm.reset();
+                    successMessage.style.display = 'none';
+                }, 2000);
+            }
+        });
+        
+        // Real-time validation
+        nameInput.addEventListener('blur', () => {
+            if (nameInput.value.trim() !== '') {
+                hideError(nameInput, nameError);
+            }
+        });
+        
+        phoneInput.addEventListener('blur', () => {
+            if (phoneInput.value.trim() !== '') {
+                if (isValidPhone(phoneInput.value)) {
+                    hideError(phoneInput, phoneError);
+                } else {
+                    showError(phoneInput, phoneError, 'Por favor ingresa un número de teléfono válido');
+                }
+            } else {
+                hideError(phoneInput, phoneError);
+            }
+        });
+        
+        addressInput.addEventListener('blur', () => {
+            if (addressInput.value.trim() !== '') {
+                hideError(addressInput, addressError);
+            }
+        });
+        
+        localityInput.addEventListener('blur', () => {
+            if (localityInput.value.trim() !== '') {
+                hideError(localityInput, localityError);
+            }
+        });
+        
+        itemsSelect.addEventListener('change', () => {
+            if (itemsSelect.value !== '') {
+                hideError(itemsSelect, itemsError);
+            }
+        });
+        
+        // Add subtle animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const infoCards = document.querySelectorAll('.info-card');
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            menuItems.forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(item);
+            });
+            
+            infoCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

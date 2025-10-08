@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Cuidado Canino",
+    "descripcion": "Paseos, guardería y entrenamiento canino. Servicio puerta a puerta en tu barrio.",
+    "categoria": "mascotas",
+    "imagen": "https://placehold.co/600x400/fbbf24/white?text=Cuidado+Canino",
+    "whatsapp": "+5491122334455",
+    "facebook": "https://facebook.com/cuidadocanino",
+    "instagram": "https://instagram.com/cuidadocanino",
+    "latitud": -34.6070,
+    "longitud": -58.3860,
+    "pagina": "https://cuidadocanino.com",
+    "direccion": "Servicio a domicilio",
+    "horario": "Lunes a Domingo: 7:00 - 22:00"
+  },
+  {
+    "nombre": "Pelusa Veterinaria",
+    "descripcion": "Consultorio veterinario móvil. Vacunación, desparasitación y chequeos generales en tu casa.",
+    "categoria": "mascotas",
+    "imagen": "https://placehold.co/600x400/fcd34d/white?text=Pelusa+Veterinaria",
+    "whatsapp": "+5491133445566",
+    "facebook": "https://facebook.com/pelusaveterinaria",
+    "instagram": "",
+    "latitud": -34.6130,
+    "longitud": -58.3910,
+    "pagina": "",
+    "direccion": "Atención a domicilio en toda la ciudad",
+    "horario": "Lunes a Sábado: 9:00 - 19:00"
+  }
+]

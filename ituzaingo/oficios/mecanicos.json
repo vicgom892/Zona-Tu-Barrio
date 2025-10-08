@@ -1,0 +1,47 @@
+[
+  {
+    "id": "mecanico-01",
+    "nombre": "Taller Mecánico Central",
+    "imagen": "img/taller.webp",
+    "horario": "Lun-Vie 8:00-19:00, Sáb 9:00-15:00",
+    "horarioData": "Mon-Fri 08:00-19:00, Sat 09:00-15:00",
+    "telefono": "11 7890 4567",
+    "whatsapp": "541178904567",
+    "pagina": "negocios/taller-central.html",
+    "icono": "fas fa-car",
+    "rubro": "Mecánico",
+    "direccion": "Av. Rivadavia 7800, CABA",
+    "latitud": -34.6345,
+    "longitud": -58.4567
+  },
+  {
+    "id": "mecanico-02",
+    "nombre": "Rodrigo Fernández - Especialista en Inyección",
+    "imagen": "img/taller.webp",
+    "horario": "Lun-Sáb 8:30-18:30",
+    "horarioData": "Mon-Sat 08:30-18:30",
+    "telefono": "11 8901 5678",
+    "whatsapp": "541189015678",
+    "pagina": "negocios/rodrigo-mecanico.html",
+    "icono": "fas fa-tools",
+    "rubro": "Mecánico Automotriz",
+    "direccion": "Calle Viamonte 2500, CABA",
+    "latitud": -34.6089,
+    "longitud": -58.3998
+  },
+  {
+    "id": "mecanico-03",
+    "nombre": "AutoService Premium",
+    "imagen": "img/taller.webp",
+    "horario": "Lun-Dom 8:00-20:00",
+    "horarioData": "Mon-Sun 08:00-20:00",
+    "telefono": "11 9012 6789",
+    "whatsapp": "541190126789",
+    "pagina": "negocios/autoservice-premium.html",
+    "icono": "fas fa-cogs",
+    "rubro": "Reparación Integral",
+    "direccion": "Av. Corrientes 6200, CABA",
+    "latitud": -34.6123,
+    "longitud": -58.4321
+  }
+]

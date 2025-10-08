@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Barrio A Un Clic - Offline</title>
+     <link rel="icon" href="../img/icon-abeja-sola.png" type="image/png" />
+    <link rel="apple-touch-icon" href="../img/icon-192x192.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease;
+        }
+
+        .splash-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
+        }
+
+        .splash-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+        }
+
+        .splash-logo {
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6); }
+        }
+
+        .logo-icon {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .splash-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .loading-bar-container {
+            width: 80%;
+            max-width: 400px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .loading-text {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .skip-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .skip-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards 1s;
+            height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .offline-icon {
+            font-size: 3rem;
+            color: #e5e7eb;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: .5rem;
+            color: #e2e8f0;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .info-card li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card i {
+            color: #3b82f6;
+        }
+
+        .app-info {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .app-info a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .app-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animaciones adicionales */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .splash-text {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-logo {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .splash-text {
+                font-size: 1.5rem;
+            }
+            
+            .loading-bar-container {
+                width: 90%;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .info-card {
+                padding: 1rem;
+            }
+            
+            .info-card ul {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo floating">
+            <div class="pulse-ring"></div>
+            <img src="img/icon-192x192.png" class="logo-icon" alt="Logo de Tu Barrio A Un Clic">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clic</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContent">
+        <i class="bi bi-wifi-off offline-icon"></i>
+        <h1>Estás offline</h1>
+        <p>No pudimos cargar algunos recursos. Vuelve a intentarlo más tarde cuando tengas conexión a internet.</p>
+        
+        <div class="action-buttons">
+            <button onclick="window.location.reload()">
+                <i class="bi bi-arrow-clockwise"></i> Recargar
+            </button>
+            <button onclick="window.open('tel:+541157194796', '_self')">
+                <i class="bi bi-telephone"></i> Llamar al soporte
+            </button>
+        </div>
+
+        <div class="info-card">
+            <h3><i class="bi bi-info-circle"></i> Información importante</h3>
+            <ul>
+                <li><i class="bi bi-check-circle"></i> Esta aplicación funciona mejor con conexión a internet</li>
+                <li><i class="bi bi-check-circle"></i> Algunas funciones pueden no estar disponibles sin conexión</li>
+                <li><i class="bi bi-check-circle"></i> Los datos se sincronizarán automáticamente al recuperar la conexión</li>
+                <li><i class="bi bi-check-circle"></i> Puedes seguir usando la app para ver contenido en caché</li>
+            </ul>
+        </div>
+
+        <div class="app-info">
+            <p>Tu Barrio A Un Clic v2.3.1 • PWA • <a href="mailto:soporte@tubarrionunclic.com">Contacto</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Generar partículas para el splash screen
+        function createParticles() {
+            const container = document.getElementById('splashParticles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Propiedades aleatorias
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animación aleatoria
+                particle.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Simular barra de carga
+        function simulateLoading() {
+            const loadingBar = document.getElementById('loadingBar');
+            const loadingText = document.getElementById('loadingText');
+            const texts = [
+                'Cargando experiencia local...',
+                'Optimizando tu experiencia...',
+                'Preparando servicios locales...',
+                'Cargando comercios cercanos...',
+                'Listo para conectar tu barrio...'
+            ];
+            
+            let width = 0;
+            let textIndex = 0;
+            
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    finishLoading();
+                    return;
+                }
+                
+                width += Math.random() * 3;
+                if (width > 100) width = 100;
+                
+                loadingBar.style.width = `${width}%`;
+                
+                // Cambiar texto cada 20% de carga
+                if (width > (textIndex + 1) * 20 && textIndex < texts.length - 1) {
+                    textIndex++;
+                    loadingText.textContent = texts[textIndex];
+                }
+            }, 100);
+        }
+
+        // Finalizar carga
+        function finishLoading() {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            }, 500);
+        }
+
+        // Saltar splash screen
+        function skipSplash() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 500);
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            simulateLoading();
+            
+            // Si la página ya está cargada, finalizar splash inmediatamente
+            if (document.readyState === 'complete') {
+                setTimeout(() => {
+                    finishLoading();
+                }, 1000);
+            }
+        });
+
+        // Detectar cuando la página se carga completamente
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if (splash && splash.style.display !== 'none') {
+                    finishLoading();
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

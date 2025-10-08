@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Delicias Caseras",
+    "descripcion": "Pasteles artesanales, tortas personalizadas y postres sin conservantes. ¡Hechos con amor en tu barrio!",
+    "categoria": "gastronomia",
+    "imagen": "https://placehold.co/600x400/1e3a8a/white?text=Delicias+Caseras",
+    "whatsapp": "+5491123456789",
+    "facebook": "https://facebook.com/deliciascaseras",
+    "instagram": "https://instagram.com/deliciascaseras",
+    "latitud": -34.6037,
+    "longitud": -58.3816,
+    "pagina": "https://deliciascaseras.com",
+    "direccion": "Av. Siempre Viva 123, Ciudad",
+    "horario": "Lunes a Sábado: 9:00 - 19:00"
+  },
+  {
+    "nombre": "Empanadas La Esquina",
+    "descripcion": "Empanadas caseras de 20 variedades, al horno y fritas. Pedidos por delivery o para llevar.",
+    "categoria": "gastronomia",
+    "imagen": "https://placehold.co/600x400/0ea5e9/white?text=Empanadas+La+Esquina",
+    "whatsapp": "+5491198765432",
+    "facebook": "https://facebook.com/empanadaslaesquina",
+    "instagram": "https://instagram.com/empanadaslaesquina",
+    "latitud": -34.6100,
+    "longitud": -58.3900,
+    "pagina": "",
+    "direccion": "Calle Falsa 456, Ciudad",
+    "horario": "Martes a Domingo: 12:00 - 21:00"
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+     "id": "Talleres-01",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Mecánico Central",
+    "horario": "Lunes a Viernes: 8am - 18pm, Sábados: 8am - 13pm",
+    "horarioData": "Mon-Fri 8:00-18:00, Sat 8:00-13:00",
+    "telefono": "11 5555 1111",
+    "whatsapp": "5491155551111",
+    "pagina": "negocios/taller-central.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Av. Rivadavia 200",
+    "latitud": -34.6525,
+    "longitud": -58.6435
+  },
+  {
+    
+     "id": "Talleres-02",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller del Barrio",
+    "horario": "Lunes a Sábados: 8am - 19pm",
+    "horarioData": "Mon-Sat 8:00-19:00",
+    "telefono": "11 5555 2222",
+    "whatsapp": "5491155552222",
+    "pagina": "taller-barrio.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Calle San Martín 600",
+    "latitud": -34.6530,
+    "longitud": -58.6440
+  },
+  {
+    
+     "id": "Talleres-03",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Express",
+    "horario": "Lunes a Viernes: 7am - 20pm",
+    "horarioData": "Mon-Fri 7:00-20:00",
+    "telefono": "11 5555 3333",
+    "whatsapp": "5491155553333",
+    "pagina": "taller-express.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Calle Mitre 800",
+    "latitud": -34.6515,
+    "longitud": -58.6425
+  },
+  {
+    
+     "id": "Talleres-04",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Automotor",
+    "horario": "Lunes a Viernes: 8am - 18:30pm, Sábados: 9am - 12:30pm",
+    "horarioData": "Mon-Fri 8:00-18:30, Sat 9:00-12:30",
+    "telefono": "11 5555 4444",
+    "whatsapp": "5491155554444",
+    "pagina": "taller-automotor.html",
+   "imagen": "img/taller.webp",
+    "direccion": "Av. Sarmiento 200",
+    "latitud": -34.6540,
+    "longitud": -58.6450
+  },
+  {
+    
+     "id": "Talleres-05",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller de Confianza",
+    "horario": "Martes a Domingo: 8am - 17pm",
+    "horarioData": "Tue-Sun 8:00-17:00",
+    "telefono": "11 5555 5555",
+    "whatsapp": "5491155555555",
+    "pagina": "taller-confianza.html",
+   "imagen": "img/taller.webp",
+    "direccion": "Calle Alsina 300",
+    "latitud": -34.6505,
+    "longitud": -58.6415
+  },
+  {
+    
+     "id": "Talleres-06",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Integral",
+    "horario": "Lunes a Viernes: 8am - 20pm",
+    "horarioData": "Mon-Fri 8:00-20:00",
+    "telefono": "11 5555 6666",
+    "whatsapp": "5491155556666",
+    "pagina": "taller-integral.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Calle Belgrano 400",
+    "latitud": -34.6535,
+    "longitud": -58.6445
+  },
+  {
+    
+     "id": "Talleres-07",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Rápido",
+    "horario": "Lunes a Sábados: 7:30am - 18:30pm",
+    "horarioData": "Mon-Sat 7:30-18:30",
+    "telefono": "11 5555 7777",
+    "whatsapp": "5491155557777",
+    "pagina": "taller-rapido.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Av. Rivadavia 500",
+    "latitud": -34.6520,
+    "longitud": -58.6430
+  },
+  {
+    
+     "id": "Talleres-08",
+     "icono": "fas fa-cut",
+      "rubro": "Talleres",
+    "nombre": "Taller Premium",
+    "horario": "Lunes a Viernes: 8am - 19pm, Sábados: 9am - 14pm",
+    "horarioData": "Mon-Fri 8:00-19:00, Sat 9:00-14:00",
+    "telefono": "11 5555 8888",
+    "whatsapp": "5491155558888",
+    "pagina": "taller-premium.html",
+    "imagen": "img/taller.webp",
+    "direccion": "Calle San Martín 650",
+    "latitud": -34.6510,
+    "longitud": -58.6420
+  }
+]

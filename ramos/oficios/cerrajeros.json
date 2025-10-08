@@ -1,0 +1,47 @@
+[
+  {
+    "id": "cerrajero-01",
+    "nombre": "Cerrajería 24H - Seguridad Total",
+    "imagen": "img/cerrajero.webp",
+    "horario": "24 horas, todos los días",
+    "horarioData": "24/7",
+    "telefono": "11 8901 2345",
+    "whatsapp": "541189012345",
+    "pagina": "negocios/cerrajeria-24h.html",
+    "icono": "fas fa-key",
+    "rubro": "Cerrajero",
+    "direccion": "Av. Rivadavia 5200, CABA",
+    "latitud": -34.6189,
+    "longitud": -58.4289
+  },
+  {
+    "id": "cerrajero-02",
+    "nombre": "Martín Ruiz - Apertura Express",
+    "imagen": "img/cerrajero.webp",
+    "horario": "Lun-Dom 6:00-23:00",
+    "horarioData": "Mon-Sun 06:00-23:00",
+    "telefono": "11 9012 3456",
+    "whatsapp": "541190123456",
+    "pagina": "negocios/martin-cerrajero.html",
+    "icono": "fas fa-lock-open",
+    "rubro": "Apertura de Puertas",
+    "direccion": "Calle Sarmiento 2100, CABA",
+    "latitud": -34.6056,
+    "longitud": -58.3921
+  },
+  {
+    "id": "cerrajero-03",
+    "nombre": "Seguridad Hogar S.A.",
+    "imagen": "img/cerrajero.webp",
+    "horario": "Lun-Vie 8:00-20:00, Sáb 9:00-18:00",
+    "horarioData": "Mon-Fri 08:00-20:00, Sat 09:00-18:00",
+    "telefono": "11 0123 4567",
+    "whatsapp": "541101234567",
+    "pagina": "negocios/seguridad-hogar.html",
+    "icono": "fas fa-shield-alt",
+    "rubro": "Instalación de Cerraduras",
+    "direccion": "Av. Belgrano 3300, CABA",
+    "latitud": -34.6198,
+    "longitud": -58.4012
+  }
+]

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emprendimientos Locales</title>
+
+  <!-- Iconos y Manifest -->
+  <link rel="icon" href="img/icon-abeja-sola.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="img/icon-192x192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="img/icon-192x192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="mask-icon" href="img/icon-abeja-sola.png" color="#e1306c">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #0ea5e9;
+      --accent: #00f5ff;
+      --dark-bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --whatsapp: #25D366;
+      --facebook: #1877F2;
+      --instagram: #E1306C;
+      --location: #10b981;
+      --website: #8b5cf6;
+      --success: #10b981;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding-bottom: 100px;
+      overflow-x: hidden;
+    }
+    /* Splash Screen Tecnológico */
+    .splash-screen {
+        position: fixed;
+        /*top: 50px;*/
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100000;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+        overflow: hidden;
+    }
+    
+    .splash-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Fondo de partículas animadas */
+    .splash-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        animation: float 6s infinite ease-in-out;
+    }
+    
+    /* Grid de fondo */
+    .splash-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+        opacity: 0.3;
+    }
+    
+    /* Logo con efecto de brillo */
+    .splash-logo {
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6200 0%, #ff9e2c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        z-index: 3;
+        box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        animation: pulseGlow 2s infinite alternate;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .splash-logo::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        animation: shine 3s infinite;
+    }
+    
+    .logo-icon {
+        font-size: 80px;
+        color: white;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 230px;
+        height: 230px;
+    }
+    
+    .splash-text {
+        color: #f8f9fa !important;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.5s;
+    }
+    
+    .loading-bar-container {
+        width: 200px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+    }
+    
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6200, #ff9e2c);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+    
+    .loading-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+        animation: shimmer 1.5s infinite;
+    }
+    
+    .loading-text {
+        color:#f8f9fa;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s ease forwards 1.2s;
+        z-index: 3;
+    }
+    
+    .skip-btn {
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards 1.5s;
+    }
+    
+    .skip-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 98, 0, 0.3);
+    }
+    
+    /* Animaciones */
+    @keyframes pulseGlow {
+        0% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+            transform: scale(1);
+        }
+        100% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.6);
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes shine {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(50%) translateY(50%) rotate(180deg);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(10px, 15px);
+        }
+        50% {
+            transform: translate(-10px, 5px);
+        }
+        75% {
+            transform: translate(5px, -10px);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .splash-logo {
+            width: 280px;
+            height: 280px;
+        }
+        
+        .splash-text {
+            font-size: 1.6rem;
+        }
+        
+        .loading-bar-container {
+            width: 160px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .splash-logo {
+            width: 250px;
+            height: 250px;
+        }
+        
+        .splash-text {
+            font-size: 1.4rem;
+        }
+        
+        .loading-bar-container {
+            width: 140px;
+        }
+        
+        .skip-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+    }
+
+/* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 245, 255, 0.2), transparent);
+      animation: shine 6s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
+      100% { transform: translateX(50%) translateY(50%) rotate(45deg); }
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 24px;
+      opacity: 0.95;
+    }
+
+    /* Header con logo */
+    .header-bar {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1100;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .logo-icon-1 {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Category Section */
+    .category-section {
+      position: relative;
+      padding: 40px 20px;
+      border-radius: 20px;
+      margin: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      background: var(--card-bg);
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title i {
+      background: rgba(255, 255, 255, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0, 149, 255, 0.3);
+    }
+
+    .card-img-top {
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      min-height: 60px;
+      color: #fff;
+    }
+     
+    .text-muted {
+        color: #fff !important;
+    }
+    .badge-category {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Contact buttons */
+    .contact-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: transform 0.2s;
+      color: white !important;
+    }
+
+    .contact-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .whatsapp-btn { background: var(--whatsapp); }
+    .facebook-btn { background: var(--facebook); }
+    .instagram-btn { background: var(--instagram); }
+    .location-btn { background: var(--location); }
+    .website-btn { background: var(--website); }
+
+    /* Modal */
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 20px;
+      color: var(--text-light);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-title {
+      font-weight: 700;
+    }
+
+    .modal-body img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .modal-contact-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .modal-contact-btn {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      transition: transform 0.2s;
+      justify-content: center;
+      color: white !important;
+      font-weight: 600;
+    }
+
+    .modal-contact-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Bottom Navigation */
+    .navbar-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 -2px 20px rgba(0, 212, 255, 0.2);
+      z-index: 1000;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 0;
+    }
+
+    .scroll-container {
+      display: flex;
+      gap: 14px;
+      padding: 0 20px;
+      align-items: center;
+      width: 80%;
+      margin: auto;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 85px;
+      padding: 10px 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.25s;
+    }
+
+    .nav-btn i {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .nav-btn.active,
+    .nav-btn:hover {
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
+      transform: scale(1.05);
+    }
+
+    /* Loading spinner */
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid var(--accent);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1.1rem; }
+      .card-img-top { height: 160px; }
+      .contact-buttons { flex-direction: column; }
+      .contact-btn { width: 100%; justify-content: center; }
+      .logo-text { font-size: 1.2rem; }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .section-title { font-size: 1.3rem; }
+      .card-title { font-size: 1.1rem; }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-btn {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+  color: #fff;
+}
+.logo-btn p{
+   margin: 0;
+   padding: 0;
+}
+.install-btn {
+  text-transform: none ;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-size: 10px;
+}
+
+.install-btn:hover {
+  background-color: #45a049;
+}
+  </style>
+</head>
+<body>
+  <div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <!--<i class="fas fa-store logo-icon"></i>-->
+            <img src="img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clic</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+
+ <!-- Header con logo -->
+<header class="header-bar">
+  <a href="index.html" class="logo-btn">
+    <div class="logo-icon-1">
+      <img src="img/icon-192x192.png" class="logo-icon-1" alt="logo de la app">
+    </div>
+    <p>Volver a TB-Click</p>
+  </a>
+ <button id="botonInstalar" class=" install-btn bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
+      <i class="fas fa-download me-2"> Instalar App</i> 
+    </button>
+</header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Descubre Emprendimientos de tu Comunidad</h1>
+      <p>Conectamos pequeños emprendedores con su comunidad. <span class="highlight">¡Totalmente gratis!</span> Publica tu negocio y llega a miles de vecinos.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="sections-container"></main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="businessModal" tabindex="-1" aria-labelledby="businessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="businessModalLabel">Detalles del Emprendimiento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Content will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="navbar-bottom">
+    <div class="scroll-container" id="bottom-nav"></div>
+  </nav>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2023 Emprendimientos Locales - Conectando comunidades</p>
+  </footer>
+  
+  <script src="../shared/js/splash.js"></script>
+  <script src="../shared/js/install-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Categories for businesses
+    const categorias = [
+      { id: 'gastronomia', name: 'Gastronomía', icon: 'fas fa-utensils' },
+      { id: 'artesanias', name: 'Artesanías', icon: 'fas fa-paint-brush' },
+      { id: 'moda', name: 'Moda', icon: 'fas fa-tshirt' },
+      { id: 'tecnologia', name: 'Tecnología', icon: 'fas fa-laptop' },
+      { id: 'servicios', name: 'Servicios', icon: 'fas fa-tools' },
+      { id: 'belleza', name: 'Belleza', icon: 'fas fa-spa' },
+      { id: 'educacion', name: 'Educación', icon: 'fas fa-book' },
+      { id: 'hogar', name: 'Hogar', icon: 'fas fa-home' },
+      { id: 'mascotas', name: 'Mascotas', icon: 'fas fa-paw' },
+      { id: 'otros', name: 'Otros', icon: 'fas fa-star' }
+    ];
+
+    const sectionsContainer = document.getElementById('sections-container');
+    const bottomNav = document.getElementById('bottom-nav');
+    let allBusinesses = [];
+
+    // Create bottom navigation
+    categorias.forEach(categoria => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-btn';
+      btn.innerHTML = `<i class="${categoria.icon}"></i>${categoria.name}`;
+      btn.dataset.categoria = categoria.id;
+      btn.onclick = () => scrollToSection(categoria.id);
+      bottomNav.appendChild(btn);
+    });
+
+    // Create sections
+    categorias.forEach(categoria => {
+      const section = document.createElement('section');
+      section.id = categoria.id;
+      section.innerHTML = `
+        <div class="category-section">
+          <div class="container">
+            <h2 class="text-center mb-4 section-title">
+              <i class="${categoria.icon}"></i>
+              ${categoria.name}
+            </h2>
+            <div class="row g-4 justify-content-center cards-container">
+              <div class="col-12 text-center loading-container">
+                <div class="loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      sectionsContainer.appendChild(section);
+      loadCategoria(categoria.id, categoria.name);
+    });
+
+    // Load businesses from JSON
+    async function loadCategoria(categoriaId, categoriaName) {
+      const container = document.querySelector(`#${categoriaId} .cards-container`);
+      try {
+        // Cargar desde la carpeta datos/ (¡esta es la clave!)
+        const response = await fetch(`datos/${categoriaId}.json`);
+        if (!response.ok) throw new Error(`Archivo no encontrado: datos/${categoriaId}.json`);
+        const data = await response.json();
+        const businesses = Array.isArray(data) ? data : [data];
+        
+        // Guardar en array global con ID único
+        businesses.forEach((business, index) => {
+          business.id = `${categoriaId}-${index}`;
+          allBusinesses.push(business);
+        });
+        
+        renderCards(businesses, container, categoriaName, categoriaId);
+      } catch (error) {
+        console.error("Error al cargar los datos:", error);
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-store-slash"></i>
+            <p>No hay emprendimientos disponibles en ${categoriaName.toLowerCase()}.</p>
+            <button class="btn btn-outline-light mt-3" onclick="showPublishModal('${categoriaId}')">
+              <i class="fas fa-plus me-2"></i>¿Eres emprendedor? Publica tu negocio
+            </button>
+          </div>
+        `;
+      }
+    }
+    function getRandomColor() {
+      const colors = ['1e3a8a', '0ea5e9', '00f5ff', '10b981', '8b5cf6', 'e1306c', 'f59e0b', 'ef4444'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Render business cards
+    function renderCards(businesses, container, categoryName, categoryId) {
+      container.innerHTML = '';
+      businesses.forEach(business => {
+        // Build contact buttons
+        let contactButtons = '';
+        if (business.whatsapp) {
+          contactButtons += `<a href="https://wa.me/${business.whatsapp.replace(/\D/g, '')}" target="_blank" class="contact-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+          </a>`;
+        }
+        if (business.facebook) {
+          contactButtons += `<a href="${business.facebook}" target="_blank" class="contact-btn facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+          </a>`;
+        }
+        if (business.instagram) {
+          contactButtons += `<a href="${business.instagram}" target="_blank" class="contact-btn instagram-btn">
+            <i class="fab fa-instagram"></i>
+          </a>`;
+        }
+        if (business.latitud && business.longitud) {
+          contactButtons += `<a href="https://www.google.com/maps?q=${business.latitud},${business.longitud}" target="_blank" class="contact-btn location-btn">
+            <i class="fas fa-map-marker-alt"></i>
+          </a>`;
+        }
+        if (business.pagina) {
+          contactButtons += `<a href="${business.pagina}" target="_blank" class="contact-btn website-btn">
+            <i class="fas fa-globe"></i>
+          </a>`;
+        }
+        
+        const col = document.createElement('div');
+        col.className = 'col-md-6 col-lg-4';
+        col.innerHTML = `
+          <div class="card h-100" onclick="openBusinessModal('${business.id}')">
+            <img src="${business.imagen}" class="card-img-top" alt="${business.nombre}">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge-category">${categoryName}</span>
+                <span class="text-muted small">
+                  <i class="fas fa-map-marker-alt"></i> ${business.direccion.split(',')[0]}
+                </span>
+              </div>
+              <h5 class="card-title">${business.nombre}</h5>
+              <p class="card-text">${business.descripcion.substring(0, 100)}...</p>
+              <div class="mt-auto">
+                <p class="text-muted small mb-2">
+                  <i class="fas fa-clock me-1"></i> ${business.horario || 'Horario no especificado'}
+                </p>
+                <div class="contact-buttons">
+                  ${contactButtons}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+        
+        // Store in global array for modal
+        allBusinesses.push(business);
+      });
+    }
+
+    // Open business modal
+    function openBusinessModal(businessId) {
+      const business = allBusinesses.find(b => b.id === businessId);
+      if (!business) return;
+
+      // Build modal contact buttons
+      let modalButtons = '';
+      if (business.whatsapp) {
+        modalButtons += `<a href="https://wa.me/${business.whatsapp.replace(/\D/g, '')}" target="_blank" class="modal-contact-btn whatsapp-btn">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>`;
+      }
+      if (business.facebook) {
+        modalButtons += `<a href="${business.facebook}" target="_blank" class="modal-contact-btn facebook-btn">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>`;
+      }
+      if (business.instagram) {
+        modalButtons += `<a href="${business.instagram}" target="_blank" class="modal-contact-btn instagram-btn">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>`;
+      }
+      if (business.latitud && business.longitud) {
+        modalButtons += `<a href="https://www.google.com/maps?q=${business.latitud},${business.longitud}" target="_blank" class="modal-contact-btn location-btn">
+          <i class="fas fa-map-marker-alt"></i> Ubicación
+        </a>`;
+      }
+      if (business.pagina) {
+        modalButtons += `<a href="${business.pagina}" target="_blank" class="modal-contact-btn website-btn">
+          <i class="fas fa-globe"></i> Sitio Web
+        </a>`;
+      }
+      
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = `
+        <img src="${business.imagen}" alt="${business.nombre}">
+        <h3>${business.nombre}</h3>
+        <div class="d-flex align-items-center mb-3">
+          <span class="badge-category me-2">${categorias.find(c => c.id === business.categoria)?.name || 'Negocio Local'}</span>
+          <span class="text-muted">
+            <i class="fas fa-map-marker-alt me-1"></i> ${business.direccion}
+          </span>
+        </div>
+        <p>${business.descripcion}</p>
+        <p><i class="fas fa-clock me-2"></i> ${business.horario || 'Horario no especificado'}</p>
+        <div class="modal-contact-buttons">
+          ${modalButtons}
+        </div>
+      `;
+      
+      const modal = new bootstrap.Modal(document.getElementById('businessModal'));
+      modal.show();
+    }
+
+    // Scroll to section
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop - 100,
+          behavior: 'smooth'
+        });
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.nav-btn[data-categoria="${id}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+    }
+
+    // Scroll tracking for active nav button
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          let current = '';
+          categorias.forEach(categoria => {
+            const section = document.getElementById(categoria.id);
+            const sectionTop = section.offsetTop - 150;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+              current = categoria.id;
+            }
+          });
+
+          document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.categoria === current);
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>

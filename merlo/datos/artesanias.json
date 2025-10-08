@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Madera y Sueños",
+    "descripcion": "Artesanías en madera: cuencos, bandejas, juguetes ecológicos y decoración para el hogar.",
+    "categoria": "artesanias",
+    "imagen": "https://placehold.co/600x400/8b5cf6/white?text=Madera+y+Sueños",
+    "whatsapp": "+5491111223344",
+    "facebook": "https://facebook.com/maderaysuenos",
+    "instagram": "https://instagram.com/maderaysuenos",
+    "latitud": -34.5900,
+    "longitud": -58.4000,
+    "pagina": "https://maderaysuenos.ar",
+    "direccion": "Ruta 8 Km 32, Ciudad",
+    "horario": "Sábados: 10:00 - 18:00"
+  },
+  {
+    "nombre": "Tejidos del Corazón",
+    "descripcion": "Bufandas, mantas y accesorios tejidos a mano con lanas naturales. ¡Piezas únicas para regalar o disfrutar!",
+    "categoria": "artesanias",
+    "imagen": "https://placehold.co/600x400/e1306c/white?text=Tejidos+del+Corazón",
+    "whatsapp": "+5491155667788",
+    "facebook": "",
+    "instagram": "https://instagram.com/tejidosdelcorazon",
+    "latitud": -34.6200,
+    "longitud": -58.3700,
+    "pagina": "",
+    "direccion": "Pasaje de los Artesanos 789, Ciudad",
+    "horario": "Con cita previa"
+  }
+]

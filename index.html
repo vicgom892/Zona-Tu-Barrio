@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Barrio A Un Click - Seleccioná tu Localidad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Iconos y Manifest -->
+    <link rel="icon" href="/shared/img/icon-abeja-sola.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/shared/img/icon-192x192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/shared/img/icon-192x192.png" />
+    <link rel="mask-icon" href="/shared/img/icon-abeja-sola.png" color="#e1306c">
+  
+    <!-- En el head de tu index.html en la raíz -->
+    <link rel="manifest" href="/manifest.json">
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0ea5e9;
+            --accent: #00f5ff;
+            --metal-light: #c0c0c0;
+            --metal-dark: #808080;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+            --location: #10b981;
+            --success: #10b981;
+            --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --border-color: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0f1d 0%, #1a1f35 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header con efecto tecnológico */
+        header {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: scanline 3s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header-content {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .app-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
+            border: 3px solid var(--accent);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .app-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .app-logo img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            transition: all 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 245, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 245, 255, 0);
+            }
+        }
+
+        .header-content h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .header-content h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .header-content p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+            transition: all 0.5s ease;
+        }
+
+        /* Logo fijo para scroll */
+        .fixed-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+            border: 2px solid var(--accent);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(-100px) translateY(-100px) scale(0.5);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+        }
+
+        .fixed-logo.show {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+        }
+
+        .fixed-logo img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        /* Header compacto para scroll */
+        header.compact {
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        header.compact .header-content {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        header.compact .app-logo {
+            width: 50px;
+            height: 50px;
+            margin: 0;
+            animation: none;
+        }
+
+        header.compact .app-logo img {
+            width: 60%;
+            height: 60%;
+        }
+
+        header.compact .header-content h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        header.compact .header-content p {
+            display: none;
+        }
+
+        /* Detección de ubicación con efecto metálico */
+        .location-detection {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .location-detection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(128, 128, 128, 0.05) 100%);
+            z-index: -1;
+        }
+
+        .location-detection h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--location);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .location-detection p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .detect-btn {
+            background: linear-gradient(135deg, var(--metal-light), var(--metal-dark));
+            color: #1a1a1a;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(192, 192, 192, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .detect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(192, 192, 192, 0.5);
+            background: linear-gradient(135deg, var(--metal-dark), var(--metal-light));
+        }
+
+        .detect-btn:hover::before {
+            left: 100%;
+        }
+
+        .detect-btn:active {
+            transform: translateY(0);
+        }
+
+        .detect-btn i {
+            font-size: 18px;
+        }
+
+        /* Sección de localidades */
+        .locations-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .locations-section h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+            color: var(--text-light);
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .locations-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Botones de localidad con efecto metálico */
+        .location-btn {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .location-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.1) 0%, rgba(128, 128, 128, 0.1) 100%);
+            z-index: -1;
+        }
+
+        .location-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .location-btn:hover {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(14, 165, 233, 0.9));
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.6);
+            border-color: var(--secondary);
+        }
+
+        .location-btn:hover::after {
+            left: 100%;
+        }
+
+        .location-btn i {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 28px;
+            color: var(--location);
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover i {
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            transform: scale(1.2);
+        }
+
+        /* Modal de sugerencia */
+        .location-suggestion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 1000;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            display: none;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .location-suggestion::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(128, 128, 128, 0.05) 100%);
+            z-index: -1;
+            border-radius: 16px;
+        }
+
+        .location-suggestion.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .location-suggestion h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .location-suggestion p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .suggestion-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--metal-light), var(--metal-dark));
+            color: #1a1a1a;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--metal-dark), var(--metal-light));
+            transform: translateY(-2px);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* Efectos de partículas en el fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-content p {
+                font-size: 1.1rem;
+            }
+            
+            .app-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .app-logo img {
+                width: 60%;
+                height: 60%;
+            }
+            
+            .locations-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 20px;
+            }
+            
+            .location-btn {
+                padding: 20px 15px;
+                font-size: 1.1rem;
+            }
+            
+            .detect-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+
+            .fixed-logo {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                left: 15px;
+            }
+
+            header.compact .header-content h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .app-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .app-logo img {
+                width: 50%;
+                height: 50%;
+            }
+            
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .suggestion-btns {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            header.compact .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header.compact .header-content h1 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Sección de Instalar App */
+.install-app-section {
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+.install-app-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.install-app-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(128, 128, 128, 0.05) 100%);
+    z-index: -1;
+}
+
+.install-app-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.install-app-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.install-btn {
+    background: linear-gradient(135deg, var(--success), #0d9667);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.install-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, #0d9667, var(--success));
+}
+
+.install-btn:hover::before {
+    left: 100%;
+}
+
+.install-btn:active {
+    transform: translateY(0);
+}
+
+.install-btn i {
+    font-size: 18px;
+}
+
+.install-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.step i {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.step span {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .install-steps {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .step {
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+    }
+    
+    .step i {
+        font-size: 1.2rem;
+        min-width: 30px;
+    }
+}
+
+/* Sección de Compartir App */
+.share-app-section {
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+.share-app-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.share-app-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(128, 128, 128, 0.05) 100%);
+    z-index: -1;
+}
+
+.share-app-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.share-app-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.share-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.share-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.share-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.share-btn:hover::before {
+    left: 100%;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Colores específicos para cada plataforma */
+.share-btn.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+}
+
+.share-btn.facebook {
+    background: linear-gradient(135deg, #1877F2, #0D5CB6);
+    color: white;
+}
+
+.share-btn.twitter {
+    background: linear-gradient(135deg, #1DA1F2, #0D8BD9);
+    color: white;
+}
+
+.share-btn.copy-link {
+    background: linear-gradient(135deg, var(--metal-light), var(--metal-dark));
+    color: #1a1a1a;
+}
+
+/* Efectos hover específicos */
+.share-btn.whatsapp:hover {
+    background: linear-gradient(135deg, #128C7E, #25D366);
+}
+
+.share-btn.facebook:hover {
+    background: linear-gradient(135deg, #0D5CB6, #1877F2);
+}
+
+.share-btn.twitter:hover {
+    background: linear-gradient(135deg, #0D8BD9, #1DA1F2);
+}
+
+.share-btn.copy-link:hover {
+    background: linear-gradient(135deg, var(--metal-dark), var(--metal-light));
+}
+
+/* Toast de notificación */
+.share-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--success);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1001;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.share-toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .share-buttons {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .share-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .share-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilo específico para Instagram */
+.share-btn.instagram {
+    background: linear-gradient(135deg, #E1306C, #C13584);
+    color: white;
+}
+
+.share-btn.instagram:hover {
+    background: linear-gradient(135deg, #C13584, #E1306C);
+}
+
+/* Modal de Instagram */
+.instagram-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1002;
+    padding: 20px;
+}
+
+.instagram-modal .modal-content {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 16px;
+    padding: 0;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid #475569;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #475569;
+    display: flex;
+    justify-content: between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #E1306C;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.close-modal:hover {
+    color: white;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.instagram-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.step i {
+    color: #E1306C;
+    font-size: 1.2rem;
+    margin-top: 2px;
+    min-width: 20px;
+}
+
+.step span {
+    color: #e2e8f0;
+    line-height: 1.5;
+}
+
+.link-box, .hashtags {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 8px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #00f5ff;
+    word-break: break-all;
+}
+
+.hashtags {
+    color: #fbbf24;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.action-buttons .btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn.copy-instagram-link {
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    color: white;
+}
+
+.btn.open-instagram {
+    background: linear-gradient(135deg, #E1306C, #C13584);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+    </style>
+
+<script>
+// Registro del Service Worker para la página de selección
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(registration => {
+      console.log('SW registrado para selector:', registration);
+    })
+    .catch(error => {
+      console.log('Error registrando SW:', error);
+    });
+}
+</script>
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Logo fijo para scroll -->
+    <div class="fixed-logo" id="fixedLogo">
+        <img src="/castelar/img/icon-192x192.png" alt="Tu Barrio A Un Click">
+    </div>
+
+    <div class="container">
+        <header id="mainHeader">
+            <div class="header-content">
+                <div class="app-logo" id="mainLogo">
+                    <img src="/castelar/img/icon-192x192.png" alt="Tu Barrio A Un Click">
+                </div>
+                <div class="header-text">
+                    <h1>Tu Barrio A Un Click</h1>
+                    <p>Seleccioná tu localidad para acceder a comercios, servicios y comunidad local</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="location-detection">
+            <h3><i class="fas fa-location-arrow"></i> ¿Querés que te sugiera tu localidad?</h3>
+            <p>Hacé clic en el botón para detectar tu ubicación aproximada y recomendarte la versión de la app que más te conviene según tu zona.</p>
+            <button class="detect-btn" id="detectLocationBtn">
+                <i class="fas fa-map-marker-alt"></i> Detectar mi ubicación
+            </button>
+        </div>
+
+        <!-- Botón de Instalar App -->
+        <div class="install-app-section">
+            <div class="install-app-card">
+                <h3><i class="fas fa-mobile-alt"></i> ¿Querés la App en tu teléfono?</h3>
+                <p>Instalá Tu Barrio A Un Click en tu pantalla de inicio para acceder más rápido</p>
+                <button class="install-btn" id="installButton">
+                    <i class="fas fa-download"></i> Instalar App
+                </button>
+                <div class="install-steps">
+                    <div class="step">
+                        <i class="fas fa-share"></i>
+                        <span>Tocá el botón "Compartir"</span>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Seleccioná "Agregar a pantalla de inicio"</span>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-check"></i>
+                        <span>¡Listo! La app quedará instalada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de Compartir App -->
+        <div class="share-app-section">
+            <div class="share-app-card">
+                <h3><i class="fas fa-share-alt"></i> ¡Compartí con tus vecinos!</h3>
+                <p>Ayudá a que más gente conozca los comercios de tu zona</p>
+                <div class="share-buttons">
+                    <button class="share-btn whatsapp" data-platform="whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button class="share-btn facebook" data-platform="facebook">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </button>
+                    <button class="share-btn instagram" data-platform="instagram">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </button>
+                    <button class="share-btn copy-link" data-platform="copy">
+                        <i class="fas fa-link"></i> Copiar Enlace
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="locations-section">
+            <h2>Seleccioná tu Localidad</h2>
+            <div class="locations-grid">
+                <a href="castelar/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Castelar
+                </a>
+                <a href="ituzaingo/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Ituzaingó
+                </a>
+                <a href="moron/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Morón
+                </a>
+                <a href="ciudadela/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Ciudadela
+                </a>
+                <a href="merlo/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Merlo
+                </a>
+                <a href="haedo/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Haedo
+                </a>
+                <a href="ramos/index.html" class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i>Ramos Mejía
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>Tu Barrio A Un Click - Conectando comunidades desde 2025</p>
+        </footer>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="location-suggestion" id="locationSuggestion">
+        <h3><i class="fas fa-map-marker-check"></i> ¡Hola vecino!</h3>
+        <p id="suggestionText">Detectamos que estás cerca de <strong id="detectedCity"></strong>. ¿Querés acceder directamente a la app de Tu Barrio A Un Click para esta localidad?</p>
+        <div class="suggestion-btns">
+            <button class="btn btn-primary" id="acceptSuggestion">Sí, acceder ahora</button>
+            <button class="btn btn-secondary" id="declineSuggestion">Elegir manualmente</button>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+// GESTIÓN DE PARTÍCULAS DE FONDO
+// =============================================
+
+function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Posición aleatoria
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Tamaño aleatorio
+        const size = Math.random() * 3 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Opacidad aleatoria
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Duración de animación aleatoria
+        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// =============================================
+// CONTROL DE SCROLL Y LOGO FIJO
+// =============================================
+
+const mainHeader = document.getElementById('mainHeader');
+const fixedLogo = document.getElementById('fixedLogo');
+
+function handleScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > 200) {
+        // Mostrar logo fijo
+        fixedLogo.classList.add('show');
+        // Convertir header a versión compacta
+        mainHeader.classList.add('compact');
+    } else {
+        // Ocultar logo fijo
+        fixedLogo.classList.remove('show');
+        // Restaurar header normal
+        mainHeader.classList.remove('compact');
+    }
+}
+
+// =============================================
+// DETECCIÓN DE UBICACIÓN
+// =============================================
+
+const supportedLocations = [
+    { name: 'Castelar', slug: 'castelar', lat: -34.6514, lng: -58.6722 },
+    { name: 'Ituzaingó', slug: 'ituzaingo', lat: -34.6667, lng: -58.7000 },
+    { name: 'Morón', slug: 'moron', lat: -34.6500, lng: -58.6167 },
+    { name: 'Ciudadela', slug: 'ciudadela', lat: -34.6333, lng: -58.5833 },
+    { name: 'Merlo', slug: 'merlo', lat: -34.6667, lng: -58.7333 },
+    { name: 'Haedo', slug: 'haedo', lat: -34.6333, lng: -58.6000 },
+    { name: 'Ramos Mejía', slug: 'ramos-mejia', lat: -34.6333, lng: -58.5667 }
+];
+
+let userLocation = null;
+let detectedCity = '';
+let detectedSlug = '';
+
+// Función para redirigir a la app de la localidad
+function redirectToApp(slug) {
+    window.location.href = `${slug}/index.html`;
+}
+
+// Calcular distancia usando fórmula de Haversine
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radio de la tierra en km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// Encontrar la localidad más cercana
+function findClosestLocation(lat, lng) {
+    let closest = null;
+    let minDistance = Infinity;
+
+    for (const location of supportedLocations) {
+        const distance = calculateDistance(lat, lng, location.lat, location.lng);
+        if (distance < minDistance && distance < 8) { // 8 km de radio
+            minDistance = distance;
+            closest = location;
+        }
+    }
+    return closest;
+}
+
+// Obtener ubicación del usuario
+function getUserLocation() {
+    const detectBtn = document.getElementById('detectLocationBtn');
+    detectBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detectando...';
+    detectBtn.disabled = true;
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                userLocation = { lat: latitude, lng: longitude };
+                
+                const closestLocation = findClosestLocation(latitude, longitude);
+                if (closestLocation) {
+                    detectedCity = closestLocation.name;
+                    detectedSlug = closestLocation.slug;
+                    showLocationSuggestion();
+                } else {
+                    alert('No pudimos detectar una localidad cercana. Por favor seleccioná manualmente.');
+                    resetDetectButton();
+                }
+            },
+            (error) => {
+                console.log('Error getting location:', error);
+                let errorMessage = 'No se pudo acceder a tu ubicación. ';
+                if (error.code === 1) {
+                    errorMessage += 'Por favor permití el acceso a la ubicación.';
+                } else if (error.code === 2) {
+                    errorMessage += 'Error al obtener la ubicación.';
+                } else if (error.code === 3) {
+                    errorMessage += 'Tiempo de espera agotado.';
+                }
+                alert(errorMessage);
+                resetDetectButton();
+            },
+            { 
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+    } else {
+        alert('Tu navegador no soporta la geolocalización.');
+        resetDetectButton();
+    }
+}
+
+function resetDetectButton() {
+    const detectBtn = document.getElementById('detectLocationBtn');
+    detectBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i> Detectar mi ubicación';
+    detectBtn.disabled = false;
+}
+
+// Mostrar sugerencia de localidad
+function showLocationSuggestion() {
+    if (detectedCity) {
+        document.getElementById('detectedCity').textContent = detectedCity;
+        document.getElementById('locationSuggestion').classList.add('show');
+        document.getElementById('overlay').classList.add('show');
+        resetDetectButton();
+    }
+}
+
+function hideLocationSuggestion() {
+    document.getElementById('locationSuggestion').classList.remove('show');
+    document.getElementById('overlay').classList.remove('show');
+}
+
+// =============================================
+// INSTALACIÓN DE LA PWA
+// =============================================
+
+let deferredPrompt;
+const installButton = document.getElementById('installButton');
+
+// Escuchar el evento beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevenir que el mini-infobar aparezca en mobile
+    e.preventDefault();
+    // Guardar el evento para poder activarlo después
+    deferredPrompt = e;
+    // Mostrar el botón de instalación
+    installButton.style.display = 'inline-flex';
+});
+
+// Evento click en el botón de instalación
+installButton.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        // Mostrar el prompt de instalación
+        deferredPrompt.prompt();
+        // Esperar a que el usuario responda al prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('Usuario aceptó instalar la PWA');
+            installButton.innerHTML = '<i class="fas fa-check"></i> ¡App Instalada!';
+            installButton.disabled = true;
+        } else {
+            console.log('Usuario rechazó instalar la PWA');
+        }
+        
+        // Limpiar la referencia
+        deferredPrompt = null;
+        // Ocultar el botón
+        installButton.style.display = 'none';
+    }
+});
+
+// Ocultar el botón si la app ya está instalada
+window.addEventListener('appinstalled', () => {
+    console.log('PWA fue instalada');
+    installButton.style.display = 'none';
+    deferredPrompt = null;
+});
+
+// Verificar si la app ya está instalada y ocultar el botón
+if (window.matchMedia('(display-mode: standalone)').matches || 
+    window.navigator.standalone === true) {
+    installButton.style.display = 'none';
+}
+
+// =============================================
+// GESTIÓN DE COMPARTIR EN REDES SOCIALES
+// =============================================
+
+class ShareManager {
+    constructor() {
+        this.url = window.location.href;
+        this.title = 'Tu Barrio A Un Click';
+        this.text = '¡Encontrá todos los comercios y servicios de tu zona en una sola app! Descargá Tu Barrio A Un Click y descubrí lo que tu barrio tiene para ofrecer.';
+        this.instagramFallbackTimer = null;
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.createToast();
+    }
+
+    setupEventListeners() {
+        document.querySelectorAll('.share-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const platform = e.currentTarget.dataset.platform;
+                this.share(platform);
+            });
+        });
+    }
+
+    createToast() {
+        this.toast = document.createElement('div');
+        this.toast.className = 'share-toast';
+        this.toast.innerHTML = '<i class="fas fa-check-circle"></i> <span></span>';
+        document.body.appendChild(this.toast);
+    }
+
+    showToast(message) {
+        this.toast.querySelector('span').textContent = message;
+        this.toast.classList.add('show');
+        
+        setTimeout(() => {
+            this.toast.classList.remove('show');
+        }, 3000);
+    }
+
+    share(platform) {
+        this.trackShare(platform);
+        
+        switch(platform) {
+            case 'whatsapp':
+                this.shareWhatsApp();
+                break;
+            case 'facebook':
+                this.shareFacebook();
+                break;
+            case 'instagram':
+                this.shareInstagram();
+                break;
+            case 'copy':
+                this.copyToClipboard();
+                break;
+            default:
+                this.fallbackShare();
+        }
+    }
+
+    getShareUrl(platform) {
+        const encodedUrl = encodeURIComponent(this.url);
+        const encodedText = encodeURIComponent(this.text);
+
+        switch(platform) {
+            case 'whatsapp':
+                return `https://wa.me/?text=${encodedText}%20${encodedUrl}`;
+            case 'facebook':
+                return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+            case 'instagram':
+                return this.getInstagramShareUrl();
+            case 'copy':
+                return this.url;
+            default:
+                return this.url;
+        }
+    }
+
+    getInstagramShareUrl() {
+        // Diferentes estrategias para Instagram según el dispositivo
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            return 'instagram://app';
+        } else if (/Android/i.test(navigator.userAgent)) {
+            return 'intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end';
+        } else {
+            // Para desktop, abrir el perfil o la web
+            return 'https://www.instagram.com/';
+        }
+    }
+
+    shareWhatsApp() {
+        const url = this.getShareUrl('whatsapp');
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // Para móviles - abre WhatsApp directamente
+            window.open(url, '_blank');
+        } else {
+            // Para desktop - usa la API web de WhatsApp
+            window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(this.text + ' ' + this.url)}`, '_blank');
+        }
+        this.showToast('¡Compartiendo en WhatsApp!');
+    }
+
+    shareFacebook() {
+        const url = this.getShareUrl('facebook');
+        window.open(url, '_blank', 'width=600,height=400');
+        this.showToast('¡Compartiendo en Facebook!');
+    }
+
+    shareInstagram() {
+        const instagramUrl = this.getInstagramShareUrl();
+        
+        // Intentar abrir la app de Instagram
+        window.location.href = instagramUrl;
+        
+        // Timer para detectar si no se pudo abrir la app
+        this.instagramFallbackTimer = setTimeout(() => {
+            this.showInstagramShareModal();
+        }, 800);
+        
+        // Prevenir que el fallback se ejecute si la app se abrió correctamente
+        window.addEventListener('blur', () => {
+            if (this.instagramFallbackTimer) {
+                clearTimeout(this.instagramFallbackTimer);
+            }
+        });
+    }
+
+    showInstagramShareModal() {
+        // Crear un modal con instrucciones específicas para Instagram
+        const modal = document.createElement('div');
+        modal.className = 'instagram-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fab fa-instagram"></i> Compartir en Instagram</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Para compartir Tu Barrio A Un Click en Instagram:</p>
+                    <div class="instagram-steps">
+                        <div class="step">
+                            <i class="fas fa-camera"></i>
+                            <div>
+                                <span><strong>1. Abrí Instagram</strong> y creá una nueva publicación o historia</span>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-link"></i>
+                            <div>
+                                <span><strong>2. Pegá este enlace</strong> en tu descripción:</span>
+                                <div class="link-box">${this.url}</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-hashtag"></i>
+                            <div>
+                                <span><strong>3. Usá estos hashtags</strong> para llegar a más vecinos:</span>
+                                <div class="hashtags">#TuBarrioAClick #ComerciosLocales #ApoyoLocal #EconomíaLocal</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-user-tag"></i>
+                            <div>
+                                <span><strong>4. Etiquetanos</strong> como <strong>@TuBarrioAClick</strong> (si tenemos perfil)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn copy-instagram-link">
+                            <i class="fas fa-copy"></i> Copiar Todo Listo para Pegar
+                        </button>
+                        <button class="btn open-instagram">
+                            <i class="fab fa-instagram"></i> Abrir Instagram
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Event listeners para el modal
+        modal.querySelector('.close-modal').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        modal.querySelector('.copy-instagram-link').addEventListener('click', () => {
+            const fullText = `¡Descubrí Tu Barrio A Un Click! 🛍️📍\n\nEncontrá todos los comercios y servicios de tu zona en una sola app. Desde panaderías hasta ferreterías, todo lo que necesitás está acá.\n\n${this.url}\n\n#TuBarrioAClick #ComerciosLocales #ApoyoLocal #EconomíaLocal #Barrio #Vecinos`;
+            this.copyTextToClipboard(fullText);
+            this.showToast('¡Todo copiado! Ahora pegá en Instagram');
+        });
+        
+        modal.querySelector('.open-instagram').addEventListener('click', () => {
+            window.open('https://www.instagram.com/', '_blank');
+        });
+        
+        // Cerrar modal al hacer clic fuera o con Escape
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.body.contains(modal)) {
+                document.body.removeChild(modal);
+            }
+        });
+    }
+
+    async copyToClipboard() {
+        try {
+            await navigator.clipboard.writeText(this.url);
+            this.showToast('¡Enlace copiado al portapapeles!');
+        } catch (err) {
+            // Fallback para navegadores antiguos
+            this.copyTextToClipboard(this.url);
+        }
+    }
+
+    copyTextToClipboard(text) {
+        navigator.clipboard.writeText(text).catch(() => {
+            // Fallback para navegadores antiguos
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        });
+    }
+
+    fallbackShare() {
+        if (navigator.share) {
+            navigator.share({
+                title: this.title,
+                text: this.text,
+                url: this.url,
+            })
+            .then(() => this.showToast('¡Gracias por compartir!'))
+            .catch(error => console.log('Error sharing:', error));
+        } else {
+            this.copyToClipboard();
+        }
+    }
+
+    trackShare(platform) {
+        // Enviar estadística a Google Analytics si está disponible
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'share', {
+                'method': platform,
+                'content_type': 'app',
+                'content_id': 'tu_barrio_app'
+            });
+        }
+        
+        // También podés enviar a tu propio backend
+        console.log(`Compartido en: ${platform}`);
+    }
+}
+
+// =============================================
+// INICIALIZACIÓN GENERAL
+// =============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar partículas
+    createParticles();
+    
+    // Inicializar manager de compartir
+    new ShareManager();
+    
+    // Configurar event listeners de ubicación
+    const detectBtn = document.getElementById('detectLocationBtn');
+    if (detectBtn) {
+        detectBtn.addEventListener('click', getUserLocation);
+    }
+    
+    const acceptSuggestion = document.getElementById('acceptSuggestion');
+    const declineSuggestion = document.getElementById('declineSuggestion');
+    const overlay = document.getElementById('overlay');
+    
+    if (acceptSuggestion) {
+        acceptSuggestion.addEventListener('click', function() {
+            if (detectedSlug) {
+                redirectToApp(detectedSlug);
+            }
+            hideLocationSuggestion();
+        });
+    }
+    
+    if (declineSuggestion) {
+        declineSuggestion.addEventListener('click', hideLocationSuggestion);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', hideLocationSuggestion);
+    }
+    
+    // Configurar scroll
+    window.addEventListener('scroll', handleScroll);
+    
+    // Verificar estado inicial del scroll
+    if (window.pageYOffset > 200) {
+        fixedLogo.classList.add('show');
+        mainHeader.classList.add('compact');
+    }
+});
+
+// Cerrar sugerencia con tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        hideLocationSuggestion();
+    }
+});
+
+// =============================================
+// REGISTRO DEL SERVICE WORKER
+// =============================================
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registrado correctamente: ', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('Error registrando ServiceWorker: ', error);
+            });
+    });
+}
+    </script>
+</body>
+</html>

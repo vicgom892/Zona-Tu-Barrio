@@ -1,0 +1,47 @@
+[
+  {
+    "id": "limpieza-01",
+    "nombre": "Brillo Total - Limpieza Profesional",
+    "imagen": "img/limpieza.jpg",
+    "horario": "Lun-Sáb 8:00-19:00",
+    "horarioData": "Mon-Sat 08:00-19:00",
+    "telefono": "11 8901 2345",
+    "whatsapp": "541189012345",
+    "pagina": "negocios/brillo-total.html",
+    "icono": "fas fa-broom",
+    "rubro": "Limpieza Domiciliaria",
+    "direccion": "Av. Santa Fe 3200, CABA",
+    "latitud": -34.5967,
+    "longitud": -58.4056
+  },
+  {
+    "id": "limpieza-02",
+    "nombre": "Higiene Hogar S.A.",
+    "imagen": "img/limpieza.jpg",
+    "horario": "Lun-Vie 8:00-18:00",
+    "horarioData": "Mon-Fri 08:00-18:00",
+    "telefono": "11 9012 3456",
+    "whatsapp": "541190123456",
+    "pagina": "negocios/higiene-hogar.html",
+    "icono": "fas fa-spray-can",
+    "rubro": "Desinfección y Limpieza",
+    "direccion": "Calle Lavalle 876, CABA",
+    "latitud": -34.6012,
+    "longitud": -58.3892
+  },
+  {
+    "id": "limpieza-03",
+    "nombre": "María González - Servicio Express",
+    "imagen": "img/limpieza.jpg",
+    "horario": "Lun-Dom 9:00-20:00",
+    "horarioData": "Mon-Sun 09:00-20:00",
+    "telefono": "11 0123 4567",
+    "whatsapp": "541101234567",
+    "pagina": "negocios/maria-limpieza.html",
+    "icono": "fas fa-hand-sparkles",
+    "rubro": "Limpieza por Horas",
+    "direccion": "Av. Córdoba 4500, CABA",
+    "latitud": -34.6045,
+    "longitud": -58.4123
+  }
+]

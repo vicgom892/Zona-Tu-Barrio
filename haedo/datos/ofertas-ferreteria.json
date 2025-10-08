@@ -1,0 +1,24 @@
+{
+  "ofertas": [
+    {
+      "categoria": "ferreteria",
+      "titulo": "El corte Que Quieras",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/ferreteria.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    },
+    {
+      "categoria": "ferreteria",
+      "titulo": "Tu Corte",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/ferreteria-1.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    }
+  ]
+}

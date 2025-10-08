@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbería - Tu Barrio A Un Click</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="../css/negocios.css">
+  <link rel="icon" href="../img/icon-192x192.png">
+  <meta name="description" content="Barbería en Castelar. Corte de cabello, afeitado, y servicios de barbería. Reservá tu turno online.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body data-categoria="barberia"  class="bg-gray-100 font-sans">
+
+   <div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <img src="../img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clik</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+  <!-- Header dinámico -->
+  <header
+    data-nombre-negocio="barberia"
+    data-logo-negocio="../img/logo-negocio.png">
+    <div class="container flex justify-between items-center p-4">
+      <!-- Logo de la app animado con texto -->
+      <a href="../index.html" class="logo-app group text-decoration-none inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
+        <img src="../img/icon-192x192.png" alt="Logo App" class="h-8" />
+        <span class="text-gray-700 font-semibold text-sm hidden sm:inline">Volver a la App</span>
+      </a>
+
+      <!-- Menú navegación (centrado en PC) -->
+      <nav class="nav-menu hidden md:flex space-x-6">
+        <a href="#inicio" class="text-gray-700 hover:text-green-600">Inicio</a>
+        <a href="#productos" class="text-gray-700 hover:text-green-600">Productos</a>
+        <a href="#ofertas" class="text-gray-700 hover:text-green-600">Ofertas</a>
+        <a href="#contacto" class="text-gray-700 hover:text-green-600">Contacto</a>
+      </nav>
+
+      <!-- Logo del negocio -->
+      <a href="/..index.html" class="logo-negocio group inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
+        <img id="logoNegocioPC" src="../img/icon-192x192.png" alt="Logo Negocio" class="h-10" />
+      </a>
+
+      <!-- Botón hamburguesa móvil -->
+      <button id="mobileMenuToggle" class="md:hidden text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- Menú móvil (modal) -->
+  <div id="mobileMenuModal" class="modal fade" tabindex="-1" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-right">
+    <div class="modal-content bg-white/95 backdrop-blur-md w-3/4 max-w-sm h-full p-6 flex flex-col shadow-lg rounded-r-xl relative">
+      <!-- Header del modal -->
+      <div class="flex justify-between items-center mb-4">
+        <img id="logoNegocioModal" src="../img/icon-192x192.png" alt="Logo del Negocio" class="h-10 rounded shadow-md">
+        <button id="mobileMenuClose" class="text-gray-800 hover:text-red-500 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+
+      <!-- Bienvenida -->
+      <div class="mb-6">
+        <h2 class="text-lg font-semibold text-gray-800">Bienvenido a</h2>
+        <p id="nombreNegocioModal" class="text-xl font-bold text-green-700">Barbería</p>
+      </div>
+
+      <!-- Navegación móvil -->
+      <nav class="space-y-4 text-base text-gray-700">
+        <a href="#inicio" class="block hover:text-blue-600 transition">Inicio</a>
+        <a href="#reserva" class="block hover:text-blue-600 transition">Reserva</a>
+        <a href="#ofertas" class="block hover:text-blue-600 transition">Ofertas</a>
+        <a href="#contacto" class="block hover:text-blue-600 transition">Contacto</a>
+      </nav>
+
+      <div class="flex-grow"></div>
+    </div>
+  </div>
+  </div>
+  <!-- Contenido principal -->
+    <!-- Banner del negocio -->
+    <section class="hero parallax" id="barberia">
+      <div class="overlay-text text-white text-center p-4">
+        <h1 class="display-4 fw-bold">Bienvenidos</h1>
+        <p class="lead mb-4">Disfruta de la mejor experiencia en tu barrio</p>
+        <a href="#panaderias" class="btn btn-primary btn-lg">Explorar Comercios</a>
+      </div>
+    </section>
+
+    <!-- Información del negocio -->
+    <section class="bg-white rounded-lg shadow-md p-4 mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Información</h2>
+      <div class="space-y-2">
+        <p><strong>Dirección:</strong> Av. Independencia 901, Castelar, Buenos Aires</p>
+        <p><strong>Horarios:</strong> <span data-hours="Mon-Sat 10:00-19:00">Lunes a Sábado: 10:00 - 19:00</span></p>
+        <p><strong>Teléfono:</strong> <a href="tel:+541187654321">+54 11 8765-4321</a></p>
+         <!-- Botón de WhatsApp - Diseño moderno y funcional -->
+        <a href="https://wa.me/5491187654321?text=Hola%20desde%20Tu%20Barrio%20a%20un%20Clik,%20quisiera%20más%20información"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full mt-4 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3 shadow-md hover:shadow-lg group">
+          <svg class="w-5 h-5 group-hover:animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67-.148-.198 0-.52.198-.987.654-.52.495-.988 1.139-1.139 1.396-.148.256-.297.297-.554.148-.255-.148-1.074-.396-2.03-.987-.757-.471-1.277-1.139-1.426-1.395-.149-.256-.018-.395.112-.534.12-.14.256-.297.395-.446.14-.148.197-.297.297-.495.099-.198.049-.371-.025-.52-.074-.149-.669-1.611-.916-2.206-.238-.575-.475-.495-.654-.495-.17 0-.436.059-.653.316-.218.257-.833 1.075-1.277 1.458-.444.434-.888.494-1.332.494-.363 0-.554-.218-.745-.436-.19-.218-.728-1.075-1.193-1.612-.198-.423-.396-.473-.703.473-.306 0-.584-.07-.947-.237-.363-.168-1.458-.52-2.773-1.396-1.98-.758-3.284-1.98-3.483-2.18-.198-.198-.358-.306-.358-.554 0-.248.237-.653.713-1.129 1.227-1.21 2.523-1.907 3.551-2.26.99-.34 2.13-.34 3.502.12 1.37.46 2.77 1.56 3.76 2.55.99.99 1.485 1.67 2.03 2.03.548.36 1.206.653 1.924.653.71 0 1.14-.148 1.485-.297.346-.148 1.075-.994 1.227-1.226.148-.238.296-.148.553-.148.257 0 .563.059 1.017.653.52.654 1.83 1.83 1.83 2.77 0 .94-.653 1.67-1.307 2.03-.654.36-1.207.443-1.76.443-.495 0-1.014-.148-1.468-.395"/>
+          </svg>
+          <span>Chatear con Veterinaria Mascotas</span>
+        </a>
+      </div>
+    </section>
+
+     <!-- Sección Ofertas de la Semana -->
+    <section class="parallax-offer" id="ofertas">
+      <div class="container py-5 position-relative z-10" id="ofertas-container">
+        <h2 class="text-center text-white mb-5">🌟 Ofertas de la Semana</h2>
+        <div class="row justify-content-center g-4" id="ofertas-list">
+          <!-- Tarjetas generadas dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+     <!-- Servicios destacados -->
+    <section class="bg-white rounded-lg shadow-md p-4" id="ofertas">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Servicios Destacados</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
+          <img src="../img/barberia-1.webp" alt="Corte de Cabello" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <div>
+            <h3 class="font-semibold text-gray-800">Corte de Cabello</h3>
+            <p class="text-gray-600">Corte de cabello clásico y moderno con los mejores estilistas.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
+          <img src="../img/barberia-2.webp" alt="Afeitado" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <div>
+            <h3 class="font-semibold text-gray-800">Afeitado</h3>
+            <p class="text-gray-600">Afeitado clásico con navaja y crema, para un acabado perfecto.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
+          <img src="../img/barberia-3.webp" alt="Barbería Tradicional" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <div>
+            <h3 class="font-semibold text-gray-800">Barbería Tradicional</h3>
+            <p class="text-gray-600">Experiencia de barbería tradicional con un toque moderno.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulario de Reservación de Turno - Diseño Elegante -->
+<section class="bg-white rounded-2xl shadow-xl p-6 mb-8 transition-all duration-300 hover:shadow-2xl" id="reserva">
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      Reservar Turno
+    </h2>
+    <p class="text-gray-600 mt-1">Completa el formulario y te contactaremos por WhatsApp</p>
+  </div>
+
+  <form id="reservation-form" class="space-y-5">
+    <!-- Nombre y Apellido -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+        <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white" placeholder="Tu nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+        <input type="text" id="lastname" name="lastname" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white" placeholder="Tu apellido" required>
+      </div>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="form-group">
+      <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono (WhatsApp)</label>
+      <input type="tel" id="phone" name="phone" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" placeholder="+54 9 11 1234 5678" required>
+    </div>
+
+    <!-- Fecha -->
+    <div class="form-group">
+      <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+      <input type="date" id="date" name="date" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white" required>
+    </div>
+
+    <!-- Horario (se actualizará dinámicamente) -->
+    <div class="form-group">
+      <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Horario</label>
+      <select id="time" name="time" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white" required>
+        <option value="" disabled selected>Selecciona una fecha primero</option>
+      </select>
+      <p class="text-xs text-gray-500 mt-1">Los horarios ocupados están deshabilitados</p>
+    </div>
+
+    <!-- Botón de envío -->
+    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
+      <svg class="w-5 h-5 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2zm-8 1c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4-10c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2z"/>
+      </svg>
+      <span>Enviar Reserva por WhatsApp</span>
+    </button>
+  </form>
+</section>
+
+  <!-- Botón Volver Arriba -->
+  <button id="scrollTopBtn" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <!-- Botón de instalación PWA -->
+  <!--<div id="botonInstalar" class="fixed bottom-4 left-4 bg-green-600 text-white p-3 rounded-full shadow-lg cursor-pointer pwa-btn">
+    <span class="text-sm font-semibold">Instalar App</span>
+  </div>-->
+
+  <footer class="bg-white shadow-inner mt-8" id="contacto">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
+      <div class="space-x-4 text-sm text-gray-600">
+        <a href="#inicio" class="hover:text-blue-600">Inicio</a>
+        <a href="#negocios" class="hover:text-blue-600">Negocios</a>
+        <a href="#promos" class="hover:text-blue-600">Promos</a>
+        <a href="#contacto" class="hover:text-blue-600">Contacto</a>
+      </div>
+      <p class="text-xs text-gray-400">© 2025 Tu Barrio A Un Click. Todos los derechos reservados.</p>
+    </div>
+    <!-- Botón de instalación en el footer -->
+    <div class="install-banner mt-4 p-3 bg-white rounded shadow-sm">
+      <div class="d-flex align-items-center">
+        <img src="../img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
+        <div class="flex-grow-1">
+          <div class="small text-muted mb-1">¿Quieres la app completa?</div>
+          <button id="botonInstalar" class="btn btn-success w-100 py-2">
+            <i class="fas fa-download me-1"></i>Instalar Tu Barrio A Un Clik
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!-- Modal de Confirmación -->
+<div id="modalConfirmacion" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
+  <div class="bg-white rounded-2xl max-w-md w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-500 text-white p-6 text-center">
+      <h3 class="text-xl font-bold">Confirma tu Turno</h3>
+      <p class="text-blue-100 text-sm">Revisa antes de enviar</p>
+    </div>
+    <div id="modalConfirmacionBody" class="p-6 space-y-4 overflow-y-auto max-h-[60vh]">
+      <div class="bg-gray-50 rounded-xl p-4">
+        <p class="text-sm text-gray-500">Cliente</p>
+        <p class="font-semibold" id="confirmCliente">Nombre Apellido</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4">
+        <p class="text-sm text-gray-500">Teléfono</p>
+        <p class="font-semibold" id="confirmTelefono">+54 11 1234 5678</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4">
+        <p class="text-sm text-gray-500">Fecha y Hora</p>
+        <p class="font-semibold" id="confirmFechaHora">Lunes, 15 de abril 2025 - 15:30</p>
+      </div>
+    </div>
+    <div class="flex gap-3 p-6 pt-0 border-t">
+      <button id="modalConfirmacionBack" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-xl font-semibold transition">
+        Editar
+      </button>
+      <button id="modalConfirmacionSend" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 rounded-xl font-semibold transition transform hover:scale-105">
+        Enviar por WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--<script src="js/business.js"></script>-->
+<script src="../js/splash.js"></script>
+<script src="../js/install-app.js"></script>
+<script>
+  // Inicializar AOS
+  AOS.init();
+
+  // Datos de turnos ocupados (simulación)
+  const turnosOcupados = {
+    '2025-04-15': ['10:00', '14:30', '16:00'],
+    '2025-04-16': ['11:00', '15:30'],
+    '2025-04-17': ['10:30', '12:00', '17:00']
+  };
+
+  // Horarios disponibles (10:00 a 19:00, cada 30 min)
+  const horariosBase = [
+    '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+    '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30', '17:00', '17:30', '18:00', '18:30'
+  ];
+
+  // Variables globales
+  let formData = {};
+
+  // Función para cargar datos guardados del localStorage
+  function cargarDatosGuardados() {
+    const saved = localStorage.getItem('barberiaFormData');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        formData = { ...formData, ...data };
+
+        // Rellenar campos
+        if (document.getElementById('name')) document.getElementById('name').value = formData.nombre || '';
+        if (document.getElementById('lastname')) document.getElementById('lastname').value = formData.apellido || '';
+        if (document.getElementById('phone')) document.getElementById('phone').value = formData.telefono || '';
+        if (document.getElementById('date')) {
+          document.getElementById('date').value = formData.fecha || '';
+          if (formData.fecha) actualizarHorarios(formData.fecha);
+        }
+      } catch (e) {
+        console.warn('No se pudieron cargar datos guardados:', e);
+      }
+    }
+  }
+
+  // Función para guardar datos en localStorage
+  function guardarDatos() {
+    localStorage.setItem('barberiaFormData', JSON.stringify(formData));
+  }
+
+  // Actualizar horarios según fecha seleccionada
+  function actualizarHorarios(fecha) {
+    const select = document.getElementById('time');
+    if (!select) return;
+
+    select.innerHTML = '<option value="" disabled selected>Selecciona un horario</option>';
+    if (!fecha) return;
+
+    const ocupados = turnosOcupados[fecha] || [];
+
+    horariosBase.forEach(horario => {
+      const option = document.createElement('option');
+      option.value = horario;
+      option.textContent = horario;
+      if (ocupados.includes(horario)) {
+        option.disabled = true;
+        option.textContent += ' (Ocupado)';
+        option.style.color = 'red';
+      }
+      select.appendChild(option);
+    });
+  }
+
+  // Abrir modal de confirmación
+  function openModal() {
+    document.getElementById('confirmCliente').textContent = `${formData.nombre} ${formData.apellido}`;
+    document.getElementById('confirmTelefono').textContent = formData.telefono;
+    document.getElementById('confirmFechaHora').textContent = `${new Date(formData.fecha).toLocaleDateString('es-AR')} - ${formData.hora}`;
+
+    const modal = document.getElementById('modalConfirmacion');
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100', 'pointer-events-auto');
+
+    setTimeout(() => {
+      modal.querySelector('.max-w-md').classList.remove('scale-95');
+      modal.querySelector('.max-w-md').classList.add('scale-100');
+    }, 50);
+  }
+
+  // Cerrar modal
+  function closeModal() {
+    const modal = document.getElementById('modalConfirmacion');
+    const content = modal.querySelector('.max-w-md');
+    
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+    
+    setTimeout(() => {
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }, 200);
+  }
+
+  // Enviar a WhatsApp
+  function enviarWhatsApp() {
+    const businessName = "Barbería";
+    const whatsappNumber = "5491123456789"; // Asegúrate de que no tenga espacios
+
+    const message = `
+✂️ *Reserva en ${businessName}*
+
+📅 *Cliente:* ${formData.nombre} ${formData.apellido}
+📱 *Teléfono:* ${formData.telefono}
+🗓️ *Fecha:* ${new Date(formData.fecha).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+⏰ *Hora:* ${formData.hora}
+
+¡Gracias por tu reserva! Te esperamos. ✂️
+    `.trim();
+
+    const encodedMessage = encodeURIComponent(message);
+    // ✅ Corregido: eliminado espacios en el URL
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    const win = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (!win || win.closed) {
+      alert('No se pudo abrir WhatsApp. Verifica tu conexión o bloqueador de pop-ups.');
+    } else {
+      closeModal();
+      document.getElementById('reservation-form').reset();
+      document.getElementById('time').innerHTML = '<option value="" disabled selected>Selecciona una fecha primero</option>';
+      localStorage.removeItem('barberiaFormData');
+    }
+  }
+
+  // Scroll Suave
+  function setupSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = anchor.getAttribute("href");
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const navbarHeight = document.querySelector("header")?.offsetHeight || 0;
+          const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - navbarHeight;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+
+          // Cerrar menú móvil
+          const mobileMenuModal = document.getElementById('mobileMenuModal');
+          if (mobileMenuModal) {
+            const modalInstance = bootstrap.Modal.getInstance(mobileMenuModal);
+            if (modalInstance) modalInstance.hide();
+          }
+        } else {
+          console.warn("⚠️ Elemento con ID", targetId, "no encontrado");
+        }
+      });
+    });
+  }
+
+  // Cargar ofertas desde JSON
+  function cargarOfertas() {
+    const ofertasContainer = document.getElementById("ofertas-list");
+    if (!ofertasContainer) {
+      console.warn("No se encontró el contenedor de ofertas");
+      return;
+    }
+
+    const categoria = document.body.dataset.categoria || "panaderia";
+    console.log("Categoría detectada:", categoria);
+
+    fetch("../datos/ofertas-barberias.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Error al cargar el archivo JSON");
+        return response.json();
+      })
+      .then(data => {
+        const ofertasFiltradas = data.ofertas.filter(oferta => oferta.categoria === categoria);
+        
+        if (ofertasFiltradas.length === 0) {
+          ofertasContainer.innerHTML = `<p class="text-white text-center">No hay ofertas disponibles para esta categoría</p>`;
+        } else {
+          ofertasFiltradas.forEach(oferta => {
+            const col = document.createElement("div");
+            col.className = "col-md-5";
+            col.innerHTML = `
+              <div class="card card-offer">
+                <img src="${oferta.imagen}" class="card-img-top" alt="${oferta.titulo}" style="height: 200px; object-fit: cover;">
+                <div class="card-body text-center">
+                  <h3 class="card-title">${oferta.titulo}</h3>
+                  <p class="card-text">${oferta.descripcion}</p>
+                  <a href="${oferta.boton.url}" target="_blank" class="btn btn-whatsapp">${oferta.boton.texto}</a>
+                </div>
+              </div>
+            `;
+            ofertasContainer.appendChild(col);
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error al cargar las ofertas:", error);
+        ofertasContainer.innerHTML = `<p class="text-white text-center">No se pudieron cargar las ofertas</p>`;
+      });
+  }
+
+  // Registrar Service Worker
+  function registerServiceWorker() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js")
+        .then(registration => {
+          console.log('ServiceWorker registrado con éxito:', registration.scope);
+          
+          // Escuchar actualizaciones
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                const updateNotification = document.createElement('div');
+                updateNotification.className = 'update-notification';
+                updateNotification.innerHTML = `
+                  <div class="update-content">
+                    <p>¡Hay una nueva versión disponible!</p>
+                    <button class="btn-update">Actualizar ahora</button>
+                  </div>
+                `;
+                document.body.appendChild(updateNotification);
+                
+                document.querySelector('.btn-update').addEventListener('click', () => {
+                  window.location.reload();
+                });
+              }
+            };
+          };
+        })
+        .catch(error => {
+          console.log('ServiceWorker falló al registrarse:', error);
+        });
+
+      // Recargar al activar nueva versión
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    }
+  }
+
+  // Inicialización principal
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("✅ DOMContentLoaded disparado");
+
+    // Inicializar funcionalidades
+    setupSmoothScroll();
+    cargarOfertas();
+    registerServiceWorker();
+    cargarDatosGuardados();
+
+    // Configurar formulario
+    const form = document.getElementById('reservation-form');
+    const dateInput = document.getElementById('date');
+
+    if (!form) {
+      console.warn("⚠️ Formulario de reserva no encontrado");
+      return;
+    }
+
+    // Actualizar horarios al cambiar fecha
+    dateInput?.addEventListener('change', (e) => {
+      const fecha = e.target.value;
+      actualizarHorarios(fecha);
+      formData.fecha = fecha;
+    });
+
+    // Manejar envío del formulario
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      formData = {
+        nombre: document.getElementById('name').value.trim(),
+        apellido: document.getElementById('lastname').value.trim(),
+        telefono: document.getElementById('phone').value.trim(),
+        fecha: document.getElementById('date').value.trim(),
+        hora: document.getElementById('time').value.trim()
+      };
+
+      if (!formData.nombre || !formData.apellido || !formData.telefono || !formData.fecha || !formData.hora) {
+        alert('Por favor, completa todos los campos.');
+        return;
+      }
+
+      const ocupados = turnosOcupados[formData.fecha] || [];
+      if (ocupados.includes(formData.hora)) {
+        alert('Lo sentimos, ese horario ya está ocupado. Por favor, elige otro.');
+        return;
+      }
+
+      guardarDatos();
+      openModal();
+    });
+
+    // Eventos del modal
+    document.getElementById('modalConfirmacionBack')?.addEventListener('click', closeModal);
+    document.getElementById('modalConfirmacionSend')?.addEventListener('click', enviarWhatsApp);
+    document.getElementById('modalConfirmacion')?.addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+  });
+</script>
+<style>
+  .update-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .update-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .btn-update {
+    background: #e1306c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-update:hover {
+    background: #c12757;
+    transform: translateY(-2px);
+  }
+</style>
+
+</body>
+</html>

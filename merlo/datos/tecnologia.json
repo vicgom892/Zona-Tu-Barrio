@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "TechLocal",
+    "descripcion": "Reparación de celulares, notebooks y tablets. También vendemos accesorios originales.",
+    "categoria": "tecnologia",
+    "imagen": "https://placehold.co/600x400/00f5ff/white?text=TechLocal",
+    "whatsapp": "+5491133445566",
+    "facebook": "https://facebook.com/techlocal",
+    "instagram": "https://instagram.com/techlocal",
+    "latitud": -34.6080,
+    "longitud": -58.3820,
+    "pagina": "https://techlocal.ar",
+    "direccion": "Av. Tecnológica 303, Ciudad",
+    "horario": "Lunes a Viernes: 10:00 - 20:00, Sábados: 10:00 - 14:00"
+  },
+  {
+    "nombre": "Impresiones 3D Barrio",
+    "descripcion": "Servicio de impresión 3D para prototipos, piezas de repuesto, regalos personalizados y más.",
+    "categoria": "tecnologia",
+    "imagen": "https://placehold.co/600x400/10b981/white?text=Impresiones+3D",
+    "whatsapp": "+5491177889900",
+    "facebook": "https://facebook.com/impresiones3dbarrio",
+    "instagram": "https://instagram.com/impresiones3dbarrio",
+    "latitud": -34.6120,
+    "longitud": -58.3880,
+    "pagina": "",
+    "direccion": "Calle Innovación 404, Ciudad",
+    "horario": "Con turno previo"
+  }
+]

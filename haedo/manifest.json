@@ -1,0 +1,36 @@
+{
+  "name": "Tu Barrio a un Clik - Haedo",
+  "short_name": "BarrioClik Haedo",
+  "description": "Plataforma de comercios y comunidad local en Haedo",
+  "start_url": "/Haedo/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explorar Comercios",
+      "short_name": "Comercios",
+      "url": "./index.html#panaderias",
+      "icons": [{ "src": "img/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Unirse a la Comunidad",
+      "short_name": "Comunidad",
+      "url": "./comunidad.html",
+      "icons": [{ "src": "img/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

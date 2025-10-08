@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Limpieza Express",
+    "descripcion": "Servicio de limpieza para hogares y oficinas. Productos ecológicos y personal capacitado.",
+    "categoria": "servicios",
+    "imagen": "https://placehold.co/600x400/7c3aed/white?text=Limpieza+Express",
+    "whatsapp": "+5491144556677",
+    "facebook": "https://facebook.com/limpiezaexpress",
+    "instagram": "https://instagram.com/limpiezaexpress",
+    "latitud": -34.6000,
+    "longitud": -58.3900,
+    "pagina": "https://limpiezaexpress.com.ar",
+    "direccion": "Servicio a domicilio en toda la ciudad",
+    "horario": "Lunes a Domingo: 8:00 - 20:00"
+  },
+  {
+    "nombre": "Mudanzas Rápidas",
+    "descripcion": "Mudanzas económicas con camión propio y personal confiable. Traslados locales e interurbanos.",
+    "categoria": "servicios",
+    "imagen": "https://placehold.co/600x400/9333ea/white?text=Mudanzas+Rápidas",
+    "whatsapp": "+5491188990011",
+    "facebook": "https://facebook.com/mudanzasrapidas",
+    "instagram": "",
+    "latitud": -34.6180,
+    "longitud": -58.3750,
+    "pagina": "",
+    "direccion": "Depósito: Av. de los Camiones 505, Ciudad",
+    "horario": "Lunes a Sábado: 7:00 - 19:00"
+  }
+]

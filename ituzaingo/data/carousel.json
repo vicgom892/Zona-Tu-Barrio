@@ -1,0 +1,42 @@
+[
+  {
+    "name": "La Canasta de Juan",
+    "image": "img/panaderia-1.webp",
+    "url": "/negocios/panaderia.html"
+  },
+  {
+    "name": "Pasta Fresca",
+    "image": "img/pastas-1.webp",
+    "url": "/negocios/pastas.html"
+  },
+  {
+    "name": "Verdulería El Huerto",
+    "image": "img/verduleria-1.webp",
+    "url": "/negocios/verduleria.html"
+  },
+  {
+    "name": "Fiambrería Delicias",
+    "image": "img/fiambreria-1.webp",
+    "url": "/negocios/fiambreria.html"
+  },
+  {
+    "name": "Kiosco 24 Horas",
+    "image": "img/kiosco-1.webp",
+    "url": "/negocios/kiosco.html"
+  },
+  {
+    "name": "Veterinaria Castelar",
+    "image": "img/veterinaria.webp",
+    "url": "/negocios/veterinaria.html"
+  },
+  {
+    "name": "Barbería El Cortes",
+    "image": "img/barberia-1.webp",
+    "url": "/negocios/barberia.html"
+  },
+  {
+    "name": "Ferretería Castelar",
+    "image": "img/ferreteria-1.webp",
+    "url": "/negocios/ferreteria.html"
+  }
+]

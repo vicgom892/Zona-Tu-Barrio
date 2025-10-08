@@ -1,0 +1,24 @@
+{
+  "ofertas": [
+    {
+      "categoria": "panaderia",
+      "titulo": "El corte Que Quieras",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/panaderia.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    },
+    {
+      "categoria": "panaderia",
+      "titulo": "Tu Corte",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/panaderia-1.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    }
+  ]
+}

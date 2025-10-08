@@ -1,0 +1,47 @@
+[
+  {
+    "id": "herrero-01",
+    "nombre": "Forja y Diseño - Carlos Vega",
+    "imagen": "img/herrero.webp",
+    "horario": "Lun-Vie 8:00-18:00",
+    "horarioData": "Mon-Fri 08:00-18:00",
+    "telefono": "11 0123 7890",
+    "whatsapp": "541101237890",
+    "pagina": "negocios/carlos-herrero.html",
+    "icono": "fas fa-hammer",
+    "rubro": "Herrero",
+    "direccion": "Calle Humboldt 1200, CABA",
+    "latitud": -34.5876,
+    "longitud": -58.4321
+  },
+  {
+    "id": "herrero-02",
+    "nombre": "Rejas y Portones S.A.",
+    "imagen": "img/herrero.webp",
+    "horario": "Lun-Sáb 9:00-17:00",
+    "horarioData": "Mon-Sat 09:00-17:00",
+    "telefono": "11 1234 8901",
+    "whatsapp": "541112348901",
+    "pagina": "negocios/rejas-portones.html",
+    "icono": "fas fa-fence",
+    "rubro": "Herrería Arquitectónica",
+    "direccion": "Av. Gaona 4500, CABA",
+    "latitud": -34.6456,
+    "longitud": -58.5123
+  },
+  {
+    "id": "herrero-03",
+    "nombre": "Arte en Hierro - Martín Suárez",
+    "imagen": "img/herrero.webp",
+    "horario": "Lun-Vie 9:00-19:00",
+    "horarioData": "Mon-Fri 09:00-19:00",
+    "telefono": "11 2345 9012",
+    "whatsapp": "541123459012",
+    "pagina": "negocios/arte-en-hierro.html",
+    "icono": "fas fa-drafting-compass",
+    "rubro": "Herrería Decorativa",
+    "direccion": "Calle Gorriti 3400, CABA",
+    "latitud": -34.6034,
+    "longitud": -58.4234
+  }
+]

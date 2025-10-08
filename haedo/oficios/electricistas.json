@@ -1,0 +1,47 @@
+[
+  {
+    "id": "electricista-01",
+    "nombre": "Carlos Méndez - Electricidad Total",
+    "imagen": "img/electricista.webp",
+    "horario": "Lun-Vie 8:00-20:00",
+    "horarioData": "Mon-Fri 08:00-20:00",
+    "telefono": "11 5678 9012",
+    "whatsapp": "541156789012",
+    "pagina": "negocios/electricidad-carlos.html",
+    "icono": "fas fa-bolt",
+    "rubro": "Electricista",
+    "direccion": "Av. Santa Fe 1500, CABA",
+    "latitud": -34.5987,
+    "longitud": -58.3956
+  },
+  {
+    "id": "electricista-02",
+    "nombre": "Luz y Fuerza S.R.L.",
+    "imagen": "img/electricista.webp",
+    "horario": "Lun-Dom 7:00-22:00",
+    "horarioData": "Mon-Sun 07:00-22:00",
+    "telefono": "11 6789 0123",
+    "whatsapp": "541167890123",
+    "pagina": "negocios/luz-fuerza.html",
+    "icono": "fas fa-plug",
+    "rubro": "Instalaciones Eléctricas",
+    "direccion": "Calle Florida 1234, CABA",
+    "latitud": -34.6001,
+    "longitud": -58.3789
+  },
+  {
+    "id": "electricista-03",
+    "nombre": "Ana Torres - Electricidad Segura",
+    "imagen": "img/electricista.webp",
+    "horario": "Lun-Sáb 9:00-19:00",
+    "horarioData": "Mon-Sat 09:00-19:00",
+    "telefono": "11 7890 1234",
+    "whatsapp": "541178901234",
+    "pagina": "negocios/ana-electricidad.html",
+    "icono": "fas fa-lightbulb",
+    "rubro": "Electricista Certificada",
+    "direccion": "Av. Cabildo 2200, CABA",
+    "latitud": -34.5645,
+    "longitud": -58.4567
+  }
+]

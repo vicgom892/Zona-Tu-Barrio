@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Oferta Panadería",
+    "logo": "img/panaderia-2.webp",
+    "discount": "20% OFF",
+    "originalPrice": "$5000",
+    "discountedPrice": "$4000",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Kiosco",
+    "logo": "img/kiosco-2.webp",
+    "discount": "15% OFF",
+    "originalPrice": "$2000",
+    "discountedPrice": "$1700",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Panadería",
+    "logo": "img/panaderia-2.webp",
+    "discount": "20% OFF",
+    "originalPrice": "$5000",
+    "discountedPrice": "$4000",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Kiosco",
+    "logo": "img/kiosco-3.webp",
+    "discount": "15% OFF",
+    "originalPrice": "$2000",
+    "discountedPrice": "$1700",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Baeberia",
+    "logo": "img/barberia-3.webp",
+    "discount": "20% OFF",
+    "originalPrice": "$5000",
+    "discountedPrice": "$4000",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Kiosco",
+    "logo": "img/kiosco-4.webp",
+    "discount": "15% OFF",
+    "originalPrice": "$2000",
+    "discountedPrice": "$1700",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Fiambreria",
+    "logo": "img/fiambreria-2.webp",
+    "discount": "20% OFF",
+    "originalPrice": "$5000",
+    "discountedPrice": "$4000",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Ropa",
+    "logo": "img/ropa-3.webp",
+    "discount": "15% OFF",
+    "originalPrice": "$2000",
+    "discountedPrice": "$1700",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Panadería",
+    "logo": "img/ferreteria-3.webp",
+    "discount": "20% OFF",
+    "originalPrice": "$5000",
+    "discountedPrice": "$4000",
+    "url": "https://example.com"
+  },
+  {
+    "name": "Oferta Pastas",
+    "logo": "img/pastas-3.webp",
+    "discount": "15% OFF",
+    "originalPrice": "$2000",
+    "discountedPrice": "$1700",
+    "url": "https://example.com"
+  }
+]

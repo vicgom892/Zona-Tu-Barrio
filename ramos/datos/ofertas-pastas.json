@@ -1,0 +1,24 @@
+{
+  "ofertas": [
+    {
+      "categoria": "pastas",
+      "titulo": "El corte Que Quieras",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/pastas-1.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    },
+    {
+      "categoria": "pastas",
+      "titulo": "Tu Corte",
+      "descripcion": "Ofertas diarias en verduras frescas.",
+      "imagen": "../img/pastas-2.webp",
+      "boton": {
+        "texto": "Más info",
+        "url": "#contacto"
+      }
+    }
+  ]
+}

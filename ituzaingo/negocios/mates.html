@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mates - Tu Barrio A Un Click</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+<!--<link rel="stylesheet" href="/css/negocios.css">-->
+  <link rel="icon" href="../img/icon-192x192.png">
+  <meta name="description" content="Mates en Castelar.  promociones personalizadas. Entregas a domicilio.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Splash Screen Tecnológico */
+    .splash-screen {
+        position: fixed;
+       
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+        overflow: hidden;
+    }
+    
+    .splash-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Fondo de partículas animadas */
+    .splash-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        animation: float 6s infinite ease-in-out;
+    }
+    
+    /* Grid de fondo */
+    .splash-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+        opacity: 0.3;
+    }
+    
+    /* Logo con efecto de brillo */
+    .splash-logo {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6200 0%, #ff9e2c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        z-index: 3;
+        box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        animation: pulseGlow 2s infinite alternate;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .splash-logo::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        animation: shine 3s infinite;
+    }
+    
+    .logo-icon {
+        font-size: 80px;
+        color: white;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 80px;
+        height: 80px;
+    }
+    
+    .splash-text {
+        color:#f8f9fa;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.5s;
+    }
+    
+    .loading-bar-container {
+        width: 200px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+    }
+    
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6200, #ff9e2c);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+    
+    .loading-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+        animation: shimmer 1.5s infinite;
+    }
+    
+    .loading-text {
+        color:#f8f9fa;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s ease forwards 1.2s;
+        z-index: 3;
+    }
+    
+    .skip-btn {
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards 1.5s;
+    }
+    
+    .skip-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 98, 0, 0.3);
+    }
+    
+    /* Animaciones */
+    @keyframes pulseGlow {
+        0% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+            transform: scale(1);
+        }
+        100% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.6);
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes shine {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(50%) translateY(50%) rotate(180deg);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(10px, 15px);
+        }
+        50% {
+            transform: translate(-10px, 5px);
+        }
+        75% {
+            transform: translate(5px, -10px);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .splash-logo {
+            width: 180px;
+            height: 180px;
+        }
+        
+        .splash-text {
+            font-size: 1.6rem;
+        }
+        
+        .loading-bar-container {
+            width: 160px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .splash-logo {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .splash-text {
+            font-size: 1.4rem;
+        }
+        
+        .loading-bar-container {
+            width: 140px;
+        }
+        
+        .skip-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+    }
+    /* Estilos adicionales para los modales y carrito */
+    .modal-backdrop {
+      z-index: 1040 !important;
+    }
+    
+    .modal {
+      z-index: 1050 !important;
+    }
+    
+    .modal-open {
+      overflow: auto !important;
+      position: relative !important;
+    }
+    
+    /* Asegurar que los enlaces de términos se vean bien */
+    .form-check-label a {
+      color: #4a6fa5;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    
+    .form-check-label a:hover {
+      color: #3a5a80;
+    }
+    
+    /* Estilos para el carrito de mates */
+    .quantity-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .quantity-btn:hover {
+      background-color: #e2e8f0;
+      transform: scale(1.1);
+    }
+    
+    .line-clamp-2 {
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    /* Solución definitiva para el botón de WhatsApp */
+    #checkoutButton {
+      background: linear-gradient(90deg, #FF9800 0%, #F57C00 100%) !important;
+      color: white !important;
+      border: none !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+      position: relative !important;
+      z-index: 100 !important;
+      min-height: 48px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-weight: 700 !important;
+      font-size: 1.125rem !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    #checkoutButton i {
+      color: white !important;
+      font-size: 1.5rem !important;
+      margin-right: 0.75rem !important;
+    }
+
+    /* Estilos para la sección de contacto */
+    .contact-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-top: 1px solid #dee2e6;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .whatsapp-icon {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .contact-feature {
+      transition: all 0.3s ease;
+    }
+
+    .contact-feature:hover {
+      transform: scale(1.05);
+    }
+
+    /* Estilos para el header fijo mejorado */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .header-scrolled {
+      background-color: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Contenedor principal para compensar el header fijo */
+    .main-content {
+      padding-top: 80px;
+    }
+
+    /* Estilos para el menú móvil */
+    .nav-menu {
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu.mobile-active {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      animation: slideDown 0.3s ease;
+      z-index: 1001;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Estilos para las secciones con fondo */
+    .hero-section {
+      min-height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/mate.webp') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .products-section {
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://placehold.co/1920x1080/D2B48C/FFFFFF?text=Mates+Artesanales') center/cover fixed;
+    }
+
+    .offers-section {
+      background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('https://placehold.co/1920x1080/F5DEB3/8B4513?text=Ofertas+Exclusivas') center/cover fixed;
+    }
+
+    .contact-section {
+      background: linear-gradient(rgba(248, 249, 250, 0.95), rgba(233, 238, 239, 0.95)), url('https://placehold.co/1920x1080/25D366/FFFFFF?text=Contacto+WhatsApp') center/cover fixed;
+    }
+
+    /* Espaciado para secciones */
+    section {
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    /* Botón de menú hamburguesa mejorado */
+    #mobileMenuToggle {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+
+    #mobileMenuToggle:hover {
+      border-color: #4a5568;
+      transform: scale(1.05);
+    }
+
+    /* Estilos para el botón de subir */
+    #scrollTopBtn {
+      z-index: 999;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Asegurar que el header siempre esté visible */
+    @media (max-width: 768px) {
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .main-content {
+        padding-top: 80px;
+      }
+    }
+  </style>
+</head>
+<body data-categoria="mates" class="bg-gray-100 font-sans">
+
+<div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <img src="../img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clik</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+
+  <!-- Header fijo mejorado -->
+  <header
+    data-nombre-negocio="Panadería"
+    data-logo-negocio="img/logo-negocio.png">
+    <div class="container flex justify-between items-center p-4">
+      <!-- Logo de la app animado con texto -->
+      <a href="../index.html" class="logo-app group text-decoration-none inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
+        <img src="../img/icon-192x192.png" alt="Logo App" class="h-8" />
+        <span class="text-gray-700 font-semibold text-sm hidden sm:inline">Volver a la App</span>
+      </a>
+
+      <!-- Menú navegación (centrado en PC) -->
+      <nav class="nav-menu hidden md:flex space-x-6">
+        <a href="#inicio" class="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200">Inicio</a>
+        <a href="#productos" class="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200">Productos</a>
+        <a href="#ofertas" class="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200">Ofertas</a>
+        <a href="#contacto" class="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200">Contacto</a>
+      </nav>
+
+      <!-- Logo del negocio -->
+      <a href="../index.html" class="logo-negocio group inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
+        <img id="logoNegocioPC" src="../img/icon-192x192.png" alt="Logo Negocio" class="h-10" />
+      </a>
+
+      <!-- Botón hamburguesa móvil -->
+      <button id="mobileMenuToggle" class="md:hidden text-gray-700 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobileMenu" class="container md:hidden">
+      <div class="flex flex-col space-y-3 py-4">
+        <a href="#inicio" class="text-gray-700 hover:text-green-600 font-medium p-2 rounded transition-colors duration-200">Inicio</a>
+        <a href="#productos" class="text-gray-700 hover:text-green-600 font-medium p-2 rounded transition-colors duration-200">Productos</a>
+        <a href="#ofertas" class="text-gray-700 hover:text-green-600 font-medium p-2 rounded transition-colors duration-200">Ofertas</a>
+        <a href="#contacto" class="text-gray-700 hover:text-green-600 font-medium p-2 rounded transition-colors duration-200">Contacto</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Sección Hero con fondo -->
+    <section id="inicio" class="hero-section">
+      <div class="container mx-auto px-4 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in" data-aos="fade-up">
+            Mates Artesanales de <span class="text-amber-300">Alta Calidad</span>
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 opacity-90" data-aos="fade-up" data-aos-delay="200">
+            Hechos a mano con materiales naturales y mucho amor por la tradición
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="400">
+            <a href="#productos" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+              <i class="fas fa-shopping-bag mr-2"></i> Ver Productos
+            </a>
+            <a href="#contacto" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+              <i class="fab fa-whatsapp mr-2"></i> Contactar por WhatsApp
+            </a>
+          </div>
+          
+          <!-- Indicador de desplazamiento -->
+          <div class="animate-bounce mt-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+            <p class="mt-2 text-sm opacity-75">Desplázate para ver más</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Productos -->
+    <section id="productos" class="products-section">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800" data-aos="fade-up">Nuestra Selección de Mates</h2>
+          <p class="text-lg text-gray-600 mb-2" data-aos="fade-up" data-aos-delay="100">Descubre nuestra selección de mates artesanales hechos a mano con materiales naturales y diseños únicos.</p>
+          <p class="text-gray-500 italic" data-aos="fade-up" data-aos-delay="200">"El mate no es solo una bebida, es un momento para compartir, reflexionar y conectar"</p>
+          
+          <div class="mt-6 flex flex-wrap justify-center gap-3" data-aos="fade-up" data-aos-delay="300">
+            <span class="inline-flex items-center bg-amber-100 text-amber-800 text-sm px-3 py-1 rounded-full">
+              <i class="fas fa-leaf mr-1"></i> 100% artesanal
+            </span>
+            <span class="inline-flex items-center bg-amber-100 text-amber-800 text-sm px-3 py-1 rounded-full">
+              <i class="fas fa-truck mr-1"></i> Envío gratis en compras +$2000
+            </span>
+            <span class="inline-flex items-center bg-amber-100 text-amber-800 text-sm px-3 py-1 rounded-full">
+              <i class="fas fa-gift mr-1"></i> Incluye bombilla de regalo
+            </span>
+          </div>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="mb-8" data-aos="fade-up">
+          <div class="flex flex-wrap gap-3 justify-center">
+            <button class="filter-btn active bg-white border-2 border-amber-500 text-amber-700 font-medium px-4 py-2 rounded-lg shadow-sm hover:shadow transition-all">
+              <i class="fas fa-allergies mr-1"></i> Todos
+            </button>
+            <button class="filter-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-all" data-filter="madera">
+              <i class="fas fa-tree mr-1"></i> Madera
+            </button>
+            <button class="filter-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-all" data-filter="calabaza">
+              <i class="fas fa-seedling mr-1"></i> Calabaza
+            </button>
+            <button class="filter-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-all" data-filter="ceramica">
+              <i class="fas fa-mug-hot mr-1"></i> Cerámica
+            </button>
+            <button class="filter-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-all" data-filter="metal">
+              <i class="fas fa-gem mr-1"></i> Metal
+            </button>
+          </div>
+        </div>
+        
+        <!-- Galería de Mates -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <!-- Mate Tradicional -->
+          <div class="mate-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-amber-50" data-category="madera" data-aos="fade-up">
+            <div class="relative">
+              <div class="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full z-10">NUEVO</div>
+              <img src="../img/mate-1.webp" alt="Mate Tradicional" class="w-full h-56 object-cover">
+              <div class="absolute -bottom-5 right-3">
+                <button class="add-to-cart bg-white text-amber-700 border-2 border-amber-500 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-50 transition-all" data-id="mate1">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-5 pt-8">
+              <div class="flex items-center mb-2">
+                <div class="flex text-amber-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(42)</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Mate Tradicional de Palo Santo</h3>
+              <p class="text-gray-600 mb-4 text-sm line-clamp-2">Hecho a mano con madera de palo santo, ideal para los amantes de lo clásico con un toque espiritual.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-amber-700">$1.299</span>
+                <div class="flex items-center">
+                  <i class="fas fa-truck text-gray-400 mr-1"></i>
+                  <span class="text-xs text-gray-500">Envío gratis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mate de Calabaza -->
+          <div class="mate-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-amber-50" data-category="calabaza" data-aos="fade-up" data-aos-delay="100">
+            <div class="relative">
+              <img src="../img/mate-3.webp" alt="Mate de Calabaza" class="w-full h-56 object-cover">
+              <div class="absolute -bottom-5 right-3">
+                <button class="add-to-cart bg-white text-amber-700 border-2 border-amber-500 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-50 transition-all" data-id="mate2">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-5 pt-8">
+              <div class="flex items-center mb-2">
+                <div class="flex text-amber-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(31)</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Mate de Calabaza Natural</h3>
+              <p class="text-gray-600 mb-4 text-sm line-clamp-2">Calabaza seca natural, perfecta para los puristas que buscan la experiencia auténtica del mate.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-amber-700">$899</span>
+                <div class="flex items-center">
+                  <i class="fas fa-gift text-amber-500 mr-1"></i>
+                  <span class="text-xs text-gray-500">+ Bombilla</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mate Cerámica -->
+          <div class="mate-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-amber-50" data-category="ceramica" data-aos="fade-up" data-aos-delay="200">
+            <div class="relative">
+              <div class="absolute top-2 right-2 bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded-full z-10">POPULAR</div>
+              <img src="../img/mate-4.webp" alt="Mate Cerámica" class="w-full h-56 object-cover">
+              <div class="absolute -bottom-5 right-3">
+                <button class="add-to-cart bg-white text-amber-700 border-2 border-amber-500 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-50 transition-all" data-id="mate3">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-5 pt-8">
+              <div class="flex items-center mb-2">
+                <div class="flex text-amber-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(56)</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Mate de Cerámica Artesanal</h3>
+              <p class="text-gray-600 mb-4 text-sm line-clamp-2">Hecho a mano por artesanos locales, con diseños únicos que reflejan nuestra cultura.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-amber-700">$1.599</span>
+                <div class="flex items-center">
+                  <i class="fas fa-truck text-gray-400 mr-1"></i>
+                  <span class="text-xs text-gray-500">Envío gratis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mate Premium -->
+          <div class="mate-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-amber-50" data-category="metal" data-aos="fade-up" data-aos-delay="300">
+            <div class="relative">
+              <img src="../img/mate-5.webp" alt="Mate Premium" class="w-full h-56 object-cover">
+              <div class="absolute -bottom-5 right-3">
+                <button class="add-to-cart bg-white text-amber-700 border-2 border-amber-500 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-50 transition-all" data-id="mate4">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-5 pt-8">
+              <div class="flex items-center mb-2">
+                <div class="flex text-amber-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(47)</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Mate Premium de Acero Inoxidable</h3>
+              <p class="text-gray-600 mb-4 text-sm line-clamp-2">Diseño moderno y duradero, perfecto para llevar tu mate a cualquier lugar sin preocupaciones.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-amber-700">$1.899</span>
+                <div class="flex items-center">
+                  <i class="fas fa-gift text-amber-500 mr-1"></i>
+                  <span class="text-xs text-gray-500">+ Termo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carrito de Compras -->
+        <div class="mt-16 bg-white rounded-2xl shadow-lg p-6 border border-amber-50 max-w-3xl mx-auto" data-aos="fade-up">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-gray-800 flex items-center">
+              <i class="fas fa-shopping-cart mr-2 text-amber-700"></i> Tu Selección de Mates
+            </h3>
+            <button id="clearCart" class="text-gray-500 hover:text-gray-700 text-sm flex items-center">
+              <i class="fas fa-trash-alt mr-1"></i> Limpiar
+            </button>
+          </div>
+          
+          <div id="cartItems" class="space-y-4 mb-6">
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-shopping-basket text-3xl mb-2"></i>
+              <p>Aún no has seleccionado ningún mate</p>
+            </div>
+          </div>
+          
+          <div id="cartTotal" class="hidden">
+            <div class="flex justify-between mb-4">
+              <span class="text-gray-600">Subtotal (<span id="cartItemCount">0</span> items):</span>
+              <span class="font-bold">$<span id="cartTotalAmount">0</span></span>
+            </div>
+            
+            <div class="bg-amber-50 p-4 rounded-lg mb-4">
+              <div class="flex items-start">
+                <i class="fas fa-gift text-amber-700 mt-1 mr-2"></i>
+                <p class="text-sm text-amber-800">¡Tu compra incluye una bombilla de regalo y envío gratis!</p>
+              </div>
+            </div>
+            
+            <a href="#" id="checkoutButton" class="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:shadow-md block text-center relative z-10 min-h-[48px] flex items-center justify-center font-bold text-lg" style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+              <i class="fab fa-whatsapp mr-2 text-2xl" style="color: white !important;"></i> 
+              <span>Finalizar Compra por WhatsApp</span>
+            </a>
+            
+            <p class="text-xs text-gray-500 text-center mt-2">
+              Al finalizar, serás redirigido a WhatsApp para confirmar tu pedido
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Ofertas -->
+    <section id="ofertas" class="offers-section">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800" data-aos="fade-up">Promociones Especiales</h2>
+          <p class="text-lg text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="100">Aprovecha nuestras ofertas exclusivas para clientes especiales</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Oferta 1 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300" data-aos="fade-up">
+            <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-6">
+              <h3 class="text-2xl font-bold mb-2">Pack Iniciación</h3>
+              <p class="text-red-100">Todo lo que necesitas para empezar</p>
+            </div>
+            <div class="p-6">
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Mate de madera artesanal</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Bombilla de acero inoxidable</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Termo de 1L</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Yerba mate premium 500g</span>
+                </li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-2xl font-bold text-gray-800">$3.299</span>
+                  <span class="text-sm text-gray-500 line-through ml-2">$4.199</span>
+                </div>
+                <span class="bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-full">21% OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oferta 2 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
+              <h3 class="text-2xl font-bold mb-2">Pack Regalo</h3>
+              <p class="text-blue-100">Perfecto para sorprender</p>
+            </div>
+            <div class="p-6">
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Mate de cerámica decorado</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Juego de 2 bombillas</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Yerba mate variedad especial</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Caja de regalo premium</span>
+                </li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-2xl font-bold text-gray-800">$2.899</span>
+                  <span class="text-sm text-gray-500 line-through ml-2">$3.599</span>
+                </div>
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">19% OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oferta 3 -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6">
+              <h3 class="text-2xl font-bold mb-2">Pack Familiar</h3>
+              <p class="text-green-100">Para compartir con todos</p>
+            </div>
+            <div class="p-6">
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Juego de 4 mates de calabaza</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>4 bombillas de alpaca</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>Termo de 2L</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i>
+                  <span>2kg de yerba mate</span>
+                </li>
+              </ul>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-2xl font-bold text-gray-800">$5.499</span>
+                  <span class="text-sm text-gray-500 line-through ml-2">$7.299</span>
+                </div>
+                <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">25% OFF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beneficios -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div class="benefit-card bg-white p-6 rounded-xl shadow-sm border border-amber-50 hover:shadow-md transition-all" data-aos="fade-up">
+            <div class="bg-amber-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <i class="fas fa-leaf text-amber-700 text-xl"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Materiales Naturales</h4>
+            <p class="text-gray-600">Todos nuestros mates están hechos con materiales naturales y sostenibles, respetando el medio ambiente.</p>
+          </div>
+          
+          <div class="benefit-card bg-white p-6 rounded-xl shadow-sm border border-amber-50 hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-amber-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <i class="fas fa-hands-helping text-amber-700 text-xl"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Apoyo a Artesanos</h4>
+            <p class="text-gray-600">Cada compra apoya a artesanos locales, ayudando a preservar nuestras tradiciones culturales.</p>
+          </div>
+          
+          <div class="benefit-card bg-white p-6 rounded-xl shadow-sm border border-amber-50 hover:shadow-md transition-all" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-amber-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <i class="fas fa-shipping-fast text-amber-700 text-xl"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Envío Rápido</h4>
+            <p class="text-gray-600">Recibe tu mate en 2-3 días hábiles con nuestro servicio de envío gratuito.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Contacto Actualizada -->
+    <section id="contacto" class="contact-section">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Tienes alguna pregunta?</h2>
+          <p class="text-xl text-gray-600">Estamos aquí para ayudarte. Contáctanos por WhatsApp y te responderemos lo antes posible.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Información de Contacto -->
+          <div class="space-y-8">
+            <div class="contact-card p-8">
+              <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <i class="fab fa-whatsapp text-3xl text-green-600"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-800">WhatsApp</h3>
+                  <p class="text-gray-600">Habla directamente con nosotros</p>
+                </div>
+              </div>
+              
+              <div class="bg-green-50 p-6 rounded-lg mb-6">
+                <h4 class="font-semibold text-green-800 mb-3">¿Por qué contactarnos por WhatsApp?</h4>
+                <ul class="space-y-2 text-sm text-green-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span><strong>Respuesta rápida:</strong> Atención inmediata a tus consultas</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span><strong>Conveniencia:</strong> Usa la app que ya tienes en tu teléfono</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span><strong>Privacidad:</strong> Conversaciones seguras y encriptadas</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span><strong>Flexibilidad:</strong> Puedes enviarnos fotos, mensajes de voz y más</span>
+                  </li>
+                </ul>
+              </div>
+
+              <a 
+                href="https://wa.me/5491157194796" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="whatsapp-btn w-full bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-105"
+              >
+                <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                <span class="text-lg">Chatear por WhatsApp</span>
+              </a>
+              
+              <p class="text-center text-sm text-gray-500 mt-3">
+                Horario de atención: Lunes a Sábado, 9:00 - 20:00
+              </p>
+            </div>
+
+            <!-- Características de WhatsApp -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="contact-feature bg-white p-5 rounded-lg shadow-sm border border-gray-100">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                  <i class="fas fa-lock text-blue-600"></i>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">Privacidad</h4>
+                <p class="text-sm text-gray-600">Tus conversaciones están protegidas con encriptación de extremo a extremo</p>
+              </div>
+              
+              <div class="contact-feature bg-white p-5 rounded-lg shadow-sm border border-gray-100">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                  <i class="fas fa-phone-alt text-blue-600"></i>
+                </div>
+                <h4 class="font-semibold text-gray-800 mb-2">Llamadas</h4>
+                <p class="text-sm text-gray-600">Puedes llamarnos gratis desde cualquier parte del mundo</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Imagen de WhatsApp -->
+          <div class="relative">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform rotate-1 md:rotate-2">
+              <img src="https://placehold.co/600x400/25D366/FFFFFF?text=WhatsApp+Chat" alt="WhatsApp Conversation" class="w-full h-auto">
+              <div class="p-6 bg-gray-50">
+                <div class="flex space-x-2 mb-3">
+                  <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+                </div>
+                <div class="space-y-2">
+                  <div class="bg-white rounded-lg p-3 max-w-xs ml-auto">
+                    <p class="text-sm">Hola! Quiero consultar sobre los mates de madera.</p>
+                    <p class="text-xs text-gray-500 text-right mt-1">14:30</p>
+                  </div>
+                  <div class="bg-green-100 rounded-lg p-3 max-w-xs">
+                    <p class="text-sm">¡Hola! Tenemos varios modelos de mates de madera. ¿Te interesa alguno en particular?</p>
+                    <p class="text-xs text-gray-500 text-right mt-1">14:31</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg hidden md:block">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-check-double text-white text-lg"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-green-700">Mensajes leídos</p>
+                  <p class="text-sm text-gray-600">Respuesta garantizada</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preguntas Frecuentes -->
+        <div class="mt-16 bg-white rounded-2xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Preguntas Frecuentes</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-question-circle text-green-500 mr-2"></i>
+                ¿Cuánto tiempo tardan en responder?
+              </h4>
+              <p class="text-gray-600">Normalmente respondemos en menos de 15 minutos durante nuestro horario de atención. Fuera de horario, te responderemos al siguiente día hábil.</p>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-shipping-fast text-green-500 mr-2"></i>
+                ¿Puedo hacer pedidos por WhatsApp?
+              </h4>
+              <p class="text-gray-600">¡Claro que sí! Puedes hacer tu pedido completo por WhatsApp, incluyendo los productos que deseas, cantidades y tu dirección de entrega.</p>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-money-bill-wave text-green-500 mr-2"></i>
+                ¿Puedo pagar por WhatsApp?
+              </h4>
+              <p class="text-gray-600">Actualmente no aceptamos pagos directos por WhatsApp, pero podemos coordinar el método de pago (efectivo, transferencia, etc.) durante la conversación.</p>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-globe text-green-500 mr-2"></i>
+                ¿Funciona WhatsApp desde el exterior?
+              </h4>
+              <p class="text-gray-600">Sí, WhatsApp funciona en todo el mundo. Puedes contactarnos desde cualquier país sin costo adicional para ti.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h3 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-12">Lo que Dicen Nuestros Clientes</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Testimonio 1 -->
+          <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300" data-aos="fade-up">
+            <div class="flex text-amber-400 mb-4">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-600 italic mb-6">"El mate de palo santo es simplemente increíble. La calidad es excepcional y llegó en perfectas condiciones. ¡Ahora es mi compañero diario para el mate!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center mr-3">
+                <span class="font-bold">MR</span>
+              </div>
+              <div>
+                <p class="font-medium">María Rodríguez</p>
+                <p class="text-sm text-gray-500">Buenos Aires</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonio 2 -->
+          <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex text-amber-400 mb-4">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text-gray-600 italic mb-6">"Compré el pack familiar y fue perfecto para reuniones con amigos. Los mates son hermosos y de excelente calidad. ¡Muy recomendable!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center mr-3">
+                <span class="font-bold">JP</span>
+              </div>
+              <div>
+                <p class="font-medium">Juan Pérez</p>
+                <p class="text-sm text-gray-500">La Plata</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonio 3 -->
+          <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex text-amber-400 mb-4">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-600 italic mb-6">"El servicio por WhatsApp fue excelente. Respondieron rápido, me ayudaron a elegir el mejor mate y la entrega fue puntual. Muy profesional!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center mr-3">
+                <span class="font-bold">LC</span>
+              </div>
+              <div>
+                <p class="font-medium">Lucía Castro</p>
+                <p class="text-sm text-gray-500">Mar del Plata</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Botón Volver Arriba -->
+  <button id="scrollTopBtn" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <!-- Términos y Condiciones Modales -->
+  <!-- Terms Modal -->
+  <div class="modal fade" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="terminosModalLabel">Términos y Condiciones</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>Al utilizar nuestra plataforma, aceptas los siguientes términos y condiciones:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Los datos proporcionados serán utilizados únicamente para contactarte y verificar tu negocio.</li>
+            <li>Reservamos el derecho de verificar y aprobar todos los negocios antes de publicarlos.</li>
+            <li>La plataforma es completamente gratuita para los comerciantes.</li>
+            <li>Comprometemos a proteger tus datos personales según la ley de protección de datos.</li>
+            <li>Podemos utilizar información de tu negocio para fines promocionales de la plataforma.</li>
+          </ul>
+          <p class="mt-4">Actualizado: Enero 2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Modal -->
+  <div class="modal fade" id="privacidadModal" tabindex="-1" 
+       aria-labelledby="privacidadModalLabel" aria-hidden="true"
+       data-accessibility-configured="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="privacidadModalLabel">Política de Privacidad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>En Tu Barrio A Un Clic, valoramos tu privacidad y nos comprometemos a proteger tus datos personales:</p>
+          <ul>
+            <li>Tus datos personales no serán compartidos con terceros sin tu consentimiento.</li>
+            <li>Utilizamos tus datos únicamente para contactarte y verificar tu negocio.</li>
+            <li>Implementamos medidas de seguridad para proteger tu información.</li>
+            <li>Puedes solicitar la eliminación de tus datos en cualquier momento.</li>
+            <li>Utilizamos cookies para mejorar tu experiencia en la plataforma.</li>
+          </ul>
+          <p>Actualizado: Enero 2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Botón de instalación PWA -->
+  <!--<div id="botonInstalar" class="fixed bottom-4 left-4 bg-green-600 text-white p-3 rounded-full shadow-lg cursor-pointer pwa-btn">
+    <span class="text-sm font-semibold">Instalar App</span>
+  </div>-->
+
+  <footer class="bg-white shadow-inner mt-8">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
+      <div class="space-x-4 text-sm text-gray-600">
+        <a href="#inicio" class="hover:text-blue-600">Inicio</a>
+        <a href="#productos" class="hover:text-blue-600">Productos</a>
+        <a href="#ofertas" class="hover:text-blue-600">Ofertas</a>
+        <a href="#contacto" class="hover:text-blue-600">Contacto</a>
+      </div>
+      <p class="text-xs text-gray-400">© 2025 Tu Barrio A Un Click. Todos los derechos reservados.</p>
+    </div>
+    <!-- Botón de instalación en el footer -->
+    <div class="install-banner mt-4 p-3 bg-white rounded shadow-sm">
+      <div class="d-flex align-items-center">
+        <img src="../img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
+        <div class="flex-grow-1">
+          <div class="small text-muted mb-1">¿Quieres la app completa?</div>
+          <button id="botonInstalar" class="btn btn-success w-100 py-2">
+            <i class="fas fa-download me-1"></i>Instalar Tu Barrio A Un Clik
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script para la funcionalidad de la sección de mates -->
+  <script>
+    // Solución definitiva para el problema de aria-hidden
+    document.addEventListener('DOMContentLoaded', function() {
+      // Solución para el problema de aria-hidden
+      function setupModalAccessibility() {
+        // Configurar todos los modales en la página
+        document.querySelectorAll('.modal').forEach(modal => {
+          // Configurar evento para cuando el modal se muestra
+          modal.addEventListener('show.bs.modal', function() {
+            // Asegurar que el modal esté listo para abrirse
+            this.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            
+            // Forzar la actualización del DOM
+            void this.offsetWidth;
+          });
+          
+          // Configurar evento para cuando el modal se oculta
+          modal.addEventListener('hide.bs.modal', function() {
+            this.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+          });
+          
+          // Configurar evento para cuando el modal se ha mostrado completamente
+          modal.addEventListener('shown.bs.modal', function() {
+            // Asegurar que el foco esté en un elemento válido
+            const focusableElements = this.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) {
+              focusableElements[0].focus();
+            }
+          });
+        });
+        
+        // Observador para detectar nuevos modales
+        const observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType === 1 && node.classList && node.classList.contains('modal')) {
+                // Configurar el nuevo modal
+                if (!node.hasAttribute('data-accessibility-configured')) {
+                  node.setAttribute('data-accessibility-configured', 'true');
+                  
+                  node.addEventListener('show.bs.modal', function() {
+                    this.setAttribute('aria-hidden', 'false');
+                    document.body.classList.add('modal-open');
+                    
+                    // Forzar la actualización del DOM
+                    void this.offsetWidth;
+                  });
+                  
+                  node.addEventListener('hide.bs.modal', function() {
+                    this.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('modal-open');
+                  });
+                  
+                  node.addEventListener('shown.bs.modal', function() {
+                    const focusableElements = this.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    if (focusableElements.length > 0) {
+                      focusableElements[0].focus();
+                    }
+                  });
+                }
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Solución adicional para el botón de cierre
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.btn-close')) {
+            const modal = e.target.closest('.modal');
+            if (modal) {
+              setTimeout(() => {
+                modal.setAttribute('aria-hidden', 'true');
+              }, 100);
+            }
+          }
+        });
+      }
+      
+      // Inicializar la solución
+      setupModalAccessibility();
+      
+      // Forzar la actualización de los modales existentes
+      setTimeout(() => {
+        document.querySelectorAll('.modal').forEach(modal => {
+          if (modal.classList.contains('show')) {
+            modal.setAttribute('aria-hidden', 'false');
+          }
+        });
+      }, 500);
+      
+      // Funcionalidad para el header fijo
+      window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+          header.classList.add('header-scrolled');
+        } else {
+          header.classList.remove('header-scrolled');
+        }
+      });
+      
+      // Funcionalidad para el menú móvil
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+          mobileMenu.classList.toggle('hidden');
+          
+          // Añadir animación
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('mobile-active');
+          } else {
+            mobileMenu.classList.remove('mobile-active');
+          }
+        });
+      }
+      
+      // Cerrar menú móvil al hacer clic en un enlace
+      document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', function() {
+          const mobileMenu = document.getElementById('mobileMenu');
+          const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+          
+          if (mobileMenu && mobileMenuToggle) {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('mobile-active');
+          }
+        });
+      });
+      
+      // Funcionalidad para los filtros
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const mateCards = document.querySelectorAll('.mate-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Actualizar botones activos
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-amber-500', 'text-white');
+            btn.classList.add('bg-white', 'border-2', 'border-amber-500', 'text-amber-700');
+          });
+          
+          this.classList.remove('bg-white', 'border-amber-500', 'text-amber-700');
+          this.classList.add('active', 'bg-amber-500', 'text-white');
+          
+          // Filtrar mates
+          const filter = this.getAttribute('data-filter');
+          
+          mateCards.forEach(card => {
+            if (!filter || filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Funcionalidad del carrito
+      const addToCartButtons = document.querySelectorAll('.add-to-cart');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      const clearCartBtn = document.getElementById('clearCart');
+      const checkoutButton = document.getElementById('checkoutButton');
+      
+      let cart = [];
+      
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const mateId = this.getAttribute('data-id');
+          const mateCard = this.closest('.mate-card');
+          const title = mateCard.querySelector('h3').textContent;
+          const priceElement = mateCard.querySelector('.text-amber-700');
+          const image = mateCard.querySelector('img').src;
+          
+          // Obtener el precio limpio
+          let price = priceElement.textContent;
+          // Eliminar el símbolo de peso y cualquier punto que no sea decimal
+          price = price.replace('$', '').replace(/\./g, '').replace(',', '.');
+          const priceValue = parseFloat(price);
+          
+          // Verificar si ya está en el carrito
+          const existingItem = cart.find(item => item.id === mateId);
+          
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({
+              id: mateId,
+              title: title,
+              price: priceValue,
+              image: image,
+              quantity: 1
+            });
+          }
+          
+          // Actualizar carrito
+          updateCart();
+        });
+      });
+      
+      function updateCart() {
+        if (cart.length === 0) {
+          cartItems.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-shopping-basket text-3xl mb-2"></i>
+              <p>Aún no has seleccionado ningún mate</p>
+            </div>
+          `;
+          cartTotal.classList.add('hidden');
+          return;
+        }
+        
+        cartTotal.classList.remove('hidden');
+        
+        let cartHTML = '';
+        let total = 0;
+        
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          
+          cartHTML += `
+            <div class="flex items-center border-b pb-4">
+              <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg mr-4">
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">${item.title}</h4>
+                <div class="flex justify-between items-center mt-1">
+                  <div class="flex items-center">
+                    <button class="quantity-btn decrease bg-gray-100 w-6 h-6 rounded flex items-center justify-center mr-2" data-id="${item.id}">
+                      <i class="fas fa-minus text-xs"></i>
+                    </button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn increase bg-gray-100 w-6 h-6 rounded flex items-center justify-center ml-2" data-id="${item.id}">
+                      <i class="fas fa-plus text-xs"></i>
+                    </button>
+                  </div>
+                  <span class="font-bold">$${itemTotal.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        cartItems.innerHTML = cartHTML;
+        
+        // Actualizar subtotal
+        document.getElementById('cartItemCount').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartTotalAmount').textContent = total.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        
+        // Configurar botones de cantidad
+        document.querySelectorAll('.quantity-btn.decrease').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            if (item.quantity > 1) {
+              item.quantity--;
+            } else {
+              cart = cart.filter(item => item.id !== id);
+            }
+            updateCart();
+          });
+        });
+        
+        document.querySelectorAll('.quantity-btn.increase').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            item.quantity++;
+            updateCart();
+          });
+        });
+      }
+      
+      // Limpiar carrito
+      clearCartBtn.addEventListener('click', function() {
+        cart = [];
+        updateCart();
+      });
+      
+      // Finalizar compra
+      checkoutButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (cart.length === 0) {
+          alert('Por favor, selecciona al menos un mate antes de continuar.');
+          return;
+        }
+        
+        // Crear mensaje para WhatsApp
+        let message = '*Pedido de Mates - Tu Barrio A Un Click*\n\n';
+        message += '¡Hola! Me gustaría realizar el siguiente pedido:\n\n';
+        
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          message += `• ${item.title} x${item.quantity} - $${itemTotal.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}\n`;
+        });
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        message += `\n*Total:* $${total.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}\n\n`;
+        
+        message += 'Agradecería que me confirmen disponibilidad y tiempo de entrega.\n\n';
+        message += '¡Muchas gracias!';
+        
+        // Codificar mensaje
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappNumber = '5491157194796'; // Sin el +
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        
+        // Abrir WhatsApp
+        window.open(whatsappUrl, '_blank');
+      });
+      
+      // Botón de subir
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      
+      if (scrollTopBtn) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 300) {
+            scrollTopBtn.classList.remove('hidden');
+          } else {
+            scrollTopBtn.classList.add('hidden');
+          }
+        });
+        
+        scrollTopBtn.addEventListener('click', function() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+      
+      // Inicializar AOS
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: false
+        });
+      }
+    });
+  </script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="../js/splash.js"></script>
+  <script src="../js/install-app.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registrado con éxito:', registration.scope);
+          
+          // Escuchar actualizaciones
+          registration.onupdatefound = function() {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = function() {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Mostrar notificación de actualización
+                const updateNotification = document.createElement('div');
+                updateNotification.className = 'update-notification';
+                updateNotification.innerHTML = `
+                  <div class="update-content">
+                    <p>¡Hay una nueva versión disponible!</p>
+                    <button class="btn-update">Actualizar ahora</button>
+                  </div>
+                `;
+                
+                document.body.appendChild(updateNotification);
+                
+                document.querySelector('.btn-update').addEventListener('click', function() {
+                  window.location.reload();
+                });
+              }
+            };
+          };
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker falló al registrarse:', error);
+        });
+    });
+    
+    // Detectar cuando el service worker activa una nueva versión
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  }
+</script>
+
+<style>
+  .update-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .update-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .btn-update {
+    background: #e1306c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-update:hover {
+    background: #c12757;
+    transform: translateY(-2px);
+  }
+</style>
+</body>
+</html>

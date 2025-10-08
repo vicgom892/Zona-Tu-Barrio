@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Fotografía Local",
+    "descripcion": "Sesiones fotográficas para eventos, retratos familiares y productos. Edición incluida.",
+    "categoria": "otros",
+    "imagen": "https://placehold.co/600x400/8b5cf6/white?text=Fotografía+Local",
+    "whatsapp": "+5491144556677",
+    "facebook": "https://facebook.com/fotografiadeldelbarrio",
+    "instagram": "https://instagram.com/fotografiadeldelbarrio",
+    "latitud": -34.6040,
+    "longitud": -58.3890,
+    "pagina": "https://fotografiadeldelbarrio.com",
+    "direccion": "Estudio: Calle de la Luz 909, Ciudad",
+    "horario": "Con turno previo"
+  },
+  {
+    "nombre": "Música en Vivo",
+    "descripcion": "Músicos locales para cumpleaños, casamientos y eventos. Varias bandas y estilos disponibles.",
+    "categoria": "otros",
+    "imagen": "https://placehold.co/600x400/a855f7/white?text=Música+en+Vivo",
+    "whatsapp": "+5491155667788",
+    "facebook": "https://facebook.com/musicaenvivobarrio",
+    "instagram": "https://instagram.com/musicaenvivobarrio",
+    "latitud": -34.6110,
+    "longitud": -58.3930,
+    "pagina": "",
+    "direccion": "Contacto por WhatsApp",
+    "horario": "Disponible para eventos"
+  }
+]

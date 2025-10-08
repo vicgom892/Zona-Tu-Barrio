@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online - Electrónica, Hogar y Más</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4ade80;
+            --warning-color: #fbbf24;
+            --danger-color: #f87171;
+            --info-color: #60a5fa;
+            --purple-color: #a855f7;
+            --pink-color: #ec4899;
+            --orange-color: #f97316;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            padding-top: 160px;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            padding: 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(67, 97, 238, 0.8), rgba(63, 55, 201, 0.8)), url('https://placehold.co/1920x600/4361ee/FFFFFF?text=Tienda+Online') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-top: 160px;
+        }
+        
+        .section-title {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .product-image {
+            height: 200px;
+            object-fit: contain;
+            width: 100%;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-add-to-cart {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .category-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .category-badge {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #e0e0e0;
+            display: inline-block;
+            font-weight: 500;
+        }
+        
+        .category-badge:hover, .category-badge.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .category-badge.electronica { background: #e0f2fe; border-color: #bae6fd; color: var(--info-color); }
+        .category-badge.electronica.active { background: var(--info-color); color: white; }
+        
+        .category-badge.hogar { background: #fef3c7; border-color: #fde68a; color: var(--warning-color); }
+        .category-badge.hogar.active { background: var(--warning-color); color: white; }
+        
+        .category-badge.electrodomesticos { background: #f3e8ff; border-color: #e9d5ff; color: var(--purple-color); }
+        .category-badge.electrodomesticos.active { background: var(--purple-color); color: white; }
+        
+        .category-badge.camping { background: #dcfce7; border-color: #bbf7d0; color: var(--success-color); }
+        .category-badge.camping.active { background: var(--success-color); color: white; }
+        
+        .category-badge.telefonia { background: #fee2e2; border-color: #fecaca; color: var(--danger-color); }
+        .category-badge.telefonia.active { background: var(--danger-color); color: white; }
+        
+        .category-badge.varios { background: #fbcfe8; border-color: #f9a8d4; color: var(--pink-color); }
+        .category-badge.varios.active { background: var(--pink-color); color: white; }
+        
+        .category-badge.deportes { background: #ffedd5; border-color: #fed7aa; color: var(--orange-color); }
+        .category-badge.deportes.active { background: var(--orange-color); color: white; }
+        
+        .category-badge.juguetes { background: #dbeafe; border-color: #bfdbfe; color: var(--info-color); }
+        .category-badge.juguetes.active { background: var(--info-color); color: white; }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+            padding-left: 45px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        /* Carrito siempre visible en el header */
+        .cart-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1020;
+            max-width: 350px;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .cart-count {
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-right: 10px;
+            background: #f8f9fa;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            font-size: 0.85rem;
+        }
+        
+        .cart-item-name {
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .cart-quantity {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+        
+        .quantity-btn:hover {
+            background: var(--light-color);
+        }
+        
+        .quantity-input {
+            width: 35px;
+            height: 25px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            margin: 0 5px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .remove-item {
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .cart-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 15px 0 10px;
+            text-align: right;
+        }
+        
+        .btn-checkout {
+            background: linear-gradient(45deg, var(--success-color), #34d399);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+        }
+        
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .invalid-feedback {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        
+        .thank-you-section {
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(74, 222, 128, 0.3);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            margin: 40px 0;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 200px;
+            }
+            
+            .cart-container {
+                top: 120px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            
+            .hero-section {
+                height: 200px;
+                margin-top: 200px;
+            }
+            
+            .search-box {
+                margin: 0 15px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-image {
+                margin-bottom: 10px;
+            }
+            
+            .cart-quantity {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header con Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-cart me-2"></i>Tienda Online
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#electronica">Electrónica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#telefonia">Telefonía</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hogar">Hogar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#electrodomesticos">Electrodomésticos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrito siempre visible -->
+    <div class="cart-container" id="cartContainer">
+        <div class="cart-header">
+            <h6 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Carrito (<span id="cartCount">0</span>)</h6>
+            <div class="cart-count" id="cartItemCount">0</div>
+        </div>
+        <div id="cartItems">
+            <!-- Los items del carrito se cargarán aquí -->
+            <div class="text-center py-3">
+                <p class="text-muted small">Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total" id="cartTotal">Total: $0</div>
+        <button class="btn btn-checkout" id="checkoutBtn">
+            <i class="fab fa-whatsapp me-2"></i>Finalizar Compra
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">¡Bienvenido a nuestra Tienda!</h1>
+            <p class="lead">Electrónica, Telefonía, Hogar, Electrodomésticos y más</p>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="container my-5">
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-12 mb-3">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar productos...">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex flex-wrap justify-content-center">
+                    <span class="category-badge active" data-category="todos">Todos</span>
+                    <span class="category-badge electronica" data-category="electronica">Electrónica</span>
+                    <span class="category-badge telefonia" data-category="telefonia">Telefonía</span>
+                    <span class="category-badge hogar" data-category="hogar">Hogar</span>
+                    <span class="category-badge electrodomesticos" data-category="electrodomesticos">Electrodomésticos</span>
+                    <span class="category-badge camping" data-category="camping">Camping</span>
+                    <span class="category-badge deportes" data-category="deportes">Deportes</span>
+                    <span class="category-badge juguetes" data-category="juguetes">Juguetes</span>
+                    <span class="category-badge varios" data-category="varios">Varios</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección de Electrónica -->
+        <section id="electronica" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h2 class="section-title mb-0">Electrónica</h2>
+            </div>
+            <div class="row" id="electronicaProducts">
+                <!-- Productos de electrónica se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Telefonía -->
+        <section id="telefonia" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h2 class="section-title mb-0">Telefonía Móvil</h2>
+            </div>
+            <div class="row" id="telefoniaProducts">
+                <!-- Productos de telefonía se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Hogar -->
+        <section id="hogar" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h2 class="section-title mb-0">Hogar</h2>
+            </div>
+            <div class="row" id="hogarProducts">
+                <!-- Productos de hogar se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Electrodomésticos -->
+        <section id="electrodomesticos" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-blender"></i>
+                </div>
+                <h2 class="section-title mb-0">Electrodomésticos</h2>
+            </div>
+            <div class="row" id="electrodomesticosProducts">
+                <!-- Productos de electrodomésticos se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Camping -->
+        <section id="camping" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-campground"></i>
+                </div>
+                <h2 class="section-title mb-0">Camping</h2>
+            </div>
+            <div class="row" id="campingProducts">
+                <!-- Productos de camping se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Deportes -->
+        <section id="deportes" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-futbol"></i>
+                </div>
+                <h2 class="section-title mb-0">Deportes</h2>
+            </div>
+            <div class="row" id="deportesProducts">
+                <!-- Productos de deportes se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Juguetes -->
+        <section id="juguetes" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h2 class="section-title mb-0">Juguetes</h2>
+            </div>
+            <div class="row" id="juguetesProducts">
+                <!-- Productos de juguetes se cargarán aquí -->
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Sección de Varios -->
+        <section id="varios" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <h2 class="section-title mb-0">Varios</h2>
+            </div>
+            <div class="row" id="variosProducts">
+                <!-- Productos varios se cargarán aquí -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Formulario de Checkout -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📝 Completa tus datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkoutForm">
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label">Nombre Completo *</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                            <div class="invalid-feedback">Por favor, ingresa tu nombre completo.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerPhone" class="form-label">Teléfono de Contacto *</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                            <div class="invalid-feedback">Por favor, ingresa un teléfono válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="customerEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerAddress" class="form-label">Dirección de Entrega *</label>
+                            <textarea class="form-control" id="customerAddress" rows="3" required></textarea>
+                            <div class="invalid-feedback">Por favor, ingresa tu dirección de entrega.</div>
+                        </div>
+                        <button type="submit" class="btn btn-checkout w-100">
+                            <i class="fab fa-whatsapp me-2"></i>Enviar Pedido por WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Agradecimiento -->
+    <div class="container" id="thankYouSection" style="display: none;">
+        <div class="thank-you-section">
+            <h2><i class="fas fa-check-circle me-2"></i>¡Gracias por tu compra!</h2>
+            <p class="lead">Un integrante de nuestro equipo se pondrá en contacto contigo a la brevedad.</p>
+            <p>Saludos y ¡que tengas un excelente día!</p>
+            <button class="btn btn-light mt-3" id="continueShopping">
+                <i class="fas fa-shopping-cart me-2"></i>Seguir Comprando
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Tienda Online</h5>
+                    <p>Tu solución para electrónica, telefonía, hogar, electrodomésticos y más.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Contacto</h5>
+                    <p><i class="fab fa-whatsapp me-2"></i> (11) 5555-7777</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@tiendaonline.com</p>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <p class="mb-0">© 2024 Tienda Online - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Datos de productos
+        const products = [
+            // Electrónica
+            {
+                id: 1,
+                name: 'Laptop Gamer',
+                price: 250000,
+                category: 'electronica',
+                image: 'https://placehold.co/400x300/4361ee/FFFFFF?text=Laptop+Gamer',
+                description: 'Potente laptop para gaming con RTX 3060'
+            },
+            {
+                id: 2,
+                name: 'Smart TV 55"',
+                price: 180000,
+                category: 'electronica',
+                image: 'https://placehold.co/400x300/4361ee/FFFFFF?text=Smart+TV',
+                description: 'Televisor inteligente 4K con Android TV'
+            },
+            {
+                id: 3,
+                name: 'Auriculares Bluetooth',
+                price: 35000,
+                category: 'electronica',
+                image: 'https://placehold.co/400x300/4361ee/FFFFFF?text=Auriculares',
+                description: 'Auriculares inalámbricos con cancelación de ruido'
+            },
+            {
+                id: 4,
+                name: 'Tablet 10"',
+                price: 85000,
+                category: 'electronica',
+                image: 'https://placehold.co/400x300/4361ee/FFFFFF?text=Tablet',
+                description: 'Tablet con pantalla HD y 64GB de almacenamiento'
+            },
+            // Telefonía
+            {
+                id: 5,
+                name: 'iPhone 15 Pro',
+                price: 450000,
+                category: 'telefonia',
+                image: 'https://placehold.co/400x300/f87171/FFFFFF?text=iPhone+15+Pro',
+                description: 'El último iPhone con cámara Pro y chip A17'
+            },
+            {
+                id: 6,
+                name: 'Samsung Galaxy S24',
+                price: 380000,
+                category: 'telefonia',
+                image: 'https://placehold.co/400x300/f87171/FFFFFF?text=Galaxy+S24',
+                description: 'Smartphone con pantalla Dynamic AMOLED 2X'
+            },
+            {
+                id: 7,
+                name: 'Xiaomi Redmi Note 13',
+                price: 120000,
+                category: 'telefonia',
+                image: 'https://placehold.co/400x300/f87171/FFFFFF?text=Redmi+Note+13',
+                description: 'Excelente relación calidad-precio con cámara de 108MP'
+            },
+            {
+                id: 8,
+                name: 'Google Pixel 8',
+                price: 320000,
+                category: 'telefonia',
+                image: 'https://placehold.co/400x300/f87171/FFFFFF?text=Pixel+8',
+                description: 'El mejor Android con cámara computacional de Google'
+            },
+            // Hogar
+            {
+                id: 9,
+                name: 'Juego de Sábanas',
+                price: 15000,
+                category: 'hogar',
+                image: 'https://placehold.co/400x300/4cc9f0/FFFFFF?text=Sábanas',
+                description: 'Juego de sábanas 100% algodón, estampado moderno'
+            },
+            {
+                id: 10,
+                name: 'Termo Eléctrico',
+                price: 32000,
+                category: 'hogar',
+                image: 'https://placehold.co/400x300/4cc9f0/FFFFFF?text=Termo',
+                description: 'Termo eléctrico de 5 litros con control de temperatura'
+            },
+            {
+                id: 11,
+                name: 'Juego de Ollas',
+                price: 42000,
+                category: 'hogar',
+                image: 'https://placehold.co/400x300/4cc9f0/FFFFFF?text=Ollas',
+                description: 'Set de 10 ollas de acero inoxidable con fondo difusor'
+            },
+            {
+                id: 12,
+                name: 'Lámpara LED Inteligente',
+                price: 18000,
+                category: 'hogar',
+                image: 'https://placehold.co/400x300/4cc9f0/FFFFFF?text=Lámpara+LED',
+                description: 'Lámpara con control por app y 16 millones de colores'
+            },
+            // Electrodomésticos
+            {
+                id: 13,
+                name: 'Cafetera Automática',
+                price: 45000,
+                category: 'electrodomesticos',
+                image: 'https://placehold.co/400x300/3f37c9/FFFFFF?text=Cafetera',
+                description: 'Cafetera automática con molinillo integrado'
+            },
+            {
+                id: 14,
+                name: 'Robot Aspirador',
+                price: 120000,
+                category: 'electrodomesticos',
+                image: 'https://placehold.co/400x300/3f37c9/FFFFFF?text=Robot+Aspirador',
+                description: 'Robot aspirador inteligente con mapeo láser'
+            },
+            {
+                id: 15,
+                name: 'Lavadora 8kg',
+                price: 220000,
+                category: 'electrodomesticos',
+                image: 'https://placehold.co/400x300/3f37c9/FFFFFF?text=Lavadora',
+                description: 'Lavadora con tecnología Inverter y 15 programas'
+            },
+            {
+                id: 16,
+                name: 'Microondas Digital',
+                price: 55000,
+                category: 'electrodomesticos',
+                image: 'https://placehold.co/400x300/3f37c9/FFFFFF?text=Microondas',
+                description: 'Microondas con grill y 11 programas automáticos'
+            },
+            // Camping
+            {
+                id: 17,
+                name: 'Carpa Familiar',
+                price: 65000,
+                category: 'camping',
+                image: 'https://placehold.co/400x300/fbbf24/212529?text=Carpa',
+                description: 'Carpa para 6 personas, impermeable y resistente'
+            },
+            {
+                id: 18,
+                name: 'Colchón Inflable',
+                price: 22000,
+                category: 'camping',
+                image: 'https://placehold.co/400x300/fbbf24/212529?text=Colchón',
+                description: 'Colchón inflable con bomba eléctrica integrada'
+            },
+            {
+                id: 19,
+                name: 'Cocina de Camping',
+                price: 35000,
+                category: 'camping',
+                image: 'https://placehold.co/400x300/fbbf24/212529?text=Cocina',
+                description: 'Cocina portátil a gas con 2 hornallas'
+            },
+            {
+                id: 20,
+                name: 'Lámpara Solar',
+                price: 12000,
+                category: 'camping',
+                image: 'https://placehold.co/400x300/fbbf24/212529?text=Lámpara+Solar',
+                description: 'Lámpara recargable con panel solar y 3 modos'
+            },
+            // Deportes
+            {
+                id: 21,
+                name: 'Bicicleta Montaña',
+                price: 85000,
+                category: 'deportes',
+                image: 'https://placehold.co/400x300/f97316/FFFFFF?text=Bicicleta',
+                description: 'Bicicleta de montaña con suspensión y 21 velocidades'
+            },
+            {
+                id: 22,
+                name: 'Pesas Ajustables',
+                price: 28000,
+                category: 'deportes',
+                image: 'https://placehold.co/400x300/f97316/FFFFFF?text=Pesas',
+                description: 'Set de pesas ajustables de 5 a 20 kg'
+            },
+            {
+                id: 23,
+                name: 'Pelota Fútbol',
+                price: 8000,
+                category: 'deportes',
+                image: 'https://placehold.co/400x300/f97316/FFFFFF?text=Pelota',
+                description: 'Pelota oficial de fútbol, tamaño 5'
+            },
+            {
+                id: 24,
+                name: 'Colchoneta Yoga',
+                price: 15000,
+                category: 'deportes',
+                image: 'https://placehold.co/400x300/f97316/FFFFFF?text=Yoga',
+                description: 'Colchoneta antideslizante de 6mm de grosor'
+            },
+            // Juguetes
+            {
+                id: 25,
+                name: 'Lego City',
+                price: 25000,
+                category: 'juguetes',
+                image: 'https://placehold.co/400x300/60a5fa/FFFFFF?text=Lego',
+                description: 'Set de construcción Lego City con 500 piezas'
+            },
+            {
+                id: 26,
+                name: 'Muñeca Interactiva',
+                price: 35000,
+                category: 'juguetes',
+                image: 'https://placehold.co/400x300/60a5fa/FFFFFF?text=Muñeca',
+                description: 'Muñeca que camina, habla y responde a comandos'
+            },
+            {
+                id: 27,
+                name: 'Consola Nintendo Switch',
+                price: 180000,
+                category: 'juguetes',
+                image: 'https://placehold.co/400x300/60a5fa/FFFFFF?text=Switch',
+                description: 'Consola híbrida con juegos para toda la familia'
+            },
+            {
+                id: 28,
+                name: 'Pista de Carreras',
+                price: 45000,
+                category: 'juguetes',
+                image: 'https://placehold.co/400x300/60a5fa/FFFFFF?text=Pista',
+                description: 'Pista de carreras con loops y 2 autos control remoto'
+            },
+            // Varios
+            {
+                id: 29,
+                name: 'Set de Herramientas',
+                price: 28000,
+                category: 'varios',
+                image: 'https://placehold.co/400x300/4ade80/212529?text=Herramientas',
+                description: 'Set completo de herramientas para el hogar'
+            },
+            {
+                id: 30,
+                name: 'Bicicleta Plegable',
+                price: 85000,
+                category: 'varios',
+                image: 'https://placehold.co/400x300/4ade80/212529?text=Bicicleta',
+                description: 'Bicicleta plegable ideal para ciudad y transporte'
+            },
+            {
+                id: 31,
+                name: 'Mochila Antirrobo',
+                price: 18000,
+                category: 'varios',
+                image: 'https://placehold.co/400x300/4ade80/212529?text=Mochila',
+                description: 'Mochila con sistema antirrobo y puerto USB'
+            },
+            {
+                id: 32,
+                name: 'Reloj Inteligente',
+                price: 45000,
+                category: 'varios',
+                image: 'https://placehold.co/400x300/4ade80/212529?text=Reloj',
+                description: 'Reloj inteligente con monitor de salud y GPS'
+            }
+        ];
+
+        // Estado del carrito
+        let cart = [];
+        
+        // Función para renderizar productos por categoría
+        function renderProductsByCategory() {
+            const categories = ['electronica', 'telefonia', 'hogar', 'electrodomesticos', 'camping', 'deportes', 'juguetes', 'varios'];
+            
+            categories.forEach(category => {
+                const categoryProducts = products.filter(product => product.category === category);
+                const container = document.getElementById(`${category}Products`);
+                
+                if (categoryProducts.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-3">
+                            <p class="text-muted">No hay productos en esta categoría</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = '';
+                
+                categoryProducts.forEach(product => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 col-sm-6 mb-4';
+                    col.innerHTML = `
+                        <div class="product-card">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                            <div class="product-info">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text text-muted small">${product.description}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="product-price">$${product.price.toLocaleString()}</span>
+                                    <button class="btn btn-add-to-cart" data-id="${product.id}">
+                                        <i class="fas fa-cart-plus me-1"></i>Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                });
+            });
+            
+            // Agregar eventos a los botones de agregar al carrito
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+        }
+        
+        // Función para renderizar productos con filtros
+        function renderFilteredProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeCategory = document.querySelector('.category-badge.active').getAttribute('data-category');
+            
+            let filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                    product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = activeCategory === 'todos' || product.category === activeCategory;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            // Limpiar todas las secciones
+            const categories = ['electronica', 'telefonia', 'hogar', 'electrodomesticos', 'camping', 'deportes', 'juguetes', 'varios'];
+            categories.forEach(category => {
+                document.getElementById(`${category}Products`).innerHTML = '';
+            });
+            
+            if (activeCategory === 'todos') {
+                // Mostrar todos los productos filtrados en sus respectivas secciones
+                const productsByCategory = {};
+                categories.forEach(category => {
+                    productsByCategory[category] = [];
+                });
+                
+                filteredProducts.forEach(product => {
+                    if (productsByCategory[product.category]) {
+                        productsByCategory[product.category].push(product);
+                    }
+                });
+                
+                // Renderizar productos en cada sección
+                categories.forEach(category => {
+                    const container = document.getElementById(`${category}Products`);
+                    
+                    if (productsByCategory[category].length === 0) {
+                        container.innerHTML = `
+                            <div class="col-12 text-center py-3">
+                                <p class="text-muted">No hay productos en esta categoría</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    productsByCategory[category].forEach(product => {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-3 col-sm-6 mb-4';
+                        col.innerHTML = `
+                            <div class="product-card">
+                                <img src="${product.image}" alt="${product.name}" class="product-image">
+                                <div class="product-info">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text text-muted small">${product.description}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="product-price">$${product.price.toLocaleString()}</span>
+                                        <button class="btn btn-add-to-cart" data-id="${product.id}">
+                                            <i class="fas fa-cart-plus me-1"></i>Agregar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(col);
+                    });
+                });
+            } else {
+                // Mostrar solo la categoría seleccionada
+                const targetCategory = activeCategory;
+                const targetProducts = filteredProducts.filter(p => p.category === targetCategory);
+                const container = document.getElementById(`${targetCategory}Products`);
+                
+                if (targetProducts.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-3">
+                            <p class="text-muted">No se encontraron productos</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                targetProducts.forEach(product => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 col-sm-6 mb-4';
+                    col.innerHTML = `
+                        <div class="product-card">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                            <div class="product-info">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text text-muted small">${product.description}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="product-price">$${product.price.toLocaleString()}</span>
+                                    <button class="btn btn-add-to-cart" data-id="${product.id}">
+                                        <i class="fas fa-cart-plus me-1"></i>Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                });
+            }
+            
+            // Agregar eventos a los botones de agregar al carrito
+            document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+        }
+        
+        // Función para agregar producto al carrito
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showToast('Producto agregado al carrito', 'success');
+        }
+        
+        // Función para actualizar el carrito
+        function updateCart() {
+            // Actualizar contador en el navbar y en el carrito
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+            document.getElementById('cartItemCount').textContent = cartCount;
+            
+            // Renderizar items del carrito
+            const cartItems = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-3">
+                        <p class="text-muted small">Tu carrito está vacío</p>
+                    </div>
+                `;
+                document.getElementById('cartTotal').textContent = 'Total: $0';
+                return;
+            }
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <p class="cart-item-name mb-1">${item.name}</p>
+                        <p class="cart-item-price mb-1">$${item.price.toLocaleString()}</p>
+                        <div class="cart-quantity">
+                            <button class="quantity-btn decrease-btn" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                            <button class="quantity-btn increase-btn" data-id="${item.id}">+</button>
+                            <span class="remove-item" data-id="${item.id}">🗑️</span>
+                        </div>
+                        <p class="cart-item-price mt-2">Subtotal: $${itemTotal.toLocaleString()}</p>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            document.getElementById('cartTotal').textContent = `Total: $${total.toLocaleString()}`;
+            
+            // Agregar eventos a los botones del carrito
+            document.querySelectorAll('.decrease-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.increase-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const newQuantity = parseInt(this.value);
+                    if (newQuantity > 0) {
+                        const item = cart.find(item => item.id === id);
+                        if (item) {
+                            item.quantity = newQuantity;
+                            updateCart();
+                        }
+                    } else {
+                        this.value = 1;
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Función para actualizar cantidad
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+        
+        // Función para eliminar del carrito
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+            showToast('Producto eliminado del carrito', 'warning');
+        }
+        
+        // Función para mostrar toast
+        function showToast(message, type) {
+            // Crear toast si no existe
+            let toastContainer = document.getElementById('toastContainer');
+            if (!toastContainer) {
+                toastContainer = document.createElement('div');
+                toastContainer.id = 'toastContainer';
+                toastContainer.style.position = 'fixed';
+                toastContainer.style.top = '20px';
+                toastContainer.style.right = '20px';
+                toastContainer.style.zIndex = '9999';
+                document.body.appendChild(toastContainer);
+            }
+            
+            // Crear toast
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : 'warning'} alert-dismissible fade show`;
+            toast.role = 'alert';
+            toast.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Eliminar toast después de 3 segundos
+            setTimeout(() => {
+                if (toast && toastContainer.contains(toast)) {
+                    toastContainer.removeChild(toast);
+                }
+            }, 3000);
+        }
+        
+        // Inicializar la aplicación
+        function initApp() {
+            // Renderizar productos por categoría inicialmente
+            renderProductsByCategory();
+            
+            // Eventos para los filtros de categoría
+            document.querySelectorAll('.category-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    document.querySelectorAll('.category-badge').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderFilteredProducts();
+                });
+            });
+            
+            // Evento para la búsqueda
+            document.getElementById('searchInput').addEventListener('input', renderFilteredProducts);
+            
+            // Evento para el botón de checkout
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showToast('Tu carrito está vacío', 'warning');
+                    return;
+                }
+                
+                const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+                checkoutModal.show();
+            });
+            
+            // Evento para el formulario de checkout
+            document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar formulario
+                const name = document.getElementById('customerName');
+                const phone = document.getElementById('customerPhone');
+                const address = document.getElementById('customerAddress');
+                
+                let isValid = true;
+                let errors = {};
+                
+                // Resetear estilos de validación
+                [name, phone, address].forEach(field => {
+                    field.classList.remove('is-invalid');
+                });
+                
+                // Validar campos obligatorios
+                if (!name.value.trim()) {
+                    name.classList.add('is-invalid');
+                    errors.name = 'El nombre es obligatorio';
+                    isValid = false;
+                }
+                
+                if (!phone.value.trim() || !/^\d{10,15}$/.test(phone.value.replace(/\D/g, ''))) {
+                    phone.classList.add('is-invalid');
+                    errors.phone = 'El teléfono debe tener entre 10 y 15 dígitos';
+                    isValid = false;
+                }
+                
+                if (!address.value.trim()) {
+                    address.classList.add('is-invalid');
+                    errors.address = 'La dirección es obligatoria';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Calcular total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Crear mensaje para WhatsApp
+                let message = `¡Hola! Quiero hacer un pedido:%0A%0A`;
+                message += `*Datos del cliente:*%0A`;
+                message += `Nombre: ${name.value}%0A`;
+                message += `Teléfono: ${phone.value}%0A`;
+                if (document.getElementById('customerEmail').value.trim()) {
+                    message += `Email: ${document.getElementById('customerEmail').value}%0A`;
+                }
+                message += `Dirección: ${address.value}%0A%0A`;
+                message += `*Productos:*%0A`;
+                
+                cart.forEach(item => {
+                    message += `- ${item.name} x${item.quantity} = $${(item.price * item.quantity).toLocaleString()}%0A`;
+                });
+                
+                message += `%0A*Total: $${total.toLocaleString()}*%0A`;
+                message += `%0A¡Gracias por tu pedido! Un integrante de nuestro equipo se pondrá en contacto contigo a la brevedad. Saludos.`;
+                
+                // Redirigir a WhatsApp
+                const whatsappUrl = `https://wa.me/5491155557777?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Mostrar mensaje de agradecimiento
+                document.getElementById('thankYouSection').style.display = 'block';
+                document.querySelector('main').style.display = 'none';
+                
+                // Limpiar carrito
+                cart = [];
+                updateCart();
+                
+                // Cerrar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+                modal.hide();
+            });
+            
+            // Evento para continuar comprando
+            document.getElementById('continueShopping').addEventListener('click', function() {
+                document.getElementById('thankYouSection').style.display = 'none';
+                document.querySelector('main').style.display = 'block';
+            });
+            
+            // Scroll suave para los enlaces de navegación
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+        
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

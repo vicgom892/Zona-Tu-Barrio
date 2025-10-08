@@ -1,0 +1,855 @@
+:root {
+  --primary: #ff6200;
+  --primary-dark: #f57c00;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1ebe57;
+  --gray: #6b7280;
+  --text-dark: #333;
+  --bg-light: #f8f9fa;
+  --bg-dark: #222;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* ==== Estilos Generales ==== */
+body {
+  background-color: #f3f4f6; /* gris claro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  color: #374151; /* gris oscuro para texto */
+  scroll-behavior: smooth;
+}
+ /* Splash Screen Tecnológico */
+    .splash-screen {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+        overflow: hidden;
+    }
+    
+    .splash-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Fondo de partículas animadas */
+    .splash-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        animation: float 6s infinite ease-in-out;
+    }
+    
+    /* Grid de fondo */
+    .splash-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+        opacity: 0.3;
+    }
+    
+    /* Logo con efecto de brillo */
+    .splash-logo {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6200 0%, #ff9e2c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        z-index: 3;
+        box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        animation: pulseGlow 2s infinite alternate;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .splash-logo::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        animation: shine 3s infinite;
+    }
+    
+    .logo-icon {
+        font-size: 80px;
+        color: white;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 80px;
+        height: 80px;
+    }
+    
+    .splash-text {
+        color: #fff !important;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.5s;
+    }
+    
+    .loading-bar-container {
+        width: 200px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+    }
+    
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6200, #ff9e2c);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+    
+    .loading-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+        animation: shimmer 1.5s infinite;
+    }
+    
+    .loading-text {
+        color:#fff !important;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s ease forwards 1.2s;
+        z-index: 3;
+    }
+    
+    .skip-btn {
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards 1.5s;
+    }
+    
+    .skip-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 98, 0, 0.3);
+    }
+    
+    /* Animaciones */
+    @keyframes pulseGlow {
+        0% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+            transform: scale(1);
+        }
+        100% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.6);
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes shine {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(50%) translateY(50%) rotate(180deg);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(10px, 15px);
+        }
+        50% {
+            transform: translate(-10px, 5px);
+        }
+        75% {
+            transform: translate(5px, -10px);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .splash-logo {
+            width: 180px;
+            height: 180px;
+        }
+        
+        .splash-text {
+            font-size: 1.6rem;
+        }
+        
+        .loading-bar-container {
+            width: 160px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .splash-logo {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .splash-text {
+            font-size: 1.4rem;
+        }
+        
+        .loading-bar-container {
+            width: 140px;
+        }
+        
+        .skip-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+    }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+ #mobileMenuModal .modal-backdrop {
+  z-index: 1040 !important;
+}
+.modal-open {
+  overflow: visible !important; /* Evita que el body bloquee el scroll */
+}
+.modal-backdrop {
+  z-index: 1040 !important; /* Valor estándar de Bootstrap, ajustado por debajo del modal */
+  background-color: rgba(0, 0, 0, 0.1) !important; /* Fondo semitransparente suave */
+  backdrop-filter: blur(5px) !important; /* Compatible con tu efecto backdrop-blur-md */
+}
+#mobileMenuModal {
+  z-index: 1050 !important; /* Asegura que el modal esté por encima del backdrop */
+}
+#mobileMenuModal a {
+  color: #374151; /* Gris oscuro, similar al texto del modal */
+  text-decoration: none; /* Elimina la línea debajo */
+  transition: color 0.3s ease; /* Suaviza el cambio de color en hover */
+}
+
+#mobileMenuModal a:hover {
+  color: #2563eb; /* Color azul suave al pasar el mouse, igual que en el hover del nav-menu */
+}
+/* ==== HEADER ==== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 0.5rem 0;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo-app img,
+.logo-negocio img {
+  height: 2.5rem;
+}
+
+/* Menú centrado (solo en PC) */
+.nav-menu {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1.5rem;
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-menu a:hover {
+    color: #2563eb;
+  }
+}
+
+
+
+/* Ocultar botón hamburguesa y menú móvil en pantallas grandes */
+@media (min-width: 768px) {
+  #mobileMenuToggle,
+  #mobileMenuModal {
+    display: none !important;
+  }
+}
+
+/* Asegurar que el menú móvil esté por encima del header */
+#mobileMenuModal {
+  z-index: 100; /* Mayor que el z-index del header */
+}
+
+/* ==== MAIN ==== */
+main {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+main section {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+main section.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Secciones Parallax */
+.hero{
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#barberia{
+  background: url('../img/barberia.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#ferreteria{
+  background: url('../img/ferreteria-4.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#fiambreria{
+  background: url('../img/fiambreria.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#kiosco{
+  background: url('../img/kiosco.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#pastas{
+  background: url('../img/pastas-1.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#panaderia{
+  background: url('../img/panaderia.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#pagos{
+  background: url('../img/pagos.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#tienda{
+  background: url('../img/ropa.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#verduleria{
+  background: url('../img/verduleria.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#veterinaria{
+  background: url('../img/veterinaria.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+#veterinaria-1{
+  background: url('../img/veterinaria-1.webp') no-repeat center center/cover;
+  background-attachment: fixed;
+}
+.hero .overlay-text {
+  background: rgba(0, 0, 0, 0.555);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 3rem;
+  color: white;
+}
+
+.hero .btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary-dark);
+  transition: background-color 0.3s ease;
+  padding: 6px;
+}
+
+.hero .btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Banner *//*
+section.banner img {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+section.banner h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+section.banner p {
+  color: #4b5563;
+}
+*/
+/* Información */
+section.info p {
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.btn-whatsapp {
+  background-color: #22c55e;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-whatsapp i {
+  font-size: 1.25rem;
+}
+
+.btn-whatsapp:hover:not(.disabled) {
+  background-color: #16a34a;
+}
+
+.btn-whatsapp.disabled {
+  cursor: not-allowed;
+  opacity: 0.5 !important;
+  pointer-events: none;
+}
+
+/* Reservas */
+section.reservation form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section.reservation label {
+  font-weight: 600;
+  color: #374151;
+}
+
+section.reservation input,
+section.reservation select {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+}
+
+section.reservation button[type="submit"] {
+  background-color: #22c55e;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+section.reservation button[type="submit"]:hover {
+  background-color: #16a34a;
+}
+
+/* Productos Destacados */
+section.products .business-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 24rem;
+  margin-bottom: 1rem;
+}
+
+section.products .business-card img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+section.products .business-card div h3 {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+section.products .business-card div p {
+  color: #4b5563;
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0;
+}
+
+/* Ofertas */
+section.offers {
+  margin-top: 1.5rem !important;
+  padding: 1rem;
+  margin: auto;
+  width: 90%;
+}
+
+section.offers h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.offer-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.offer-card:hover {
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+.offer-card .offer-img {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.offer-card h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0;
+}
+
+.offer-card p {
+  font-size: 0.875rem;
+  color: #4b5563;
+  flex-grow: 1;
+}
+
+/* ==== BOTONES FIJOS ==== */
+
+#botonInstalar{
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* Tooltip opcional */
+.pwa-btn {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.pwa-btn:hover {
+  background-color: #f3f4f6; /* gris claro */
+  transform: scale(1.03);
+}
+
+/* ==== FOOTER ==== */
+footer {
+  background-color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+footer img {
+  height: 2rem;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+footer .inst{
+  background: #16a34a;
+  color: #f8f9fa;
+  padding: 3px;
+  border-radius: 5px;
+  margin: 0px !important;
+}
+footer .inst:hover{
+  background: #1f2937;
+  transform: scale(1.03);
+}
+footer a {
+  color: #6b7280;
+  text-decoration: none;
+  margin: 0 0.75rem;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+footer a:hover {
+  color: #2563eb;
+}
+
+@media(min-width: 768px) {
+  footer .container {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* ==== RESPONSIVE ==== */
+@media (min-width: 640px) {
+  section.products .business-card {
+    max-width: 28rem;
+  }
+
+  section.offers .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  section.offers .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+.container.p-4{
+  padding: 1px !important;
+}
+.p-4{
+  text-align: center;
+}
+.h-48 {
+    height: 32rem;
+}
+
+/* Fondo parallax para ofertas */
+.parallax-offer {
+  background-image: url('../img/banner-2.webp');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  padding: 80px 0;
+  color: white;
+  position: relative;
+}
+
+/* Overlay opcional para mejorar legibilidad */
+.parallax-offer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Contenedor de ofertas */
+#ofertas-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Diseño de tarjetas */
+.card-offer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-offer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-offer .card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.card-offer .card-img-top {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+}
+
+.card-offer .card-title {
+  font-size: 1.25rem;
+  color: #ff6200;
+  font-weight: bold;
+}
+
+.card-offer .card-text {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.card-offer .btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  margin-top: auto;
+  transition: background 0.3s ease;
+}
+
+.card-offer .btn-whatsapp:hover {
+  background-color: #1ebe57;
+  color: white;
+}

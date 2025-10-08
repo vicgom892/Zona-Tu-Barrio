@@ -1,0 +1,47 @@
+[
+  {
+    "id": "plomero-01",
+    "nombre": "Roberto Sánchez - Soluciones Rápidas",
+    "imagen": "img/plomero.webp",
+    "horario": "Lun-Vie 8:00-19:00, Sáb 9:00-14:00",
+    "horarioData": "Mon-Fri 08:00-19:00, Sat 09:00-14:00",
+    "telefono": "11 2345 6789",
+    "whatsapp": "541123456789",
+    "pagina": "negocios/plomero-roberto.html",
+    "icono": "fas fa-wrench",
+    "rubro": "Plomero",
+    "direccion": "Av. Corrientes 2150, CABA",
+    "latitud": -34.6037,
+    "longitud": -58.3816
+  },
+  {
+    "id": "plomero-02",
+    "nombre": "Tuberías Seguras S.A.",
+    "imagen": "img/plomero.webp",
+    "horario": "24 horas, todos los días",
+    "horarioData": "24/7",
+    "telefono": "11 3456 7890",
+    "whatsapp": "541134567890",
+    "pagina": "negocios/tuberias-seguras.html",
+    "icono": "fas fa-tools",
+    "rubro": "Servicio de Emergencia",
+    "direccion": "Calle Lavalle 876, CABA",
+    "latitud": -34.6012,
+    "longitud": -58.3892
+  },
+  {
+    "id": "plomero-03",
+    "nombre": "María López - Plomería Femenina",
+    "imagen": "img/plomero.webp",
+    "horario": "Lun-Sáb 9:00-18:00",
+    "horarioData": "Mon-Sat 09:00-18:00",
+    "telefono": "11 4567 8901",
+    "whatsapp": "541145678901",
+    "pagina": "negocios/plomeria-maria.html",
+    "icono": "fas fa-female",
+    "rubro": "Plomera",
+    "direccion": "Av. Rivadavia 3400, CABA",
+    "latitud": -34.6123,
+    "longitud": -58.4102
+  }
+]

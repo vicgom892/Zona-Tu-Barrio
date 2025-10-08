@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Ropa Consciente",
+    "descripcion": "Moda sostenible hecha localmente con telas ecológicas. Ropa para toda la familia.",
+    "categoria": "moda",
+    "imagen": "https://placehold.co/600x400/f59e0b/white?text=Ropa+Consciente",
+    "whatsapp": "+5491122334455",
+    "facebook": "https://facebook.com/ropaconsciente",
+    "instagram": "https://instagram.com/ropaconsciente",
+    "latitud": -34.6050,
+    "longitud": -58.3850,
+    "pagina": "https://ropaconsciente.com",
+    "direccion": "Av. de los Diseñadores 101, Ciudad",
+    "horario": "Lunes a Viernes: 14:00 - 20:00"
+  },
+  {
+    "nombre": "Calzado Artesanal Pérez",
+    "descripcion": "Zapatos hechos a mano, a tu medida. Cómodos, duraderos y con estilo clásico argentino.",
+    "categoria": "moda",
+    "imagen": "https://placehold.co/600x400/ef4444/white?text=Calzado+Artesanal",
+    "whatsapp": "+5491166778899",
+    "facebook": "https://facebook.com/calzadoartesanalperez",
+    "instagram": "",
+    "latitud": -34.6150,
+    "longitud": -58.3950,
+    "pagina": "",
+    "direccion": "Calle del Calzado 202, Ciudad",
+    "horario": "Martes a Sábado: 10:00 - 18:00"
+  }
+]

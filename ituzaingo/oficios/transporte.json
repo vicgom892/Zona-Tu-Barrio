@@ -1,0 +1,47 @@
+[
+  {
+    "id": "transporte-01",
+    "nombre": "Rápido Envíos - Logística Local",
+    "imagen": "img/transporte.jpg",
+    "horario": "24 horas, todos los días",
+    "horarioData": "24/7",
+    "telefono": "11 5678 9012",
+    "whatsapp": "541156789012",
+    "pagina": "negocios/rapido-envios.html",
+    "icono": "fas fa-truck",
+    "rubro": "Transporte de Carga",
+    "direccion": "Av. Rivadavia 7800, CABA",
+    "latitud": -34.6345,
+    "longitud": -58.4567
+  },
+  {
+    "id": "transporte-02",
+    "nombre": "Mudanzas Express S.R.L.",
+    "imagen": "img/transporte.jpg",
+    "horario": "Lun-Dom 8:00-20:00",
+    "horarioData": "Mon-Sun 08:00-20:00",
+    "telefono": "11 6789 0123",
+    "whatsapp": "541167890123",
+    "pagina": "negocios/mudanzas-express.html",
+    "icono": "fas fa-box-open",
+    "rubro": "Mudanzas",
+    "direccion": "Calle Viamonte 2500, CABA",
+    "latitud": -34.6089,
+    "longitud": -58.3998
+  },
+  {
+    "id": "transporte-03",
+    "nombre": "Carlos Díaz - Flete Particular",
+    "imagen": "img/transporte.jpg",
+    "horario": "Lun-Sáb 7:00-19:00",
+    "horarioData": "Mon-Sat 07:00-19:00",
+    "telefono": "11 7890 1234",
+    "whatsapp": "541178901234",
+    "pagina": "negocios/carlos-flete.html",
+    "icono": "fas fa-van-shuttle",
+    "rubro": "Flete Liviano",
+    "direccion": "Av. Corrientes 6200, CABA",
+    "latitud": -34.6123,
+    "longitud": -58.4321
+  }
+]

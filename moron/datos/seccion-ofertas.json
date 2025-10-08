@@ -1,0 +1,122 @@
+[
+    {
+        "title": "Descuento 50% en Panes Frescos",
+        "description": "¡Panes recién horneados con 50% de descuento! Ideal para el desayuno familiar. Oferta limitada.",
+        "rubro": "Panadería",
+        "whatsapp": "56912345678",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://panaderia.com",
+        "instagram_url": "https://instagram.com/panaderia",
+        "start_date": "2025-09-08T08:00:00",
+        "end_date": "2025-09-08T12:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Oferta Relámpago en Medicamentos",
+        "description": "15% off en todos los analgésicos. ¡Solo por unas horas! Consulta con nuestro equipo.",
+        "rubro": "Farmacia",
+        "whatsapp": "56987654321",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://farmacia.com",
+        "instagram_url": "https://instagram.com/farmacia",
+        "start_date": "2025-09-07T10:00:00",
+        "end_date": "2025-09-07T14:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Fin de Semana de Descuentos en Snacks",
+        "description": "Compra 2 paquetes de snacks y lleva 1 gratis. Perfecto para el fin de semana.",
+        "rubro": "Kiosco",
+        "whatsapp": "56944556677",
+        "image": "./img/farmacia.webp",
+        "web_url": "",
+        "instagram_url": "https://instagram.com/kiosco",
+        "start_date": "2025-09-07T00:00:00",
+        "end_date": "2025-09-08T23:59:59",
+        "likes": 0
+    },
+    {
+        "title": "Corte de Cabello con Estilo Gratis",
+        "description": "Corte gratuito para niños todo el fin de semana. ¡Trae a la familia!",
+        "rubro": "Barbería",
+        "whatsapp": "56911223344",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://barberia.com",
+        "instagram_url": "",
+        "start_date": "2025-09-07T09:00:00",
+        "end_date": "2025-09-08T18:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Promoción Diaria en Cafés",
+        "description": "Café del día con 20% de descuento, disponible todos los días de la semana.",
+        "rubro": "Otro",
+        "whatsapp": "56999887766",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://panaderia.com",
+        "instagram_url": "https://instagram.com/cafeteria",
+        "start_date": "2025-09-07T07:00:00",
+        "end_date": "2025-09-14T23:59:59",
+        "likes": 0
+    },
+    {
+        "title": "Oferta Solo Hoy en Jugos Naturales",
+        "description": "Jugos frescos al 2x1 solo por hoy. ¡No te lo pierdas!",
+        "rubro": "Panadería",
+        "whatsapp": "56933445566",
+        "image": "./img/farmacia.webp",
+        "web_url": "",
+        "instagram_url": "https://instagram.com/jugos",
+        "start_date": "2025-09-07T09:00:00",
+        "end_date": "2025-09-07T21:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Descuento Permanente en Vitaminas",
+        "description": "10% off en vitaminas todos los días. Mantén tu salud en forma.",
+        "rubro": "Farmacia",
+        "whatsapp": "56922334455",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://vitaminas.com",
+        "instagram_url": "",
+        "start_date": "2025-09-07T00:00:00",
+        "end_date": "2025-12-31T23:59:59",
+        "likes": 0
+    },
+    {
+        "title": "Fin de Semana de Golosinas",
+        "description": "Golosinas variadas con 25% de descuento solo este fin de semana.",
+        "rubro": "Kiosco",
+        "whatsapp": "56955667788",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://kiosco.com",
+        "instagram_url": "https://instagram.com/golosinas",
+        "start_date": "2025-09-07T10:00:00",
+        "end_date": "2025-09-08T20:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Afeitado Gratis Hoy",
+        "description": "Servicio de afeitado gratis solo por hoy. ¡Ven y renueva tu look!",
+        "rubro": "Barbería",
+        "whatsapp": "56966778899",
+        "image": "./img/farmacia.webp",
+        "web_url": "",
+        "instagram_url": "https://instagram.com/barberia",
+        "start_date": "2025-09-07T11:00:00",
+        "end_date": "2025-09-07T19:00:00",
+        "likes": 0
+    },
+    {
+        "title": "Promoción Semanal en Frutas",
+        "description": "Frutas frescas con precios especiales todos los días de la semana.",
+        "rubro": "Otro",
+        "whatsapp": "56977889900",
+        "image": "./img/farmacia.webp",
+        "web_url": "https://fruteria.com",
+        "instagram_url": "https://instagram.com/fruteria",
+        "start_date": "2025-09-07T08:00:00",
+        "end_date": "2025-09-13T23:59:59",
+        "likes": 0
+    }
+]

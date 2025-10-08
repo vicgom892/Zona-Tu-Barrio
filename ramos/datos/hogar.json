@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Jardinería Verde",
+    "descripcion": "Diseño, instalación y mantenimiento de jardines. Venta de plantas y macetas artesanales.",
+    "categoria": "hogar",
+    "imagen": "https://placehold.co/600x400/16a34a/white?text=Jardinería+Verde",
+    "whatsapp": "+5491177889900",
+    "facebook": "https://facebook.com/jardineriaverde",
+    "instagram": "https://instagram.com/jardineriaverde",
+    "latitud": -34.5950,
+    "longitud": -58.3950,
+    "pagina": "https://jardineriaverde.ar",
+    "direccion": "Vivero: Ruta 200 Km 10, Ciudad",
+    "horario": "Martes a Domingo: 9:00 - 18:00"
+  },
+  {
+    "nombre": "Decoración Hogar",
+    "descripcion": "Asesoramiento en decoración, venta de muebles reciclados y objetos de diseño local.",
+    "categoria": "hogar",
+    "imagen": "https://placehold.co/600x400/34d399/white?text=Decoración+Hogar",
+    "whatsapp": "+5491111223344",
+    "facebook": "https://facebook.com/decoracionhogar",
+    "instagram": "https://instagram.com/decoracionhogar",
+    "latitud": -34.6090,
+    "longitud": -58.3840,
+    "pagina": "",
+    "direccion": "Galería de Artesanos, Local 12",
+    "horario": "Miércoles a Domingo: 14:00 - 20:00"
+  }
+]

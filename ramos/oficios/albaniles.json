@@ -1,0 +1,47 @@
+[
+  {
+    "id": "albanil-01",
+    "nombre": "Constructora Martínez Hnos.",
+    "imagen": "img/albañil.webp",
+    "horario": "Lun-Sáb 7:00-18:00",
+    "horarioData": "Mon-Sat 07:00-18:00",
+    "telefono": "11 1234 5678",
+    "whatsapp": "541112345678",
+    "pagina": "negocios/martinez-hermanos.html",
+    "icono": "fas fa-hard-hat",
+    "rubro": "Albañilería",
+    "direccion": "Av. Juan B. Justo 5000, CABA",
+    "latitud": -34.5876,
+    "longitud": -58.4432
+  },
+  {
+    "id": "albanil-02",
+    "nombre": "Pedro Gómez - Construcciones",
+    "imagen": "img/albañil.webp",
+    "horario": "Lun-Vie 7:30-17:30",
+    "horarioData": "Mon-Fri 07:30-17:30",
+    "telefono": "11 2345 6780",
+    "whatsapp": "541123456780",
+    "pagina": "negocios/pedro-construcciones.html",
+    "icono": "fas fa-brick",
+    "rubro": "Albañil Independiente",
+    "direccion": "Calle Soler 2800, CABA",
+    "latitud": -34.6012,
+    "longitud": -58.4321
+  },
+  {
+    "id": "albanil-03",
+    "nombre": "Remodelaciones Express",
+    "imagen": "img/albañil.webp",
+    "horario": "Lun-Dom 8:00-20:00",
+    "horarioData": "Mon-Sun 08:00-20:00",
+    "telefono": "11 3456 7801",
+    "whatsapp": "541134567801",
+    "pagina": "negocios/remodelaciones-express.html",
+    "icono": "fas fa-home",
+    "rubro": "Reformas y Construcción",
+    "direccion": "Av. Scalabrini Ortiz 1800, CABA",
+    "latitud": -34.5923,
+    "longitud": -58.4189
+  }
+]

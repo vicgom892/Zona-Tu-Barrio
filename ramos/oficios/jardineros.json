@@ -1,0 +1,47 @@
+[
+  {
+    "id": "jardinero-01",
+    "nombre": "Verde Vida - Jardinería Integral",
+    "imagen": "img/jardinero.jpg",
+    "horario": "Lun-Sáb 8:00-18:00",
+    "horarioData": "Mon-Sat 08:00-18:00",
+    "telefono": "11 2345 6789",
+    "whatsapp": "541123456789",
+    "pagina": "negocios/verde-vida.html",
+    "icono": "fas fa-seedling",
+    "rubro": "Jardinero",
+    "direccion": "Av. del Libertador 5200, CABA",
+    "latitud": -34.5789,
+    "longitud": -58.4321
+  },
+  {
+    "id": "jardinero-02",
+    "nombre": "Paisajismo Urbano S.A.",
+    "imagen": "img/jardinero.jpg",
+    "horario": "Lun-Vie 7:30-17:30",
+    "horarioData": "Mon-Fri 07:30-17:30",
+    "telefono": "11 3456 7890",
+    "whatsapp": "541134567890",
+    "pagina": "negocios/paisajismo-urbano.html",
+    "icono": "fas fa-tree",
+    "rubro": "Diseño de Jardines",
+    "direccion": "Calle Thames 1800, Palermo",
+    "latitud": -34.5945,
+    "longitud": -58.4234
+  },
+  {
+    "id": "jardinero-03",
+    "nombre": "Laura Méndez - Cuidado de Plantas",
+    "imagen": "img/jardinero.jpg",
+    "horario": "Lun-Sáb 9:00-17:00",
+    "horarioData": "Mon-Sat 09:00-17:00",
+    "telefono": "11 4567 8901",
+    "whatsapp": "541145678901",
+    "pagina": "negocios/laura-jardinera.html",
+    "icono": "fas fa-leaf",
+    "rubro": "Jardinera Profesional",
+    "direccion": "Av. Cabildo 3400, CABA",
+    "latitud": -34.5678,
+    "longitud": -58.4456
+  }
+]

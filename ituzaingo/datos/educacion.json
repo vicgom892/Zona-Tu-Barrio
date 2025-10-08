@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Clases Particulares ABC",
+    "descripcion": "Refuerzo escolar en matemáticas, lengua e inglés para primaria y secundaria. Clases online o presenciales.",
+    "categoria": "educacion",
+    "imagen": "https://placehold.co/600x400/3b82f6/white?text=Clases+ABC",
+    "whatsapp": "+5491166778899",
+    "facebook": "https://facebook.com/clasesparticularesabc",
+    "instagram": "https://instagram.com/clasesparticularesabc",
+    "latitud": -34.6020,
+    "longitud": -58.3800,
+    "pagina": "https://clasesabc.edu.ar",
+    "direccion": "Calle del Estudio 808, Ciudad",
+    "horario": "Lunes a Viernes: 15:00 - 21:00"
+  },
+  {
+    "nombre": "Talleres Creativos",
+    "descripcion": "Talleres de arte, música y programación para niños y adolescentes. ¡Aprende jugando!",
+    "categoria": "educacion",
+    "imagen": "https://placehold.co/600x400/60a5fa/white?text=Talleres+Creativos",
+    "whatsapp": "+5491100112233",
+    "facebook": "https://facebook.com/tallerescreativos",
+    "instagram": "https://instagram.com/tallerescreativos",
+    "latitud": -34.6160,
+    "longitud": -58.3920,
+    "pagina": "",
+    "direccion": "Centro Cultural Barrial, Sala 3",
+    "horario": "Sábados: 10:00 - 14:00"
+  }
+]

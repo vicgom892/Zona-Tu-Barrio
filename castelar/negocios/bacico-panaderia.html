@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medialunas Del Abuelo</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="icon" href="../img/icon-192x192.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/negocios.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: url('/img/panaderia.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+      z-index: 0;
+    }
+    h3, p{
+      color: #fff !important;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      padding-top: 6rem !important;
+      max-width: 900px;
+      margin: 0 auto;
+      flex: 1 0 auto;
+      padding: 20px;
+    }
+    .info-card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+    .offer-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: background 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .offer-card:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .offer-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .whatsapp-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      color: white;
+      background: linear-gradient(90deg, #25d366, #1da851);
+      text-decoration: none;
+      border-radius: 25px;
+      margin-top: 15px;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(37, 211, 102, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      color: #e0e0e0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    p {
+      font-size: 1.15em;
+      margin: 8px 0;
+      color: #e0e0e0;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 2;
+      transition: background 0.3s ease;
+    }
+    .header.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .header img {
+      height: 50px;
+      transition: transform 0.3s ease;
+    }
+    .header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 600;
+      padding: 5px 15px;
+      border-radius: 20px;
+      transition: color 0.3s ease, background 0.3s ease;
+    }
+    .header a:hover {
+      color: #25d366;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .footer {
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 15px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 20px;
+    }
+    .footer p {
+      margin-bottom: 10px;
+      font-size: 1em;
+    }
+    .footer a {
+      color: #25d366;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: color 0.3s ease;
+    }
+    .footer a:hover {
+      color: #1da851;
+    }
+    @media (max-width: 640px) {
+      .content {
+        padding: 10px;
+        padding-top: 5rem;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+      .header {
+        padding: 10px;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .header-content {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .header img {
+        height: 40px;
+      }
+      .header a {
+        font-size: 1em;
+        padding: 5px 10px;
+      }
+      .offer-image {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <img src="../img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clik</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+  <div class="overlay"></div>
+  <section class="container">
+    <header class="header" id="mainHeader">
+      <div class="header-content">
+        <img src="../img/icon-192x192.png" alt="Logo Medialunas Del Abuelo" class="h-10">
+        <div>
+          <a href="#ofertas">Ofertas</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <div class="info-card">
+        <h1>Medialunas Del Abuelo</h1>
+        <p><strong>Horario:</strong> Lunes-Sábado 06:00-20:00</p>
+        <p><strong>Dirección:</strong> Av. Rivadavia 1234, Castelar, Buenos Aires</p>
+        <a href="https://wa.me/5491157194796?text=Hola,%20quiero%20contactar%20con%20Medialunas%20Del%20Abuelo" class="whatsapp-btn" target="_blank">
+          <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+        </a>
+      </div>
+      <div class="info-card">
+        <h2 class="text-xl font-semibold mb-4">Ofertas Especiales</h2>
+        <div class="offers-grid">
+          <div class="offer-card">
+            <img src="../img/panaderia-1.webp" alt="Pan Fresco" class="offer-image">
+            <h3 class="font-semibold">Pan Fresco</h3>
+            <p>20% de descuento en panes diarios.</p>
+          </div>
+          <div class="offer-card">
+            <img src="../img/panaderia-2.webp" alt="Pasteles Decorados" class="offer-image">
+            <h3 class="font-semibold">Pasteles Decorados</h3>
+            <p>Oferta especial: $500 por pastel personalizado.</p>
+          </div>
+          <div class="offer-card">
+            <img src="../img/panaderia-3.webp" alt="Tarta Gourmet" class="offer-image">
+            <h3 class="font-semibold">Tarta Gourmet</h3>
+            <p>Compra 1 y llevate la segunda al 50% off.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <p>Síguenos en:</p>
+    <a href="https://facebook.com/medialunasdelabuelo" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="https://instagram.com/medialunasdelabuelo" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <!-- Botón de instalación en el footer -->
+    <div class="install-banner mt-4 p-3 bg-white rounded shadow-sm">
+      <div class="d-flex align-items-center">
+        <img src="../img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
+        <div class="flex-grow-1">
+          <div class="small text-muted mb-1">¿Quieres la app completa?</div>
+          <button id="botonInstalar" class="btn btn-success w-100 py-2">
+            <i class="fas fa-download me-1"></i>Instalar Tu Barrio A Un Clik
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+  <script src="../js/splash.js"></script>
+  <script src="../js/install-app.js"></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registrado con éxito:', registration.scope);
+          
+          // Escuchar actualizaciones
+          registration.onupdatefound = function() {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = function() {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Mostrar notificación de actualización
+                const updateNotification = document.createElement('div');
+                updateNotification.className = 'update-notification';
+                updateNotification.innerHTML = `
+                  <div class="update-content">
+                    <p>¡Hay una nueva versión disponible!</p>
+                    <button class="btn-update">Actualizar ahora</button>
+                  </div>
+                `;
+                
+                document.body.appendChild(updateNotification);
+                
+                document.querySelector('.btn-update').addEventListener('click', function() {
+                  window.location.reload();
+                });
+              }
+            };
+          };
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker falló al registrarse:', error);
+        });
+    });
+    
+    // Detectar cuando el service worker activa una nueva versión
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  }
+</script>
+
+<style>
+  .update-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .update-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .btn-update {
+    background: #e1306c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-update:hover {
+    background: #c12757;
+    transform: translateY(-2px);
+  }
+</style>
+</body>
+</html>

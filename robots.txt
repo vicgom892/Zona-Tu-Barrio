@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Bloquear archivos y carpetas sensibles
+Disallow: /admin/
+Disallow: /private/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /tmp/
+
+# Bloquear archivos de sistema y configuración
+Disallow: /.env
+Disallow: /.htaccess
+Disallow: /web.config
+Disallow: /package.json
+Disallow: /composer.json
+Disallow: /yarn.lock
+
+# Bloquear parámetros de tracking para evitar contenido duplicado
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+Disallow: /*?msclkid=
+Disallow: /*?ref=
+
+# Crawl delay para no sobrecargar el servidor
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://www.tubarrioaunclik.com/sitemap.xml

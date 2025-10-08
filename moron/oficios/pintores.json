@@ -1,0 +1,47 @@
+[
+  {
+    "id": "pintor-01",
+    "nombre": "Pinturas Express - Javier Morales",
+    "imagen": "img/pintor.jpg",
+    "horario": "Lun-Sáb 8:00-19:00",
+    "horarioData": "Mon-Sat 08:00-19:00",
+    "telefono": "11 4567 1234",
+    "whatsapp": "541145671234",
+    "pagina": "negocios/javier-pintor.html",
+    "icono": "fas fa-paint-roller",
+    "rubro": "Pintor",
+    "direccion": "Av. Córdoba 4500, CABA",
+    "latitud": -34.6045,
+    "longitud": -58.4123
+  },
+  {
+    "id": "pintor-02",
+    "nombre": "Colores y Hogar S.R.L.",
+    "imagen": "img/pintor.jpg",
+    "horario": "Lun-Vie 8:00-18:00",
+    "horarioData": "Mon-Fri 08:00-18:00",
+    "telefono": "11 5678 2345",
+    "whatsapp": "541156782345",
+    "pagina": "negocios/colores-hogar.html",
+    "icono": "fas fa-palette",
+    "rubro": "Pintura Decorativa",
+    "direccion": "Calle Thames 1800, Palermo",
+    "latitud": -34.5945,
+    "longitud": -58.4234
+  },
+  {
+    "id": "pintor-03",
+    "nombre": "Laura Díaz - Pintura Fina",
+    "imagen": "img/pintor.jpg",
+    "horario": "Lun-Sáb 9:00-18:00",
+    "horarioData": "Mon-Sat 09:00-18:00",
+    "telefono": "11 6789 3456",
+    "whatsapp": "541167893456",
+    "pagina": "negocios/laura-pintora.html",
+    "icono": "fas fa-brush",
+    "rubro": "Pintora Profesional",
+    "direccion": "Av. Santa Fe 3200, CABA",
+    "latitud": -34.5967,
+    "longitud": -58.4056
+  }
+]

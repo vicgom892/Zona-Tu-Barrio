@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Belleza Natural",
+    "descripcion": "Tratamientos faciales, depilación y masajes con productos 100% naturales. Ambiente relajante.",
+    "categoria": "belleza",
+    "imagen": "https://placehold.co/600x400/ec4899/white?text=Belleza+Natural",
+    "whatsapp": "+5491155667788",
+    "facebook": "https://facebook.com/bellezanatural",
+    "instagram": "https://instagram.com/bellezanatural",
+    "latitud": -34.6060,
+    "longitud": -58.3830,
+    "pagina": "https://bellezanatural.ar",
+    "direccion": "Calle Serenidad 606, Ciudad",
+    "horario": "Martes a Sábado: 10:00 - 20:00"
+  },
+  {
+    "nombre": "Peluquería del Barrio",
+    "descripcion": "Cortes, tintes, peinados y tratamientos capilares. Atención personalizada para toda la familia.",
+    "categoria": "belleza",
+    "imagen": "https://placehold.co/600x400/f472b6/white?text=Peluquería+del+Barrio",
+    "whatsapp": "+5491199001122",
+    "facebook": "https://facebook.com/peluqueriadeldelbarrio",
+    "instagram": "https://instagram.com/peluqueriadeldelbarrio",
+    "latitud": -34.6140,
+    "longitud": -58.3870,
+    "pagina": "",
+    "direccion": "Av. del Corte 707, Ciudad",
+    "horario": "Lunes a Sábado: 9:00 - 20:00"
+  }
+]
