@@ -1023,76 +1023,7 @@
       }
     });
   </script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      // Evitar doble registro
-      if (window.serviceWorkerRegistered) return;
-      window.serviceWorkerRegistered = true;
-
-      navigator.serviceWorker.register('sw.js')
-        .then(function (registration) {
-          console.log('✅ ServiceWorker registrado:', registration.scope);
-
-          // Detectar cuando hay una nueva versión lista
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
-            let refreshing = false;
-
-            installingWorker.onstatechange = function () {
-              if (installingWorker.state === 'installed') {
-                // Solo si ya hay un controlador, significa que hay una actualización
-                if (navigator.serviceWorker.controller) {
-                  console.log('🔄 Nueva versión disponible. Preparando notificación...');
-
-                  // Mostrar notificación de actualización
-                  showUpdateNotification();
-                } else {
-                  console.log('📥 Primera instalación del Service Worker');
-                }
-              }
-            };
-          };
-        })
-        .catch(function (error) {
-          console.log('❌ ServiceWorker falló al registrarse:', error);
-        });
-    });
-
-    // Escuchar cambio de controlador (solo cuando el nuevo SW toma control)
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', function () {
-      if (refreshing) return;
-      refreshing = true;
-      console.log('🔁 Controlador cambiado: recargando...');
-      window.location.reload();
-    });
-
-    // Función para mostrar notificación de actualización
-    function showUpdateNotification() {
-      const existing = document.querySelector('.update-notification');
-      if (existing) return; // Evitar duplicados
-
-      const updateNotification = document.createElement('div');
-      updateNotification.className = 'update-notification';
-      updateNotification.innerHTML = `
-        <div class="update-content">
-          <p>¡Hay una nueva versión disponible!</p>
-          <button class="btn-update">Actualizar ahora</button>
-        </div>
-      `;
-      document.body.appendChild(updateNotification);
-
-      document.querySelector('.btn-update').addEventListener('click', function () {
-        navigator.serviceWorker.getRegistration().then(reg => {
-          if (reg && reg.waiting) {
-            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-          }
-        });
-      });
-    }
-  }
-</script>
+ 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

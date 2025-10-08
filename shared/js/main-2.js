@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- SERVICE WORKER EN PRODUCCIÓN ---
   if ('serviceWorker' in navigator) {
     // Registrar SW sin caché y con control de versiones
-    navigator.serviceWorker.register(`./shared/js/sw.js?v=${APP_VERSION}`, {
+    navigator.serviceWorker.register(`/sw.js?v=${APP_VERSION}`, {
       updateViaCache: 'none'
     }).then(registration => {
       console.log('✅ SW registrado en producción:', APP_VERSION);
