@@ -2124,7 +2124,7 @@ document.addEventListener('keydown', function(event) {
 
 // sw-selector.js (en raíz) - Solo para index.html de selector
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw-selector.js')
+  navigator.serviceWorker.register('/sw-selector.js')
     .then(registration => {
       console.log('✅ SW Selector registrado:', registration.scope);
     })
