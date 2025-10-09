@@ -2906,20 +2906,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   gtag('config', 'G-XFQL2JFLTX');
 </script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  // Especifica el SCOPE correcto
-  navigator.serviceWorker.register('/Zona-Tu-Barrio/shared/js/sw.js', {
-    scope: '/Zona-Tu-Barrio/castelar/'
-  })
-  .then(registration => {
-    console.log('✅ SW Castelar registrado:', registration.scope);
-  })
-  .catch(error => {
-    console.error('❌ Error SW Castelar:', error);
-  });
-}
-</script>
 </body>
 </html>

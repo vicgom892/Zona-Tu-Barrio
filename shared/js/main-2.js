@@ -43,9 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isLocalidad) {
       // Registrar SW sin caché y con control de versiones
-      navigator.serviceWorker.register(`Zona-Tu-Barrio/shared/js/sw.js?v=${APP_VERSION}`, {
+      // En main-2.js - línea ~38
+      navigator.serviceWorker.register(`/Zona-Tu-Barrio/shared/js/sw.js?v=${APP_VERSION}`, {
+        scope: '/Zona-Tu-Barrio/castelar/', // ← Agrega scope específico
         updateViaCache: 'none'
-      }).then(registration => {
+      })
+      .then(registration => {
         console.log('✅ SW registrado en producción para localidad:', APP_VERSION);
 
         // Verificar actualizaciones periódicas (cada 10 minutos)
