@@ -2909,14 +2909,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 if ('serviceWorker' in navigator) {
-  // Ruta CORRECTA para GitHub Pages
-  navigator.serviceWorker.register('/Zona-Tu-Barrio/shared/js/sw.js')
-    .then(registration => {
-      console.log('✅ SW Multi-localidad registrado:', registration.scope);
-    })
-    .catch(error => {
-      console.error('❌ Error SW Multi-localidad:', error);
-    });
+  // Especifica el SCOPE correcto
+  navigator.serviceWorker.register('/Zona-Tu-Barrio/shared/js/sw.js', {
+    scope: '/Zona-Tu-Barrio/castelar/'
+  })
+  .then(registration => {
+    console.log('✅ SW Castelar registrado:', registration.scope);
+  })
+  .catch(error => {
+    console.error('❌ Error SW Castelar:', error);
+  });
 }
 </script>
 </body>
