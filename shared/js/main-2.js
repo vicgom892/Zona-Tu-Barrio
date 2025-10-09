@@ -1920,28 +1920,5 @@ if (carouselSlider) {
   window.setupLocationButton = setupLocationButton;
   window.updateBusinessList = updateBusinessList;
   window.isBusinessOpen = isBusinessOpen;
-
-  // Agrega esto en tu main-2.js
-document.addEventListener('DOMContentLoaded', function() {
-  const btnVolverSelector = document.getElementById('btnVolverSelector');
   
-  if (btnVolverSelector) {
-    btnVolverSelector.addEventListener('click', function() {
-      // Efecto de clic visual
-      this.style.transform = 'scale(0.9)';
-      this.style.background = '#e2e8f0';
-      
-      // Redirigir después de breve feedback
-      setTimeout(() => {
-        window.location.href = '/Zona-Tu-Barrio/';
-      }, 200);
-      
-      // Restaurar estilo
-      setTimeout(() => {
-        this.style.transform = '';
-        this.style.background = '';
-      }, 300);
-    });
-  }
-});
 }); 
