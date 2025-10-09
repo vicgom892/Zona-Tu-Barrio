@@ -144,94 +144,90 @@
 <header id="mainHeader" class="modern-header bg-white shadow-sm">
   <div class="container d-flex justify-content-between align-items-center py-2">
     <!-- Menú escritorio - dropdowns independientes -->
-<nav class="d-none d-lg-flex align-items-center gap-2">
-  <!-- Inicio -->
-  <!--<a href="index.html" class="text-dark font-weight-bold d-flex align-items-center">
-    <i class="fas fa-home me-1"></i> Inicio
-  </a>-->
-
-  <!-- Alimentos -->
-  <div class="dropdown">
-    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="alimentosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-utensils me-1"></i> Alimentos
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="alimentosDropdown">
-      <li><a class="dropdown-item" href="#panaderias"><i class="fas fa-bread-slice me-2"></i>Panaderías</a></li>
-      <li><a class="dropdown-item" href="#pastas"><i class="fas fa-pizza-slice me-2"></i>Pastas</a></li>
-      <li><a class="dropdown-item" href="#verdulerias"><i class="fas fa-carrot me-2"></i>Verdulerías</a></li>
-      <li><a class="dropdown-item" href="#fiambrerias"><i class="fas fa-cheese me-2"></i>Fiambrerías</a></li>
-      <li><a class="dropdown-item" href="#cafeterias"><i class="fas fa-mug-hot me-2"></i>Cafeterías</a></li>
-      <li><a class="dropdown-item" href="#carnicerias"><i class="fas fa-drumstick-bite me-2"></i>Carnicerías</a></li>
-      <li><a class="dropdown-item" href="#comida"><i class="fas fa-hamburger me-2"></i>Comida</a></li>
-      <li><a class="dropdown-item" href="#granja"><i class="fas fa-tractor me-2"></i>Granja</a></li>
-    </ul>
-  </div>
-
-  <!-- Servicios -->
-  <div class="dropdown">
-    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="serviciosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-tools me-1"></i> Servicios
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
-      <li><a class="dropdown-item" href="#kioscos"><i class="fas fa-store me-2"></i>Kioscos</a></li>
-      <li><a class="dropdown-item" href="#mascotas"><i class="fas fa-paw me-2"></i>Mascotas</a></li>
-      <li><a class="dropdown-item" href="#barberias"><i class="fas fa-cut me-2"></i>Barberías</a></li>
-      <li><a class="dropdown-item" href="#ferreterias"><i class="fas fa-hammer me-2"></i>Ferreterías</a></li>
-      <li><a class="dropdown-item" href="#farmacias"><i class="fas fa-pills me-2"></i>Farmacias</a></li>
-      <li><a class="dropdown-item" href="#florerias"><i class="fas fa-seedling me-2"></i>Florerías</a></li>
-      <li><a class="dropdown-item" href="#talleres"><i class="fas fa-wrench me-2"></i>Talleres</a></li>
-      <li><a class="dropdown-item" href="#veterinarias"><i class="fas fa-clinic-medical me-2"></i>Veterinarias</a></li>
-      <li><a class="dropdown-item" href="#muebles"><i class="fas fa-couch me-2"></i>Mueblerías</a></li>
-      <li><a class="dropdown-item" href="#uñas"><i class="fas fa-spa me-2"></i>Uñas</a></li>
-    </ul>
-  </div>
-
-  <!-- Oficios - ENLACE DIRECTO -->
-  <a href="../castelar/oficios-profeciones.html" class="text-dark font-weight-bold d-flex align-items-center">
-    <i class="fas fa-hard-hat me-1"></i> Oficios
-  </a>
-
-  <!-- Emprendimientos - ENLACE DIRECTO -->
-  <a href="../castelar/emprendimientos.html" class="text-dark font-weight-bold d-flex align-items-center">
-    <i class="fas fa-lightbulb me-1"></i> Emprendimientos
-  </a>
-
-  <!-- Otros - NUEVO DROPDOWN -->
-  <div class="dropdown">
-    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="otrosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-ellipsis-h me-1"></i> Otros
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="otrosDropdown">
-      <li><a class="dropdown-item" href="#librerias"><i class="fas fa-book me-2"></i>Librerías</a></li>
-      <li><a class="dropdown-item" href="#ropa"><i class="fas fa-tshirt me-2"></i>Tiendas</a></li>
-      <li><a class="dropdown-item" href="#mates"><i class="fas fa-mug-hot me-2"></i>Mates</a></li>
-    </ul>
-  </div>
-
-  <!-- Ofertas / App -->
-  <div class="dropdown">
-    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="ofertasDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-tags me-1"></i> Ofertas
-    </button>
-    <ul class="dropdown-menu p-3" aria-labelledby="ofertasDropdown" style="min-width: 280px;">
-      <li>
-        <a class="dropdown-item" href="../castelar/comunidad.html">
-          <i class="fas fa-gift text-success me-2"></i> Promociones
-        </a>
-      </li>
-      <li><hr class="dropdown-divider"></li>
-      <li class="px-2">
-        <div class="small text-muted mb-2"><i class="fas fa-mobile-alt me-1"></i> ¿Quieres la app?</div>
-        <div class="d-flex align-items-center">
-          <img src="img/icon-192x192.png" alt="App" class="me-2" style="width: 60px; height: 60px; object-fit: contain;">
-          <button id="botonInstalar" class="btn btn-sm btn-success">
-            <i class="fas fa-download me-1"></i> Instalar
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <nav class="d-none d-lg-flex align-items-center gap-2">
+    
+      <!-- Alimentos -->
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="alimentosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-utensils me-1"></i> Alimentos
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="alimentosDropdown">
+          <li><a class="dropdown-item" href="#panaderias"><i class="fas fa-bread-slice me-2"></i>Panaderías</a></li>
+          <li><a class="dropdown-item" href="#pastas"><i class="fas fa-pizza-slice me-2"></i>Pastas</a></li>
+          <li><a class="dropdown-item" href="#verdulerias"><i class="fas fa-carrot me-2"></i>Verdulerías</a></li>
+          <li><a class="dropdown-item" href="#fiambrerias"><i class="fas fa-cheese me-2"></i>Fiambrerías</a></li>
+          <li><a class="dropdown-item" href="#cafeterias"><i class="fas fa-mug-hot me-2"></i>Cafeterías</a></li>
+          <li><a class="dropdown-item" href="#carnicerias"><i class="fas fa-drumstick-bite me-2"></i>Carnicerías</a></li>
+          <li><a class="dropdown-item" href="#comida"><i class="fas fa-hamburger me-2"></i>Comida</a></li>
+          <li><a class="dropdown-item" href="#granja"><i class="fas fa-tractor me-2"></i>Granja</a></li>
+        </ul>
+      </div>
+    
+      <!-- Servicios -->
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="serviciosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-tools me-1"></i> Servicios
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
+          <li><a class="dropdown-item" href="#kioscos"><i class="fas fa-store me-2"></i>Kioscos</a></li>
+          <li><a class="dropdown-item" href="#mascotas"><i class="fas fa-paw me-2"></i>Mascotas</a></li>
+          <li><a class="dropdown-item" href="#barberias"><i class="fas fa-cut me-2"></i>Barberías</a></li>
+          <li><a class="dropdown-item" href="#ferreterias"><i class="fas fa-hammer me-2"></i>Ferreterías</a></li>
+          <li><a class="dropdown-item" href="#farmacias"><i class="fas fa-pills me-2"></i>Farmacias</a></li>
+          <li><a class="dropdown-item" href="#florerias"><i class="fas fa-seedling me-2"></i>Florerías</a></li>
+          <li><a class="dropdown-item" href="#talleres"><i class="fas fa-wrench me-2"></i>Talleres</a></li>
+          <li><a class="dropdown-item" href="#veterinarias"><i class="fas fa-clinic-medical me-2"></i>Veterinarias</a></li>
+          <li><a class="dropdown-item" href="#muebles"><i class="fas fa-couch me-2"></i>Mueblerías</a></li>
+          <li><a class="dropdown-item" href="#uñas"><i class="fas fa-spa me-2"></i>Uñas</a></li>
+        </ul>
+      </div>
+    
+      <!-- Oficios - ENLACE DIRECTO -->
+      <a href="../castelar/oficios-profeciones.html" class="text-dark font-weight-bold d-flex align-items-center">
+        <i class="fas fa-hard-hat me-1"></i> Oficios
+      </a>
+    
+      <!-- Emprendimientos - ENLACE DIRECTO -->
+      <a href="../castelar/emprendimientos.html" class="text-dark font-weight-bold d-flex align-items-center">
+        <i class="fas fa-lightbulb me-1"></i> Emprendimientos
+      </a>
+    
+      <!-- Otros - NUEVO DROPDOWN -->
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="otrosDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-ellipsis-h me-1"></i> Otros
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="otrosDropdown">
+          <li><a class="dropdown-item" href="#librerias"><i class="fas fa-book me-2"></i>Librerías</a></li>
+          <li><a class="dropdown-item" href="#ropa"><i class="fas fa-tshirt me-2"></i>Tiendas</a></li>
+          <li><a class="dropdown-item" href="#mates"><i class="fas fa-mug-hot me-2"></i>Mates</a></li>
+        </ul>
+      </div>
+    
+      <!-- Ofertas / App -->
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="ofertasDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-tags me-1"></i> Ofertas
+        </button>
+        <ul class="dropdown-menu p-3" aria-labelledby="ofertasDropdown" style="min-width: 280px;">
+          <li>
+            <a class="dropdown-item" href="../castelar/comunidad.html">
+              <i class="fas fa-gift text-success me-2"></i> Promociones
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li class="px-2">
+            <div class="small text-muted mb-2"><i class="fas fa-mobile-alt me-1"></i> ¿Quieres la app?</div>
+            <div class="d-flex align-items-center">
+              <img src="img/icon-192x192.png" alt="App" class="me-2" style="width: 60px; height: 60px; object-fit: contain;">
+              <button id="botonInstalar" class="btn btn-sm btn-success">
+                <i class="fas fa-download me-1"></i> Instalar
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- Logo -->
     <div class="logo text-center">
@@ -260,6 +256,12 @@
       <span id="badgeNotificacion" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center scale-0 opacity-0">
         1
       </span>
+    </button>
+
+    <!-- 🏠 NUEVO Botón Volver al Selector -->
+    <button id="btnVolverSelector" class="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-blue-50 transition-all duration-200 focus:outline-none group" 
+            title="Volver al selector de localidades" aria-label="Volver al selector">
+      <img src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" alt="Selector" class="w-6 h-6 rounded-lg transition-transform duration-200 group-hover:scale-110">
     </button>
 
     <!-- Menú derecha escritorio -->
@@ -344,6 +346,13 @@
           <!-- Inicio -->
           <li class="nav-item">
             <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+
+          <!-- En el modal móvil, justo después del "Inicio" -->
+          <li class="nav-item">
+            <a class="nav-link" href="/Zona-Tu-Barrio/" id="mobileVolverSelector">
+              <i class="fas fa-home me-2"></i>Volver al Selector
+            </a>
           </li>
 
           <!-- COMERCIOS -->
