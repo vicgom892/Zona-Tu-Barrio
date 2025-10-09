@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isLocalidad) {
       // Registrar SW sin caché y con control de versiones
       // En main-2.js - línea ~38
-      navigator.serviceWorker.register(`/Zona-Tu-Barrio/shared/js/sw.js?v=${APP_VERSION}`, {
-        scope: '/Zona-Tu-Barrio/castelar/', // ← Agrega scope específico
+      navigator.serviceWorker.register(`/Zona-Tu-Barrio/sw.js?v=${APP_VERSION}`, {
+        scope: '/Zona-Tu-Barrio/', 
         updateViaCache: 'none'
       })
       .then(registration => {
