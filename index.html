@@ -2124,15 +2124,14 @@ document.addEventListener('keydown', function(event) {
 
 
 if ('serviceWorker' in navigator) {
-  // Ruta CORRECTA para GitHub Pages
-  navigator.serviceWorker.register('/Zona-Tu-Barrio/sw-selector.js', {
+  navigator.serviceWorker.register('/Zona-Tu-Barrio/sw.js?v=v60-unified', {
     scope: '/Zona-Tu-Barrio/'
   })
   .then(registration => {
-    console.log('✅ SW Selector registrado:', registration.scope);
+    console.log('✅ SW Unificado registrado:', registration.scope);
   })
   .catch(error => {
-    console.error('❌ Error SW Selector:', error);
+    console.error('❌ Error SW:', error);
   });
 }
 </script>

@@ -1,11 +1,12 @@
-// shared/js/sw.js — Service Worker Multi-Localidad
-// Versión: v60 — Optimizado para estructura multi-localidad
+// sw.js - Service Worker Unificado para Selector y Localidades
+// Ubicación: /Zona-Tu-Barrio/sw.js
+// Versión: v60-unified
 
-const CACHE_VERSION = 'v60-multi'; // ← Define primero la variable
+const CACHE_VERSION = 'v60-unified';
 
 const CONFIG = {
-  CACHE_VERSION: CACHE_VERSION, // ← Ahora usa la variable ya definida
-  CACHE_NAME: `tu-barrio-app-${CACHE_VERSION}`, // ← Ahora funciona
+  CACHE_VERSION: CACHE_VERSION,
+  CACHE_NAME: `tu-barrio-unified-${CACHE_VERSION}`,
   CACHES: {
     STATIC: 'static',
     ASSETS: 'assets',
@@ -30,7 +31,7 @@ const CONFIG = {
     baseDelay: 1000,
     maxDelay: 10000
   },
-  LOCALIDADES: ['castelar', 'ituzaingo', 'moron', 'ciudadela', 'merlo', 'haedo', 'ramos-mejia']
+  LOCALIDADES: ['castelar', 'moron', 'ituzaingo', 'ciudadela', 'merlo', 'haedo', 'ramos-mejia']
 };
 
 const STATIC_CACHE = `${CONFIG.CACHES.STATIC}-${CONFIG.CACHE_VERSION}`;
@@ -39,40 +40,67 @@ const API_CACHE = `${CONFIG.CACHES.API}-${CONFIG.CACHE_VERSION}`;
 const DYNAMIC_CACHE = `${CONFIG.CACHES.DYNAMIC}-${CONFIG.CACHE_VERSION}`;
 const BUSINESS_CACHE = `${CONFIG.CACHES.BUSINESS}-${CONFIG.CACHE_VERSION}`;
 
-const CACHE_LIMITS = CONFIG.LIMITS;
-const CACHE_TTL = CONFIG.TTL;
+// === DETECCIÓN DE CONTEXTO ===
+function getAppContext(pathname) {
+  const path = pathname || self.location.pathname;
+  
+  // Si es la raíz o el selector
+  if (path === '/Zona-Tu-Barrio/' || path === '/Zona-Tu-Barrio/index.html') {
+    return 'selector';
+  }
+  
+  // Detectar localidades
+  for (const localidad of CONFIG.LOCALIDADES) {
+    if (path.includes(`/${localidad}/`)) {
+      return localidad;
+    }
+  }
+  
+  return 'selector'; // por defecto
+}
 
-// === ARCHIVOS ESENCIALES COMPARTIDOS ===
-// shared/js/sw.js - Actualiza esta sección:
+const APP_CONTEXT = getAppContext();
 
-const SHARED_RESOURCES = [
-  // Página de selección de localidad (raíz)
+// === RECURSOS POR CONTEXTO ===
+const SELECTOR_RESOURCES = [
+  // Página principal del selector
   '/Zona-Tu-Barrio/',
   '/Zona-Tu-Barrio/index.html',
+  '/Zona-Tu-Barrio/manifest.json',
   '/Zona-Tu-Barrio/robots.txt',
   
-  // Recursos compartidos - CSS
+  // Recursos compartidos críticos para el selector
+  '/Zona-Tu-Barrio/shared/css/styles.css',
+  '/Zona-Tu-Barrio/shared/css/fondo.css',
+  '/Zona-Tu-Barrio/shared/js/main-2.js',
+  '/Zona-Tu-Barrio/shared/js/install-app.js',
+  
+  // Imágenes del selector
+  '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
+  '/Zona-Tu-Barrio/shared/img/icon-512x512.png',
+  '/Zona-Tu-Barrio/shared/img/icon-abeja-sola.png'
+];
+
+const SHARED_RESOURCES = [
+  // Recursos compartidos entre todas las localidades
   '/Zona-Tu-Barrio/shared/css/styles.css',
   '/Zona-Tu-Barrio/shared/css/fondo.css',
   '/Zona-Tu-Barrio/shared/css/negocios.css',
   
-  // Recursos compartidos - JS
   '/Zona-Tu-Barrio/shared/js/main-2.js',
   '/Zona-Tu-Barrio/shared/js/chat-2.js',
   '/Zona-Tu-Barrio/shared/js/form.js',
-  '/Zona-Tu-Barrio/shared/js/install-app.js', 
+  '/Zona-Tu-Barrio/shared/js/install-app.js',
   '/Zona-Tu-Barrio/shared/js/notificaciones.js',
   '/Zona-Tu-Barrio/shared/js/search-functionality.js',
   '/Zona-Tu-Barrio/shared/js/splash.js',
   '/Zona-Tu-Barrio/shared/js/testimonials.js',
   
-  // Imágenes compartidas
-
   '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
   '/Zona-Tu-Barrio/shared/img/icon-512x512.png'
-].filter(Boolean); // Filtra cualquier valor nulo o undefined
+];
 
-// Páginas comunes por localidad (se cachearán dinámicamente)
+// Páginas comunes por localidad
 const LOCALIDAD_PAGES = [
   'index.html',
   'comunidad.html',
@@ -82,18 +110,10 @@ const LOCALIDAD_PAGES = [
   'offline.html'
 ];
 
-// APIs por localidad (patrones)
-const API_PATTERNS = [
-  '/data/',
-  '/datos/',
-  '/negocios/',
-  '/oficios/'
-];
-
-// === FUNCIONES DE DETECCIÓN MEJORADAS ===
+// === FUNCIONES DE DETECCIÓN ===
 function isStaticAsset(path) {
   return /\.(html|css|js|xml|woff2?|ttf|eot|json)$/i.test(path) || 
-         path === '/manifest.json';
+         path === '/Zona-Tu-Barrio/manifest.json';
 }
 
 function isImage(path) {
@@ -101,7 +121,8 @@ function isImage(path) {
 }
 
 function isAPI(path) {
-  return API_PATTERNS.some(pattern => path.includes(pattern));
+  return path.includes('/data/') || path.includes('/datos/') || 
+         path.includes('/negocios/') || path.includes('/oficios/');
 }
 
 function isBusinessData(path) {
@@ -110,17 +131,12 @@ function isBusinessData(path) {
 
 function isLocalidadPage(path) {
   return CONFIG.LOCALIDADES.some(localidad => 
-    path.startsWith(`/${localidad}/`) && 
+    path.startsWith(`/Zona-Tu-Barrio/${localidad}/`) && 
     LOCALIDAD_PAGES.some(page => path.endsWith(page))
   );
 }
 
-function getLocalidadFromPath(path) {
-  const match = path.match(/^\/([^\/]+)\//);
-  return match ? match[1] : null;
-}
-
-// Almacén para timestamps y TTL
+// Almacén para timestamps
 const cacheTimestamps = {
   api: {},
   business: {},
@@ -128,33 +144,41 @@ const cacheTimestamps = {
   assets: {}
 };
 
-// === INSTALL: Precache de recursos compartidos ===
+// === INSTALL: Precache según contexto ===
 self.addEventListener('install', (event) => {
-  log('info', `🚀 Instalando SW multi-localidad: ${CONFIG.CACHE_VERSION}`);
+  log('info', `🚀 Instalando SW Unificado (${APP_CONTEXT}): ${CONFIG.CACHE_VERSION}`);
   self.skipWaiting();
 
   event.waitUntil(
     (async () => {
       try {
-        await checkStorageQuota();
-
         const [staticCache, assetsCache] = await Promise.all([
           caches.open(STATIC_CACHE),
           caches.open(ASSETS_CACHE)
         ]);
 
-        // Precache solo recursos compartidos
+        let resourcesToCache = [];
+        
+        // Determinar qué recursos cachear según el contexto
+        if (APP_CONTEXT === 'selector') {
+          resourcesToCache = SELECTOR_RESOURCES;
+        } else {
+          resourcesToCache = SHARED_RESOURCES;
+        }
+
+        const staticResources = resourcesToCache.filter(res => !isImage(res));
+        const assetResources = resourcesToCache.filter(res => isImage(res));
+
         const results = await Promise.allSettled([
-          precacheWithRetry(staticCache, SHARED_RESOURCES.filter(res => !isImage(res))),
-          precacheWithRetry(assetsCache, SHARED_RESOURCES.filter(res => isImage(res)))
+          precacheWithRetry(staticCache, staticResources),
+          precacheWithRetry(assetsCache, assetResources)
         ]);
 
-        // Reportar resultados
         results.forEach((result, index) => {
-          const cacheTypes = ['Estáticos Compartidos', 'Imágenes Compartidas'];
+          const cacheTypes = ['Estáticos', 'Imágenes'];
           if (result.status === 'fulfilled') {
             const { successful, failed } = result.value;
-            log('info', `✅ ${cacheTypes[index]}: ${successful.length} exitosos`);
+            log('info', `✅ ${cacheTypes[index]} (${APP_CONTEXT}): ${successful.length} exitosos`);
             if (failed.length > 0) {
               log('warn', `❌ ${cacheTypes[index]} fallados:`, failed.map(f => f.resource));
             }
@@ -163,7 +187,7 @@ self.addEventListener('install', (event) => {
           }
         });
 
-        log('info', '🎯 SW multi-localidad instalado - Recursos compartidos en caché');
+        log('info', `🎯 SW Unificado instalado - Contexto: ${APP_CONTEXT}`);
       } catch (error) {
         log('error', '💥 Error crítico en install:', error);
       }
@@ -190,7 +214,7 @@ self.addEventListener('activate', (event) => {
       await clearExpiredCaches();
       await clients.claim();
 
-      log('info', `✅ SW multi-localidad activado: ${CONFIG.CACHE_VERSION}`);
+      log('info', `✅ SW Unificado activado: ${CONFIG.CACHE_VERSION} (${APP_CONTEXT})`);
 
       // Notificar a todas las pestañas
       const clientsList = await clients.matchAll({ type: 'window' });
@@ -198,15 +222,15 @@ self.addEventListener('activate', (event) => {
         client.postMessage({ 
           type: 'SW_UPDATED',
           version: CONFIG.CACHE_VERSION,
-          message: `¡Nueva versión ${CONFIG.CACHE_VERSION} activa!`,
-          scope: 'multi-localidad'
+          context: APP_CONTEXT,
+          message: `¡Nueva versión ${CONFIG.CACHE_VERSION} activa!`
         });
       });
     })()
   );
 });
 
-// === FETCH: Estrategia inteligente multi-localidad ===
+// === FETCH: Estrategia inteligente unificada ===
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -216,8 +240,9 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   const pathname = url.pathname;
+  const context = getAppContext(pathname);
 
-  // Estrategias específicas por tipo de recurso
+  // Estrategias específicas por tipo de recurso y contexto
   if (isLocalidadPage(pathname)) {
     event.respondWith(networkFirstWithCache(request, DYNAMIC_CACHE, 'dynamic'));
   } else if (isStaticAsset(pathname) && pathname.includes('/shared/')) {
@@ -229,13 +254,10 @@ self.addEventListener('fetch', (event) => {
   } else if (isBusinessData(pathname)) {
     event.respondWith(networkFirstWithCache(request, BUSINESS_CACHE, 'business'));
   } else if (isStaticAsset(pathname)) {
-    // Assets específicos de localidad
     event.respondWith(cacheFirstWithUpdate(request, STATIC_CACHE));
   } else if (isImage(pathname)) {
-    // Imágenes específicas de localidad
     event.respondWith(cacheFirstWithCleanup(request, ASSETS_CACHE));
   } else {
-    // Contenido dinámico genérico
     event.respondWith(networkFirstWithCache(request, DYNAMIC_CACHE, 'dynamic'));
   }
 });
@@ -255,30 +277,18 @@ self.addEventListener('message', async (event) => {
       ports[0]?.postMessage({ type: 'CACHE_CLEANED' });
       break;
 
+    case 'GET_CONTEXT':
+      ports[0]?.postMessage({ type: 'APP_CONTEXT', context: APP_CONTEXT });
+      break;
+
     case 'REFRESH_CONTENT':
       event.waitUntil(refreshLocalidadContent(data.localidad));
       ports[0]?.postMessage({ type: 'CONTENT_REFRESHED' });
       break;
-
-    case 'PAGE_FOCUS':
-      log('info', '🎯 Página focalizada → Refrescando contenido');
-      event.waitUntil(
-        Promise.all([
-          clearExpiredCaches(),
-          refreshCurrentLocalidadContent()
-        ])
-      );
-      ports[0]?.postMessage({ type: 'CONTENT_REFRESHED' });
-      break;
-
-    case 'GET_CACHE_STATS':
-      const stats = await getCacheStats();
-      ports[0]?.postMessage({ type: 'CACHE_STATS', stats });
-      break;
   }
 });
 
-// === PUSH NOTIFICATIONS (igual que tu versión) ===
+// === PUSH NOTIFICATIONS ===
 self.addEventListener('push', (event) => {
   let data;
   try {
@@ -292,15 +302,16 @@ self.addEventListener('push', (event) => {
     };
   }
 
+  const context = APP_CONTEXT === 'selector' ? 'tu barrio' : APP_CONTEXT;
   const options = {
-    body: data.body || 'Refrescando app...',
-    icon: '/shared/img/icon-192x192.png',
-    badge: '/shared/img/icon-192x192.png',
-    data: { url: data.url || '/', forceRefresh: true },
+    body: data.body || `Nuevas ofertas disponibles en ${context}`,
+    icon: '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
+    badge: '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
+    data: { url: data.url || '/Zona-Tu-Barrio/', forceRefresh: true },
     vibrate: [200, 100, 200],
     actions: [
       { action: 'open', title: 'Abrir App' },
-      { action: 'refresh', title: 'Refresh' }
+      { action: 'refresh', title: 'Actualizar' }
     ]
   };
 
@@ -311,7 +322,7 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const urlToOpen = event.notification.data?.url || '/';
+  const urlToOpen = event.notification.data?.url || '/Zona-Tu-Barrio/';
 
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(async clientsList => {
@@ -332,9 +343,7 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
-// === FUNCIONES PRINCIPALES ADAPTADAS ===
-
-// Precache con reintentos (igual que tu versión)
+// === FUNCIONES AUXILIARES (las mismas que tenías) ===
 async function precacheWithRetry(cache, resources, retries = 2) {
   const successful = [], failed = [];
 
@@ -390,7 +399,6 @@ async function precacheWithRetry(cache, resources, retries = 2) {
   return { successful, failed };
 }
 
-// Network First con Cache Fallback (adaptada)
 async function networkFirstWithCache(request, cacheName, type) {
   const url = request.url;
   
@@ -399,7 +407,6 @@ async function networkFirstWithCache(request, cacheName, type) {
   
   if (cached && isFresh) {
     log('info', `🗃️ ${type} desde caché: ${getShortUrl(url)}`);
-    trackCachePerformance(cacheName, true);
     return cached;
   }
 
@@ -411,10 +418,9 @@ async function networkFirstWithCache(request, cacheName, type) {
       await cache.put(request, response.clone());
       updateCacheTimestamp(url, type);
       
-      await limitCacheSize(cacheName, CACHE_LIMITS[type]);
+      await limitCacheSize(cacheName, CONFIG.LIMITS[type]);
       
       log('info', `🌐 ${type} desde red: ${getShortUrl(url)}`);
-      trackCachePerformance(cacheName, false);
       return response;
     }
     
@@ -424,7 +430,6 @@ async function networkFirstWithCache(request, cacheName, type) {
     
     if (cached) {
       log('info', `🔄 Fallback a caché: ${getShortUrl(url)}`);
-      trackCachePerformance(cacheName, true);
       return cached;
     }
     
@@ -432,16 +437,12 @@ async function networkFirstWithCache(request, cacheName, type) {
   }
 }
 
-// Cache First con actualización (igual)
 async function cacheFirstWithUpdate(request, cacheName) {
   const cached = await caches.match(request);
   
   if (cached) {
     log('info', `⚡ Estático desde caché: ${getShortUrl(request.url)}`);
-    trackCachePerformance(cacheName, true);
-    
     updateInBackground(request, cacheName);
-    
     return cached;
   }
 
@@ -458,7 +459,6 @@ async function cacheFirstWithUpdate(request, cacheName) {
   }
 }
 
-// Cache First para imágenes (igual)
 async function cacheFirstWithCleanup(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
@@ -471,70 +471,19 @@ async function cacheFirstWithCleanup(request, cacheName) {
   try {
     const response = await fetch(request);
     if (response.ok) {
-      await limitCacheSize(cacheName, CACHE_LIMITS.assets);
+      await limitCacheSize(cacheName, CONFIG.LIMITS.assets);
       await cache.put(request, response.clone());
       updateCacheTimestamp(request.url, 'assets');
     }
     return response;
   } catch (error) {
     log('error', `❌ Imagen falló: ${getShortUrl(request.url)}`, error);
-    return caches.match('/shared/img/fallback-image.png') || 
+    return caches.match('/Zona-Tu-Barrio/shared/img/fallback-image.png') || 
            new Response('', { status: 404 });
   }
 }
 
-// === FUNCIONES NUEVAS PARA MULTI-LOCALIDAD ===
-
-// Refresh de contenido específico de localidad
-async function refreshLocalidadContent(localidad) {
-  if (!localidad) return;
-  
-  log('info', `♻️ Refresh contenido para: ${localidad}`);
-  
-  const pagesToRefresh = LOCALIDAD_PAGES.map(page => `/${localidad}/${page}`);
-  const refreshPromises = pagesToRefresh.map(async (url) => {
-    try {
-      const response = await fetch(url + '?t=' + Date.now(), {
-        cache: 'no-store'
-      });
-      
-      if (response.ok) {
-        const cache = await caches.open(DYNAMIC_CACHE);
-        await cache.put(url, response.clone());
-        updateCacheTimestamp(url, 'dynamic');
-        log('info', `🔄 Refrescado: ${url}`);
-      }
-    } catch (error) {
-      log('warn', `Refresh falló: ${url}`, error.message);
-    }
-  });
-  
-  await Promise.allSettled(refreshPromises);
-}
-
-// Refresh de la localidad actual
-async function refreshCurrentLocalidadContent() {
-  const clientsList = await clients.matchAll({ type: 'window' });
-  for (const client of clientsList) {
-    const url = new URL(client.url);
-    const localidad = getLocalidadFromPath(url.pathname);
-    if (localidad) {
-      await refreshLocalidadContent(localidad);
-      break;
-    }
-  }
-}
-
-// Helper para URLs cortas en logs
-function getShortUrl(url) {
-  const parsed = new URL(url);
-  return parsed.pathname.length > 30 ? 
-    '...' + parsed.pathname.slice(-27) : 
-    parsed.pathname;
-}
-
-// === FUNCIONES EXISTENTES (mantenidas igual) ===
-
+// Funciones auxiliares (mantener las que ya tenías)
 async function fetchWithRetry(request, options = {}) {
   const { maxRetries = CONFIG.RETRY.maxRetries } = options;
   let lastError;
@@ -574,7 +523,7 @@ async function isCacheFresh(url, type) {
   const timestamp = cacheTimestamps[type]?.[url];
   if (!timestamp) return false;
   
-  const ttl = CACHE_TTL[type] || 0;
+  const ttl = CONFIG.TTL[type] || 0;
   return (Date.now() - timestamp) < ttl;
 }
 
@@ -596,7 +545,7 @@ async function clearExpiredCaches() {
       const url = request.url;
       const timestamp = cacheTimestamps[type]?.[url];
       
-      if (timestamp && (now - timestamp) > CACHE_TTL[type]) {
+      if (timestamp && (now - timestamp) > CONFIG.TTL[type]) {
         await cache.delete(request);
         delete cacheTimestamps[type]?.[url];
         log('info', `🧹 Expiró caché: ${getShortUrl(url)}`);
@@ -634,7 +583,7 @@ function createFallbackResponse(request, type) {
   
   switch (type) {
     case 'document':
-      return caches.match('/shared/offline.html') || 
+      return caches.match('/Zona-Tu-Barrio/shared/offline.html') || 
              new Response('Servicio no disponible', { status: 503 });
     
     case 'api':
@@ -645,7 +594,7 @@ function createFallbackResponse(request, type) {
       });
     
     case 'image':
-      return caches.match('/shared/img/fallback-image.png') || 
+      return caches.match('/Zona-Tu-Barrio/shared/img/fallback-image.png') || 
              new Response('Imagen no disponible', { status: 503 });
     
     default:
@@ -692,56 +641,37 @@ async function clearAllDynamicCaches() {
   );
 }
 
-async function checkStorageQuota() {
-  if (!navigator.storage?.estimate) return;
+async function refreshLocalidadContent(localidad) {
+  if (!localidad) return;
   
-  try {
-    const { quota, usage } = await navigator.storage.estimate();
-    const freeSpace = quota - usage;
-    const freeMB = (freeSpace / 1024 / 1024).toFixed(2);
-    
-    log('info', `💾 Espacio libre: ${freeMB} MB`);
-    
-    if (freeSpace < 10 * 1024 * 1024) {
-      log('warn', '⚠️ Espacio bajo - Limpiando cachés no críticos');
-      await clearExpiredCaches();
-    }
-  } catch (error) {
-    log('error', 'Error checking storage:', error);
-  }
-}
-
-async function trackCachePerformance(cacheName, hit) {
-  const metric = {
-    cacheName,
-    hit,
-    timestamp: Date.now(),
-    url: self.location.origin
-  };
+  log('info', `♻️ Refresh contenido para: ${localidad}`);
   
-  if ('sendBeacon' in navigator) {
+  const pagesToRefresh = LOCALIDAD_PAGES.map(page => `/Zona-Tu-Barrio/${localidad}/${page}`);
+  const refreshPromises = pagesToRefresh.map(async (url) => {
     try {
-      navigator.sendBeacon('/api/sw-metrics', JSON.stringify(metric));
-    } catch (error) {}
-  }
+      const response = await fetch(url + '?t=' + Date.now(), {
+        cache: 'no-store'
+      });
+      
+      if (response.ok) {
+        const cache = await caches.open(DYNAMIC_CACHE);
+        await cache.put(url, response.clone());
+        updateCacheTimestamp(url, 'dynamic');
+        log('info', `🔄 Refrescado: ${url}`);
+      }
+    } catch (error) {
+      log('warn', `Refresh falló: ${url}`, error.message);
+    }
+  });
+  
+  await Promise.allSettled(refreshPromises);
 }
 
-async function getCacheStats() {
-  const cacheNames = await caches.keys();
-  const stats = {};
-  
-  for (const name of cacheNames) {
-    const cache = await caches.open(name);
-    const keys = await cache.keys();
-    stats[name] = keys.length;
-  }
-  
-  return {
-    ...stats,
-    timestamp: Date.now(),
-    version: CONFIG.CACHE_VERSION,
-    localidades: CONFIG.LOCALIDADES
-  };
+function getShortUrl(url) {
+  const parsed = new URL(url);
+  return parsed.pathname.length > 30 ? 
+    '...' + parsed.pathname.slice(-27) : 
+    parsed.pathname;
 }
 
 function log(level, message, ...args) {
@@ -757,27 +687,6 @@ function log(level, message, ...args) {
   }
   
   console[level](`[SW ${CONFIG.CACHE_VERSION}] ${timestamp} ${levels[level]} ${message}`, ...args);
-  
-  if (level === 'error' && navigator.onLine) {
-    const errorData = {
-      message,
-      args: args.map(arg => arg.toString()),
-      timestamp,
-      version: CONFIG.CACHE_VERSION,
-      url: self.location.href
-    };
-    
-    fetch('/api/sw-errors', {
-      method: 'POST',
-      body: JSON.stringify(errorData),
-      keepalive: true
-    }).catch(() => {});
-  }
 }
 
-// Health check periódico
-setInterval(() => {
-  checkStorageQuota().catch(() => {});
-}, 30 * 60 * 1000);
-
-log('info', '🚀 SW multi-localidad cargado - Gestionando todas las localidades');
+log('info', `🚀 SW Unificado cargado - Contexto: ${APP_CONTEXT} - Controla selector y todas las localidades`);
