@@ -1,24 +1,34 @@
 {
-  "name": "Tu Barrio A Un Click - Multi Localidad",
-  "short_name": "BarrioClick",
-  "description": "Plataforma de comercios y comunidad local en tu zona",
-  "start_url": "/Zona-Tu-Barrio/index.html",
+  "name": "Tu Barrio A Un Click - Selector",
+  "short_name": "TuBarrioSelector",
+  "description": "Selector de localidades para Tu Barrio A Un Click",
+  "start_url": "/Zona-Tu-Barrio/",
+  "scope": "/Zona-Tu-Barrio/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0ea5e9",
   "orientation": "portrait",
+  "categories": ["business", "shopping"],
   "icons": [
     {
       "src": "/Zona-Tu-Barrio/shared/img/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/Zona-Tu-Barrio/shared/img/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "shopping", "social"],
-  "lang": "es-AR"
+  "screenshots": [
+    {
+      "src": "/Zona-Tu-Barrio/shared/img/screenshot-mobile.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
 }
