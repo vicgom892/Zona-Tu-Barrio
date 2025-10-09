@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isLocalidad) {
       // Registrar SW sin caché y con control de versiones
-      navigator.serviceWorker.register(`/shared/js/sw.js?v=${APP_VERSION}`, {
+      navigator.serviceWorker.register(`Zona-Tu-Barrio/shared/js/sw.js?v=${APP_VERSION}`, {
         updateViaCache: 'none'
       }).then(registration => {
         console.log('✅ SW registrado en producción para localidad:', APP_VERSION);
