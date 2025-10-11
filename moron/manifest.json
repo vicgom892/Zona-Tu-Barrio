@@ -1,6 +1,6 @@
 {
-  "name": "Tu Barrio a un Click - moron",
-  "short_name": "BarrioClick moron",
+  "name": "Tu Barrio a un Click - Moron",
+  "short_name": "BarrioClick Moron",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

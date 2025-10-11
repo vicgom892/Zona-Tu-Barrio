@@ -1,6 +1,6 @@
 {
-  "name": "Tu Barrio a un Click - ciudadela",
-  "short_name": "BarrioClick ciudadela",
+  "name": "Tu Barrio a un Click - Ciudadela",
+  "short_name": "BarrioClick Ciudadela",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

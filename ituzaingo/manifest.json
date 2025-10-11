@@ -1,6 +1,6 @@
 {
-  "name": "Tu Barrio a un Click - ituzaingo",
-  "short_name": "BarrioClick ituzaingo",
+  "name": "Tu Barrio a un Click - Ituzaingo",
+  "short_name": "BarrioClick Ituzaingo",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -1,6 +1,6 @@
 {
-  "name": "Tu Barrio a un Click - merlo",
-  "short_name": "BarrioClick merlo",
+  "name": "Tu Barrio a un Click - Merlo",
+  "short_name": "BarrioClick Merlo",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
