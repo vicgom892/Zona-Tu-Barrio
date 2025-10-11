@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Las Medialunas Del Abuelo</title>
   <link rel="manifest" href="../manifest.json">
-  <link rel="icon" href="../img/icon-192x192.png">
+  <link rel="icon" href="/Zona-Tu-Barrio/shared/img/icon-192x192.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../css/negocios.css">
+  <link rel="stylesheet" href="/Zona-Tu-Barrio/shared/css/negocios.css">
   <style>
     body {
       margin: 0;
@@ -94,7 +94,7 @@
         <div class="splash-particles" id="splashParticles"></div>
         <div class="splash-grid"></div>
         <div class="splash-logo">
-            <img src="../img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+            <img src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" class="logo-icon" alt="logo de la app">
         </div>
         <h1 class="splash-text">Tu Barrio A Un Clik</h1>
         <div class="loading-bar-container">
@@ -135,7 +135,7 @@
   <!-- Botón de instalación en el footer -->
 <div class="install-banner mt-4 p-3 bg-white rounded shadow-sm">
   <div class="d-flex align-items-center">
-    <img src="../img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
+    <img src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
     <div class="flex-grow-1">
       <div class="small text-muted mb-1">¿Quieres la app completa?</div>
       <button id="botonInstalar" class="btn btn-success w-100 py-2">
@@ -144,98 +144,8 @@
     </div>
   </div>
 </div>
-  <script src="../js/splash.js"></script>
-  <script src="../js/install-app.js"></script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js')
-        .then(function(registration) {
-          console.log('ServiceWorker registrado con éxito:', registration.scope);
-          
-          // Escuchar actualizaciones
-          registration.onupdatefound = function() {
-            const installingWorker = registration.installing;
-            installingWorker.onstatechange = function() {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // Mostrar notificación de actualización
-                const updateNotification = document.createElement('div');
-                updateNotification.className = 'update-notification';
-                updateNotification.innerHTML = `
-                  <div class="update-content">
-                    <p>¡Hay una nueva versión disponible!</p>
-                    <button class="btn-update">Actualizar ahora</button>
-                  </div>
-                `;
-                
-                document.body.appendChild(updateNotification);
-                
-                document.querySelector('.btn-update').addEventListener('click', function() {
-                  window.location.reload();
-                });
-              }
-            };
-          };
-        })
-        .catch(function(error) {
-          console.log('ServiceWorker falló al registrarse:', error);
-        });
-    });
-    
-    // Detectar cuando el service worker activa una nueva versión
-    let refreshing;
-    navigator.serviceWorker.addEventListener('controllerchange', function() {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
-  }
-</script>
+  <script src="/Zona-Tu-Barrio/shared/js/splash.js"></script>
+  <script src="/Zona-Tu-Barrio/shared/js/install-app.js"></script>
 
-<style>
-  .update-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 9999;
-    animation: slideIn 0.3s;
-  }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  .update-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .btn-update {
-    background: #e1306c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .btn-update:hover {
-    background: #c12757;
-    transform: translateY(-2px);
-  }
-</style>
 </body>
 </html>

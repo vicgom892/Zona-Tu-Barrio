@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Tu Barrio a un Clik - Conectamos los mejores comercios de Castelar con sus vecinos.">
+  <title>Tu Barrio a un Clik | Tus Compras Más Fáciles</title>
+  
+  <!-- Iconos y Manifest -->
+  <link rel="icon" href="img/icon-abeja-sola.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="img/icon-192x192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="img/icon-192x192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="mask-icon" href="img/icon-abeja-sola.png" color="#e1306c">
+  
+  <!-- CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+   
+  <!-- Meta tags para PWA -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Tu Barrio a un Clik">
+  <meta name="apple-mobile-web-app-title" content="BarrioClik">
+  <meta name="theme-color" content="#e1306c">
+  <meta name="msapplication-navbutton-color" content="#e1306c">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+</head>
+<style>
+  :root {
+  --primary: #ff6200;
+  --primary-dark: #f57c00;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1ebe57;
+  --gray: #6b7280;
+  --text-dark: #333;
+  --bg-light: #f8f9fa;
+  --bg-dark: #222;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+a{
+  text-decoration: none !important;
+}
+/* Estilos generales */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-light);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+h2, h3{
+  font-family: 'Bangers', cursive;
+}
+ /* Splash Screen Tecnológico */
+    .splash-screen {
+        position: fixed;
+        /*top: 50px;*/
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100000;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+        overflow: hidden;
+    }
+    
+    .splash-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Fondo de partículas animadas */
+    .splash-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        animation: float 6s infinite ease-in-out;
+    }
+    
+    /* Grid de fondo */
+    .splash-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+        opacity: 0.3;
+    }
+    
+    /* Logo con efecto de brillo */
+    .splash-logo {
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6200 0%, #ff9e2c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        z-index: 3;
+        box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        animation: pulseGlow 2s infinite alternate;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .splash-logo::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        animation: shine 3s infinite;
+    }
+    
+    .logo-icon {
+        font-size: 80px;
+        color: white;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 230px;
+        height: 230px;
+    }
+    
+    .splash-text {
+        color: #f8f9fa !important;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.5s;
+    }
+    
+    .loading-bar-container {
+        width: 200px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+    }
+    
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6200, #ff9e2c);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+    
+    .loading-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.4), 
+            transparent);
+        animation: shimmer 1.5s infinite;
+    }
+    
+    .loading-text {
+        color:#f8f9fa;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s ease forwards 1.2s;
+        z-index: 3;
+    }
+    
+    .skip-btn {
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        z-index: 3;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards 1.5s;
+    }
+    
+    .skip-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 98, 0, 0.3);
+    }
+    
+    /* Animaciones */
+    @keyframes pulseGlow {
+        0% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.4);
+            transform: scale(1);
+        }
+        100% {
+            box-shadow: 0 20px 60px rgba(255, 98, 0, 0.6);
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes shine {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(50%) translateY(50%) rotate(180deg);
+        }
+    }
+    
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(10px, 15px);
+        }
+        50% {
+            transform: translate(-10px, 5px);
+        }
+        75% {
+            transform: translate(5px, -10px);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .splash-logo {
+            width: 280px;
+            height: 280px;
+        }
+        
+        .splash-text {
+            font-size: 1.6rem;
+        }
+        
+        .loading-bar-container {
+            width: 160px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .splash-logo {
+            width: 250px;
+            height: 250px;
+        }
+        
+        .splash-text {
+            font-size: 1.4rem;
+        }
+        
+        .loading-bar-container {
+            width: 140px;
+        }
+        
+        .skip-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+    }
+.content {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Header */
+.modern-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.modern-header.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-img {
+  max-height: 80px;
+  max-width: 60px;
+}
+
+.logo-img-mobile {
+  max-height: 48px;
+}
+
+  /* Animación de pulso (ya existente) notificaciones */
+  .notification-badge {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+  }
+
+  /* Animación de vibración para la campanita */
+  @keyframes vibrar {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  /* Animación de salto */
+  @keyframes saltar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Clase que activa la animación */
+  .animar-campana {
+    animation: vibrar 0.5s ease-in-out, saltar 0.5s ease-in-out;
+  }
+
+  /* Evita que la animación se repita mientras esté activa */
+  .animar-campana-no-repetir {
+    animation: vibrar 0.5s ease-in-out, saltar 0.5s ease-in-out;
+    animation-iteration-count: 1;
+  }
+
+  /* Badge de notificación */
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+/* Megamenú */
+.dropdown {
+  position: relative;
+}
+
+.mega-menu {
+  width: 100%;
+  max-width: 60rem;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  background-color: #fff;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.mega-menu .dropdown-item {
+  padding: 10px 15px;
+  transition: background-color 0.2s;
+}
+
+.mega-menu .dropdown-item:hover {
+  background-color: var(--bg-light);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: var(--shadow-md);
+  width: 60rem;
+  max-width: 60rem;
+  left: 0%;
+  transform: translateX(0%);
+}
+
+.btn:not(:disabled):not(.disabled) {
+  border: 1px solid #ff9600;
+}
+
+@media (max-width: 992px) {
+  .mega-menu,
+  .dropdown-menu {
+    max-width: 100%;
+    transform: none;
+    left: 0;
+  }
+}
+
+#mobileMenuToggle {
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-dark);
+}
+
+/* Modal Móvil */
+.modal-dialog-scrollable .modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.modal-dialog-scrollable .modal-body {
+  padding: 15px;
+}
+
+.modal-dialog-scrollable .nav-link {
+  color: var(--text-dark);
+  padding: 10px 15px;
+}
+
+.modal-dialog-scrollable .nav-link:hover {
+  background-color: var(--bg-light);
+}
+
+.modal-dialog-scrollable .collapse {
+  margin-left: 15px;
+  visibility: visible;
+}
+
+.modal-dialog-scrollable .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-dialog-scrollable .modal-header img {
+  max-height: 48px;
+}
+
+/* Estilos para el modal search */
+.modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.5;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.btn-close{
+  display:none;
+}
+
+.close:hover {
+  opacity: 0.8;
+  color: #000;
+  text-decoration: none;
+}
+
+.close:not(:disabled):not(.disabled):hover,
+.close:not(:disabled):not(.disabled):focus {
+  outline: none;
+}
+
+.modal-body {
+  padding: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.open-business {
+  border-left: 4px solid #28a745;
+  background-color: #f8fff8;
+}
+
+.open-business .card-title {
+  color: #28a745;
+}
+
+.font-weight-bold {
+  color: #ff9200;
+}
+
+/* Ajustes responsivos */
+@media (min-width: 768px) {
+  .modal-dialog {
+    max-width: 800px;
+  }
+
+  .close {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .modal-body {
+    max-height: 60vh;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .modal-dialog {
+    margin-top: 4.5rem;
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .close {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .modal-body {
+    max-height: 70vh;
+  }
+
+  .modal-content {
+    border-radius: 8px;
+  }
+}
+
+.modal {
+  overflow: auto;
+}
+
+/* Hero Section Mejorado */
+.hero-modern {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+   background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.7) 150%);
+  background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.hero-modern h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to right, #ffffff, #ffd700);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.hero-modern p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-modern .btn-hero {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #ff6b00, #ff8c00);
+  border: none;
+  color: white;
+  transition: all 0.4s ease;
+  box-shadow: 0 6px 15px rgba(255, 107, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-modern .btn-hero:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(255, 107, 0, 0.6);
+  background: linear-gradient(45deg, #ff8c00, #ff6b00);
+}
+
+.hero-modern .btn-hero:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.hero-modern .btn-hero::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(30deg);
+  transition: all 0.8s;
+}
+
+.hero-modern .btn-hero:hover::after {
+  left: 120%;
+}
+
+.hero-modern .stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: white;
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-20px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-modern h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-modern p {
+    font-size: 1.1rem;
+  }
+  
+  .hero-modern .btn-hero {
+    font-size: 1rem;
+    padding: 0.8rem 1.8rem;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Carrusel Infinito de Negocios */
+.business-carousel {
+  margin-bottom: 3rem;
+}
+
+.business-carousel .section-title {
+  font-family: 'Bangers', cursive;
+  font-size: 2.5rem;
+  color: var(--primary-dark);
+  justify-content: center;
+}
+
+.business-carousel .section-subtitle {
+  font-size: 1.2rem;
+  color: var(--gray);
+}
+
+.carousel-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 20px;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-card {
+  flex: 0 0 160px;
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover {
+  transform: scale(1.05);
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.carousel-card p {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.nav-arrow {
+  background: var(--primary);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-arrow:hover {
+  background: var(--primary-dark);
+}
+
+.nav-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+  /* Testimonials Section */
+.testimonials-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    overflow: hidden;
+}
+.dark-mode .testimonials-section {
+    background: var(--bg-dark);
+}
+.testimonials-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 24px;
+    padding: 24px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--bg-light);
+    margin-bottom: 24px;
+}
+.testimonials-container::-webkit-scrollbar {
+    height: 8px;
+}
+.testimonials-container::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+.dark-mode .testimonials-container::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+.testimonials-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+.testimonial-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 2.25rem;
+    flex: 0 0 320px;
+    max-width: 320px;
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.dark-mode .testimonial-card {
+    background: rgba(20, 20, 20, 0.7);
+}
+.testimonial-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-lg);
+}
+.testimonial-content {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 1.75rem;
+    flex: 1;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+.dark-mode .testimonial-content {
+    color: #bbb;
+}
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.testimonial-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary);
+}
+.testimonial-info {
+    flex: 1;
+}
+.testimonial-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    font-size: 1.1rem;
+}
+.dark-mode .testimonial-name {
+    color: var(--text-light);
+}
+.testimonial-business {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 500;
+}
+.testimonial-rating {
+    color: var(--secondary);
+    margin-top: 12px;
+    display: flex;
+    gap: 3px;
+}
+.form-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.container {
+    max-width: 1024px;
+}
+.row{
+  text-align: center;
+}
+</style>
+<body class="bg-light">
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <!--<i class="fas fa-store logo-icon"></i>-->
+            <img src="img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+        </div>
+        <h1 class="splash-text">Tu Barrio A Un Clic</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Cargando experiencia local...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+  <!-- Hero Section Mejorado -->
+  <section class="hero-modern">
+    <div class="hero-content">
+      <h1>Descubre Tu Barrio</h1>
+      <p>Conectamos los mejores comercios de Castelar directamente con vos. Comprá local, apoyá a tu comunidad.</p>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Negocios</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Acceso</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Local</div>
+        </div>
+      </div>
+    </div>
+    <a href="#estandar" class="scroll-down">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </section>
+   <!-- Sección de Planes de Contratación Elegante -->
+<section class="pricing-section py-5 bg-gradient-to-b from-gray-50 to-white">
+  <div class="container">
+    <!-- Título -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Planes que Impulsan tu Negocio</h2>
+      <p class="text-lg text-gray-600">
+        Elige el plan perfecto para tu comercio y aumentá tu visibilidad en tu barrio. 
+        Todos incluyen <span class="font-semibold text-indigo-600">Implementamos Un ChatBot</span> 🎁
+      </p>
+      <div class="mt-6 inline-flex items-center bg-blue-50 rounded-full px-4 py-2 border border-blue-100">
+        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full mr-3">¡OFERTA!</span>
+        <span class="text-blue-700 font-medium">Consulta por el 15% de descuento (aplica a las primeras inscripciones)</span>
+      </div>
+    </div>
+    </div>
+    
+    <!-- Grilla de planes -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      
+      <!-- Plan Básico -->
+      <div class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-200">
+        <div class="p-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Básico</h3>
+            <div class="flex items-baseline justify-center">
+              <span class="text-4xl font-bold text-gray-900">$5.999</span>
+              <span class="ml-2 text-gray-500">/mes</span>
+            </div>
+            <p class="mt-2 text-gray-500">Tu comercio online en minutos</p>
+          </div>
+          
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Listado en directorio</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Tarjeta con horarios y contacto</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> WhatsApp directo</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Integración futura de funciones</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Chatbot incluido 🎁</li>
+          </ul>
+          
+          <a href="https://wa.me/5491157194796?text=Estoy%20interesado%20en%20el%20Plan%20B%C3%A1sico%20%286000%2Fmes%29" 
+             class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-300 block text-center">
+            <i class="fab fa-whatsapp mr-2"></i> Contratar Básico
+          </a>
+        </div>
+      </div>
+      
+      <!-- Plan Estándar (destacado) -->
+      <div class="pricing-card bg-white rounded-2xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 border-2 border-indigo-500 relative" id="estandar">
+        <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-bl-lg rounded-tr-xl">
+          MÁS POPULAR
+        </div>
+        <div class="p-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Estándar</h3>
+            <div class="flex items-baseline justify-center">
+              <span class="text-4xl font-bold text-indigo-600">$9.999</span>
+              <span class="ml-2 text-gray-500">/mes</span>
+            </div>
+            <p class="mt-2 text-gray-500">La mejor relación calidad-precio</p>
+          </div>
+          
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Todo lo del Básico</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Página web básica</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Promociones destacadas</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Integración con redes sociales</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Chatbot incluido 🎁</li>
+          </ul>
+          
+          <a href="https://wa.me/5491157194796?text=Estoy%20interesado%20en%20el%20Plan%20Est%C3%A1ndar%20%2810000%2Fmes%29" 
+             class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:shadow-md block text-center">
+            <i class="fab fa-whatsapp mr-2"></i> Contratar Estándar
+          </a>
+        </div>
+      </div>
+      
+      <!-- Plan Premium -->
+      <div class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-200">
+        <div class="p-8">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Premium</h3>
+            <div class="flex items-baseline justify-center">
+              <span class="text-4xl font-bold text-purple-600">$14.999</span>
+              <span class="ml-2 text-gray-500">/mes</span>
+            </div>
+            <p class="mt-2 text-gray-500">Para comercios que buscan destacar</p>
+          </div>
+          
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Todo lo del Estándar</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Diseño web personalizado</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Soporte prioritario</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Reportes y estadísticas</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Campañas publicitarias</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i> Chatbot premium 🎁</li>
+          </ul>
+          
+          <a href="https://wa.me/5491157194796?text=Estoy%20interesado%20en%20el%20Plan%20Premium%20%2815000%2Fmes%29" 
+             class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:shadow-md block text-center">
+            <i class="fab fa-whatsapp mr-2"></i> Contratar Premium
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+    <!-- Sección de Comparación -->
+    <div class="mt-16 max-w-6xl mx-auto">
+      <div class="text-center mb-10">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Comparación de Planes</h3>
+        <p class="text-gray-600">Encuentra el plan que mejor se adapta a tus necesidades</p>
+      </div>
+      
+      <div class="overflow-x-auto rounded-xl shadow-md">
+        <table class="w-full bg-white rounded-xl overflow-hidden">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="py-4 px-6 text-left font-semibold text-gray-700">Característica</th>
+              <th class="py-4 px-6 text-center font-semibold text-gray-700">Básico</th>
+              <th class="py-4 px-6 text-center font-semibold text-gray-700">Estándar</th>
+              <th class="py-4 px-6 text-center font-semibold text-gray-700">Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="py-4 px-6 text-gray-700">Listado en directorio</td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Información básica</td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t">
+              <td class="py-4 px-6 text-gray-700">Fotos profesionales</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Promociones destacadas</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t">
+              <td class="py-4 px-6 text-gray-700">Análisis de visitas</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Integración con WhatsApp</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t">
+              <td class="py-4 px-6 text-gray-700">Diseño personalizado</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+            <tr class="border-t bg-gray-50">
+              <td class="py-4 px-6 text-gray-700">Soporte prioritario</td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-gray-400"><i class="fas fa-times"></i></td>
+              <td class="py-4 px-6 text-center text-green-600"><i class="fas fa-check"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Preguntas Frecuentes -->
+<div class="mt-16 max-w-4xl mx-auto">
+  <div class="text-center mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-2">Preguntas Frecuentes</h3>
+    <p class="text-gray-600">Resolvemos tus dudas antes de elegir tu plan</p>
+  </div>
+
+  <div class="space-y-4" id="faq-accordion">
+    <!-- Pregunta 1 -->
+    <div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+      <button class="flex justify-between items-center w-full p-5 text-left font-medium text-gray-800 hover:bg-gray-50 transition-colors" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faq1" 
+              aria-expanded="false" 
+              aria-controls="faq1">
+        <span>¿Puedo cambiar de plan en cualquier momento?</span>
+        <i class="fas fa-chevron-down text-gray-400 text-sm"></i>
+      </button>
+      <div class="px-5 pb-5 collapse" id="faq1">
+        <p class="text-gray-600">Sí, puedes actualizar o cambiar tu plan en cualquier momento. Los cambios se aplicarán al inicio del próximo ciclo de facturación.</p>
+      </div>
+    </div>
+
+    <!-- Pregunta 2 -->
+    <div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+      <button class="flex justify-between items-center w-full p-5 text-left font-medium text-gray-800 hover:bg-gray-50 transition-colors" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faq2" 
+              aria-expanded="false" 
+              aria-controls="faq2">
+        <span>¿Incluye soporte técnico?</span>
+        <i class="fas fa-chevron-down text-gray-400 text-sm"></i>
+      </button>
+      <div class="px-5 pb-5 collapse" id="faq2">
+        <p class="text-gray-600">Todos nuestros planes incluyen soporte técnico básico. El plan Estándar incluye soporte prioritario y el Premium tiene soporte 24/7 con respuesta en menos de 2 horas.</p>
+      </div>
+    </div>
+
+    <!-- Pregunta 3 -->
+    <div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+      <button class="flex justify-between items-center w-full p-5 text-left font-medium text-gray-800 hover:bg-gray-50 transition-colors" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faq3" 
+              aria-expanded="false" 
+              aria-controls="faq3">
+        <span>¿Qué métodos de pago aceptan?</span>
+        <i class="fas fa-chevron-down text-gray-400 text-sm"></i>
+      </button>
+      <div class="px-5 pb-5 collapse" id="faq3">
+        <p class="text-gray-600">Aceptamos transferencias bancarias, Mercado Pago y tarjetas de débito. También ofrecemos la posibilidad de pago anual con un 15% de descuento.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar todos los botones del acordeón
+    const faqButtons = document.querySelectorAll('[data-faq-button]');
+
+    faqButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const icon = this.querySelector('i');
+        const content = this.nextElementSibling;
+
+        // Alternar visibilidad
+        if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-up');
+        } else {
+          content.classList.add('hidden');
+          icon.classList.remove('fa-chevron-up');
+          icon.classList.add('fa-chevron-down');
+        }
+      });
+    });
+  });
+</script>
+ <!-- Sección del Formulario Mejorado -->
+  <section class="parallax py-10 bg-gradient-to-b from-gray-100 to-white min-h-screen flex items-center justify-center px-4" id="contacto">
+    <div class="form-card w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl"
+         style="max-height: 110vh; width: 90vw; max-width: 90vw;">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-6 text-gray-800">Agrega tu Emprendimiento</h2>
+      <div class="form-wrapper">
+        <div class="md:w-2/3 p-6 md:p-8 overflow-y-auto" style="max-height: 80vh;">
+          <form id="addBusinessForm">
+            <div class="mb-3 input-wrapper">
+              <label for="businessName" class="form-label">Nombre de tu Emprendimiento *</label>
+              <div class="position-relative">
+                <input type="text" placeholder="Ej. Juan el Plomero" class="form-control" id="businessName" required>
+                <i class="fas fa-store form-icon"></i>
+              </div>
+              <div id="businessNameError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá el nombre del comercio.</div>
+            </div>
+            
+            <div class="mb-3 input-wrapper">
+              <label for="businessType" class="form-label">Rubro *</label>
+              <div class="position-relative">
+                <select id="businessType" class="form-select" required>
+                  <option value="" disabled selected>Selecciona un rubro</option>
+                  <option value="plomero">Plomero</option>
+                  <option value="electricista">Electricista</option>
+                  <option value="albañil">Albañil</option>
+                  <option value="herrero">Herrero</option>
+                  <option value="cerrajero">Cerrajero</option>
+                  <option value="pintor">Pintor</option>
+                  <option value="gasista">Gasista</option>
+                  <option value="carpintero">Carpintero</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <i class="fas fa-tag form-icon"></i>
+              </div>
+              <div id="businessTypeError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, seleccioná un rubro.</div>
+            </div>
+            
+            <div class="mb-3 input-wrapper">
+              <label for="businessAddress" class="form-label">Dirección *</label>
+              <div class="position-relative">
+                <input type="text" placeholder="Ej. Av. San Martín 567" class="form-control" id="businessAddress" required>
+                <i class="fas fa-map-marker-alt form-icon"></i>
+              </div>
+              <div id="businessAddressError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá una dirección válida.</div>
+            </div>
+            
+            <div class="mb-3 input-wrapper">
+              <label for="businessPhone" class="form-label">Número de WhatsApp *</label>
+              <div class="position-relative">
+                <input type="tel" placeholder="Ej. +5491157194796" class="form-control" id="businessPhone" required>
+                <i class="fab fa-whatsapp form-icon"></i>
+              </div>
+              <div id="businessPhoneError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá un número de WhatsApp válido.</div>
+              <div class="form-text">Incluye el código de país (e.g., +54)</div>
+            </div>
+            
+            <!-- TÉRMINOS Y CONDICIONES -->
+            <div class="mb-3 form-check">
+              <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+              <label class="form-check-label" for="acceptTerms">
+                Acepto los <a href="#" class="terms-link" data-bs-toggle="modal" data-bs-target="#terminosModal" 
+                              style="color: #4a6fa5; text-decoration: underline; font-weight: 500;">términos y condiciones</a> 
+                y la <a href="#" class="privacy-link" data-bs-toggle="modal" data-bs-target="#privacidadModal" 
+                       style="color: #4a6fa5; text-decoration: underline; font-weight: 500;">política de privacidad</a>
+              </label>
+              <div id="acceptTermsError" class="error-message text-red-500 text-xs mt-1 hidden">Debes aceptar los términos y condiciones para continuar</div>
+            </div>
+            
+            <button type="submit" 
+                class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              <i class="fab fa-whatsapp mr-2"></i> Enviar por WhatsApp
+            </button>
+          </form>
+        </div>
+        
+        <!-- Columna derecha con el botón de instalación (oculta en móviles) -->
+        <div class="md:w-1/3 bg-gradient-to-br from-gray-50 to-gray-100 p-6 md:p-8 flex flex-col items-center justify-center hidden md:flex">
+          <div class="text-center mb-6">
+            <div class="bg-white p-4 rounded-full shadow-lg inline-block mb-4">
+              <img src="img/icon-192x192.png" alt="Logo App" class="w-16 h-16 mx-auto">
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Descarga nuestra App</h3>
+            <p class="text-gray-600 text-sm">Accede a todos los comercios y promociones desde tu móvil</p>
+          </div>
+          
+          <button class="botonInstalarForm w-full max-w-xs bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Instalar App
+          </button>
+          
+          <div class="mt-6 text-center">
+            <p class="text-xs text-gray-500">¿Ya tienes la app?</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botón de instalación para móviles (solo visible en móviles) -->
+      <div class="md:hidden p-4 border-t border-gray-200">
+        <div class="flex items-center bg-gray-50 rounded-lg p-3">
+          <img src="img/icon-192x192.png" alt="Logo App" class="w-10 h-10 mr-3">
+          <div class="flex-grow">
+            <div class="text-xs text-gray-500">¿Quieres la app?</div>
+            <div class="font-medium text-gray-700 text-sm">Descarga nuestra aplicación</div>
+          </div>
+          <button class="botonInstalarForm w-1/2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 px-3 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg flex items-center justify-center">
+            <i class="fas fa-download mr-1"></i>Instalar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal de Confirmación para addBusinessForm -->
+    <div class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" id="addConfirmModal">
+      <div class="modal-content bg-white p-6 rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
+        <button class="modal-close absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold" id="addCloseModal" aria-label="Cerrar modal">&times;</button>
+        <h3 class="text-xl font-bold mb-4 text-gray-800">Confirma tu Información</h3>
+        <div id="addModalBody" class="mb-6 space-y-2 text-gray-700"></div>
+        <div class="modal-actions flex justify-between">
+          <button class="btn-cancel bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors" id="addBackToForm">Editar</button>
+          <button class="btn-confirm bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors" id="addSendToWhatsApp">Enviar por WhatsApp</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mensaje de Éxito para addBusinessForm -->
+    <div id="addSuccessMessage" class="success-message hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg text-center z-50 min-w-64">
+      ¡Gracias! Nos pondremos en contacto contigo pronto.
+    </div>
+  </section>
+<!-- Testimonials Section -->
+    <section id="testimonios" class="testimonials-section">
+        <div class="container">
+            <div class="section-header mb-4">
+                <h2 class="section-title text-white text-center">Lo que Dicen Nuestros Comerciantes</h2>
+                <p class="section-subtitle text-white text-center">Conoce las experiencias de otros empresarios que ya forman parte de nuestra comunidad</p>
+            </div>
+            <div class="testimonials-container" id="testimonialsContainer"></div>
+        </div>
+    </section>
+   
+ <!-- Formulario Nuevo Comercio -->
+  <section id="nuevoEmprendimiento" class="parallax py-10 bg-gradient-to-b from-gray-100 to-white min-h-screen flex items-center justify-center px-4">
+    <div class="form-card w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl"
+         style="max-height: 110vh; width: 90vw; max-width: 90vw;">
+      <div class="md:flex">
+        <!-- Columna izquierda con el formulario -->
+        <div class="md:w-2/3 p-6 md:p-8 overflow-y-auto" style="max-height: 80vh;">
+          <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-6 text-gray-800">Registra tu Comercio</h2>
+          <p class="text-center text-gray-600 mb-6 md:mb-8">¡Únete a nuestra comunidad y dale visibilidad a tu negocio!</p>
+          
+          <form id="newBusinessForm" class="space-y-5 md:space-y-6">
+            <div class="form-group">
+              <label for="newBusinessName" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Emprendimiento *</label>
+              <input type="text" 
+                     id="newBusinessName" 
+                     class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                     placeholder="Ej. Kiosco El Rincón" 
+                     required>
+              <div id="newBusinessNameError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá el nombre del comercio.</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="newBusinessType" class="block text-sm font-medium text-gray-700 mb-1">Rubro *</label>
+              <select id="newBusinessType" 
+                      class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all appearance-none bg-white"
+                      required>
+                <option value="" disabled selected>Selecciona un rubro</option>
+                <option value="panaderia">Panadería</option>
+                <option value="pastas">Fábrica de Pastas</option>
+                <option value="kiosco">Kiosco</option>
+                <option value="verduleria">Verdulería</option>
+                <option value="mediopago">Medios de Pago</option>
+                <option value="mascotas">Mascotas</option>
+                <option value="barberia">Barbería</option>
+                <option value="ferreteria">Ferretería</option>
+                <option value="ropa">Ropa</option>
+                <option value="fiambreria">Fiambrería</option>
+                <option value="otro">Otro</option>
+              </select>
+              <div id="newBusinessTypeError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, seleccioná un rubro.</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="newBusinessAddress" class="block text-sm font-medium text-gray-700 mb-1">Dirección *</label>
+              <input type="text" 
+                     id="newBusinessAddress" 
+                     class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                     placeholder="Ej. Av. San Martín 567" 
+                     required>
+              <div id="newBusinessAddressError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá una dirección válida.</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="newBusinessPhone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono (WhatsApp) *</label>
+              <input type="tel" 
+                     id="newBusinessPhone" 
+                     class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                     placeholder="Ej. 1157194796" 
+                     required>
+              <div id="newBusinessPhoneError" class="error-message text-red-500 text-xs mt-1 hidden">Por favor, ingresá un número de teléfono válido.</div>
+              <small class="text-xs text-gray-500">Solo números, sin +54</small>
+            </div>
+            
+            <!-- TÉRMINOS Y CONDICIONES -->
+            <div class="form-group mt-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+                <label class="form-check-label" for="acceptTerms">
+                  Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#terminosModal" class="text-green-600 hover:underline font-medium">términos y condiciones</a> 
+                  y la <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadModal" class="text-green-600 hover:underline font-medium">política de privacidad</a>
+                </label>
+                <div id="acceptTermsError" class="error-message text-red-500 text-xs mt-1 hidden">Debes aceptar los términos y condiciones para continuar</div>
+              </div>
+            </div>
+            
+            <button type="submit" 
+                    class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              <i class="fab fa-whatsapp mr-2"></i> Enviar por WhatsApp
+            </button>
+          </form>
+        </div>
+        
+        <!-- Columna derecha con el botón de instalación (oculta en móviles) -->
+        <div class="md:w-1/3 bg-gradient-to-br from-gray-50 to-gray-100 p-6 md:p-8 flex flex-col items-center justify-center hidden md:flex">
+          <div class="text-center mb-6">
+            <div class="bg-white p-4 rounded-full shadow-lg inline-block mb-4">
+              <img src="img/icon-192x192.png" alt="Logo App" class="w-16 h-16 mx-auto">
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Descarga nuestra App</h3>
+            <p class="text-gray-600 text-sm">Accede a todos los comercios y promociones desde tu móvil</p>
+          </div>
+          
+          <button class="botonInstalarForm w-full max-w-xs bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Instalar App
+          </button>
+          
+          <div class="mt-6 text-center">
+            <p class="text-xs text-gray-500">¿Ya tienes la app?</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botón de instalación para móviles (solo visible en móviles) -->
+      <div class="md:hidden p-4 border-t border-gray-200">
+        <div class="flex items-center bg-gray-50 rounded-lg p-3">
+          <img src="img/icon-192x192.png" alt="Logo App" class="w-10 h-10 mr-3">
+          <div class="flex-grow">
+            <div class="text-xs text-gray-500">¿Quieres la app?</div>
+            <div class="font-medium text-gray-700 text-sm">Descarga nuestra aplicación</div>
+          </div>
+          <button class="botonInstalarForm w-1/2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 px-3 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg flex items-center justify-center">
+            <i class="fas fa-download mr-1"></i>Instalar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal de Confirmación para newBusinessForm -->
+    <div class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" id="newConfirmModal">
+      <div class="modal-content bg-white p-6 rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
+        <button class="modal-close absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold" id="newCloseModal" aria-label="Cerrar modal">&times;</button>
+        <h3 class="text-xl font-bold mb-4 text-gray-800">Confirma tu Información</h3>
+        <div id="newModalBody" class="mb-6 space-y-2 text-gray-700"></div>
+        <div class="modal-actions flex justify-between">
+          <button class="btn-cancel bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors" id="newBackToForm">Editar</button>
+          <button class="btn-confirm bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors" id="newSendToWhatsApp">Enviar por WhatsApp</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mensaje de Éxito para newBusinessForm -->
+    <div id="newSuccessMessage" class="success-message hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg text-center z-50 min-w-64">
+      ¡Bienvenid@, posible suscriptor! Nos pondremos en contacto contigo pronto.
+    </div>
+  </section>
+
+  <!-- TÉRMINOS Y CONDICIONES - MODALES -->
+  <!-- Terms Modal -->
+  <div class="modal fade" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="terminosModalLabel">Términos y Condiciones</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>Al utilizar nuestra plataforma, aceptas los siguientes términos y condiciones:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Los datos proporcionados serán utilizados únicamente para contactarte y verificar tu negocio.</li>
+            <li>Reservamos el derecho de verificar y aprobar todos los negocios antes de publicarlos.</li>
+            <li>La plataforma es completamente gratuita para los comerciantes.</li>
+            <li>Comprometemos a proteger tus datos personales según la ley de protección de datos.</li>
+            <li>Podemos utilizar información de tu negocio para fines promocionales de la plataforma.</li>
+          </ul>
+          <p class="mt-4">Actualizado: Enero 2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Modal -->
+  <div class="modal fade" id="privacidadModal" tabindex="-1" 
+       aria-labelledby="privacidadModalLabel" aria-hidden="true"
+       data-accessibility-configured="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="privacidadModalLabel">Política de Privacidad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p>En Tu Barrio A Un Clic, valoramos tu privacidad y nos comprometemos a proteger tus datos personales:</p>
+          <ul>
+            <li>Tus datos personales no serán compartidos con terceros sin tu consentimiento.</li>
+            <li>Utilizamos tus datos únicamente para contactarte y verificar tu negocio.</li>
+            <li>Implementamos medidas de seguridad para proteger tu información.</li>
+            <li>Puedes solicitar la eliminación de tus datos en cualquier momento.</li>
+            <li>Utilizamos cookies para mejorar tu experiencia en la plataforma.</li>
+          </ul>
+          <p>Actualizado: Enero 2025</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Footer -->
+<footer class="site-footer bg-dark text-white py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Columna 1: Logo y Descripción -->
+      <div class="uno col-md-4 col-sm-6 mb-4 text-center text-sm-start">
+        <img src="img/icon-192x192.png" alt="Tu Barrio a un Clik Logo" class="mb-3 mx-auto" height="60" width="80px">
+        <p>Conectamos los mejores comercios de Castelar con sus vecinos. Comprá local, apoyá a tu barrio.</p>
+        <div class="social-icons mt-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/541155556666?text=Hola%20desde%20BarrioClik" target="_blank" rel="noopener" aria-label="WhatsApp" class="text-white mx-2"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Columna 2: Enlaces de Comercios -->
+      <div class="uno col-md-4 col-sm-6 mb-4">
+        <h5 class="font-weight-bold mb-3">Comercios</h5>
+        <ul class="list-unstyled">
+          <li><a href="#panaderias" class="text-white"><i class="fas fa-utensils mr-2"></i>Alimentos</a></li>
+          <li><a href="#fca-de-pastas" class="text-white"><i class="fas fa-tools mr-2"></i>Servicios</a></li>
+          <li><a href="#verdulerias" class="text-white"><i class="fas fa-shopping-bag mr-2"></i>Otros</a></li>
+        </ul>
+      </div>
+      <!-- Columna 3: Enlaces Rápidos -->
+      <div class="uno col-md-4 col-sm-12 mb-4">
+        <h5 class="font-weight-bold mb-3">Enlaces Rápidos</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-white"><i class="fas fa-home mr-2"></i>Inicio</a></li>
+          <li><a href="#ubicacion" class="text-white"><i class="fas fa-map-marker-alt mr-2"></i>Ubicación</a></li>
+          <li><a href="#contacto" class="text-white"><i class="fas fa-envelope mr-2"></i>Contacto</a></li>
+        </ul>
+      </div>
+       <div class="uno col-md-4 col-sm-12 mb-4">
+      <!-- Logo de la app animado con texto -->
+      <a href="index.html" class="logo-app group text-decoration-none inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
+        <img src="img/icon-192x192.png" alt="Logo App" class="h-8" />
+        <span class="text-gray-700 font-semibold text-sm hidden d-inline-block ">Volver a la App</span>
+      </a>
+       </div>
+    </div>   
+     
+    <div class="text-center mt-4">
+      <p>&copy; 2025 Tu Barrio a un Clik. Todos los derechos reservados.</p>
+      <p><a href="mailto:info@tubarrioaunclik.com" class="text-white">tubarrioaunclik@gmail.com</a></p>
+    </div>
+  </div>
+</footer>
+    <!--<script src="js/jquery-3.4.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+<script src="/shared/js/splash.js"></script>
+<script src="/shared/js/testimonials.js"></script>
+<script>
+  AOS.init({
+  duration: 600, // Reducir duración de la animación
+  once: true, // Animar solo una vez al hacer scroll
+  offset: 100, // Iniciar animaciones más cerca del viewport
+});
+</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Configuración para todos los formularios
+      const forms = [
+        {
+          formId: 'newBusinessForm',
+          modalId: 'newConfirmModal',
+          modalBodyId: 'newModalBody',
+          closeModalId: 'newCloseModal',
+          backToFormId: 'newBackToForm',
+          sendToWhatsAppId: 'newSendToWhatsApp',
+          successMessageId: 'newSuccessMessage',
+          fields: [
+            { id: 'newBusinessName', errorId: 'newBusinessNameError', errorMsg: 'Por favor, ingresá el nombre del comercio.' },
+            { id: 'newBusinessType', errorId: 'newBusinessTypeError', errorMsg: 'Por favor, seleccioná un rubro.' },
+            { id: 'newBusinessAddress', errorId: 'newBusinessAddressError', errorMsg: 'Por favor, ingresá una dirección válida.' },
+            { id: 'newBusinessPhone', errorId: 'newBusinessPhoneError', errorMsg: 'Por favor, ingresá un número de teléfono válido.', isPhone: true },
+            { id: 'acceptTerms', errorId: 'acceptTermsError', errorMsg: 'Debes aceptar los términos y condiciones para continuar.', isCheckbox: true }
+          ],
+          messageTemplate: ({ name, type, address, phone }) => 
+            `Nuevo registro de comercio:\nNombre: ${name}\nRubro: ${type}\nDirección: ${address}\nTeléfono: ${phone}`
+        },
+        {
+          formId: 'addBusinessForm',
+          modalId: 'addConfirmModal',
+          modalBodyId: 'addModalBody',
+          closeModalId: 'addCloseModal',
+          backToFormId: 'addBackToForm',
+          sendToWhatsAppId: 'addSendToWhatsApp',
+          successMessageId: 'addSuccessMessage',
+          fields: [
+            { id: 'businessName', errorId: 'businessNameError', errorMsg: 'Por favor, ingresá el nombre del comercio.' },
+            { id: 'businessType', errorId: 'businessTypeError', errorMsg: 'Por favor, seleccioná un rubro.' },
+            { id: 'businessAddress', errorId: 'businessAddressError', errorMsg: 'Por favor, ingresá una dirección válida.' },
+            { id: 'businessPhone', errorId: 'businessPhoneError', errorMsg: 'Por favor, ingresá un número de WhatsApp válido.', isPhone: true },
+            { id: 'acceptTerms', errorId: 'acceptTermsError', errorMsg: 'Debes aceptar los términos y condiciones para continuar.', isCheckbox: true }
+          ],
+          messageTemplate: ({ name, type, address, phone }) => 
+            `Nuevo registro de oficio:\nNombre: ${name}\nRubro: ${type}\nDirección: ${address}\nTeléfono: ${phone}`
+        }
+      ];
+
+      const formData = {};
+
+      function validateForm(formConfig) {
+        let isValid = true;
+        const values = {};
+
+        formConfig.fields.forEach(field => {
+          const element = document.getElementById(field.id);
+          if (!element) return;
+
+          const errorElement = document.getElementById(field.errorId);
+          if (errorElement) errorElement.classList.add('hidden');
+
+          if (field.isCheckbox) {
+            if (!element.checked) {
+              if (errorElement) errorElement.classList.remove('hidden');
+              isValid = false;
+            }
+          } else if (field.isPhone) {
+            const value = element.value.trim();
+            if (value && !/^\d{10,}$/.test(value.replace(/\D/g, ''))) {
+              if (errorElement) errorElement.classList.remove('hidden');
+              isValid = false;
+            }
+            values[field.id] = value;
+          } else {
+            const value = element.value.trim();
+            if (!value && !field.optional) {
+              if (errorElement) errorElement.classList.remove('hidden');
+              isValid = false;
+            }
+            values[field.id] = value;
+          }
+        });
+
+        return { isValid, values };
+      }
+
+      // Configurar cada formulario
+      forms.forEach(formConfig => {
+        const form = document.getElementById(formConfig.formId);
+        if (!form) {
+          console.log(`Formulario no encontrado: ${formConfig.formId}`);
+          return;
+        }
+
+        const modal = document.getElementById(formConfig.modalId);
+        const modalBody = document.getElementById(formConfig.modalBodyId);
+        const closeModal = document.getElementById(formConfig.closeModalId);
+        const backToForm = document.getElementById(formConfig.backToFormId);
+        const sendToWhatsApp = document.getElementById(formConfig.sendToWhatsAppId);
+        const successMessage = document.getElementById(formConfig.successMessageId);
+
+        if (!modal || !modalBody || !closeModal || !backToForm || !sendToWhatsApp) {
+          console.warn(`Elementos faltantes para ${formConfig.formId}`);
+          return;
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const { isValid, values } = validateForm(formConfig);
+          if (isValid) {
+            formData[formConfig.formId] = values;
+            modalBody.innerHTML = Object.entries(values)
+              .filter(([key, value]) => !key.includes('Terms') && value)
+              .map(([key, value]) => {
+                const label = key.replace(/new|Business|add|/g, '');
+                return `<p><strong>${label}:</strong> ${value}</p>`;
+              }).join('');
+            
+            // Mostrar modal centrado
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+              const modalContent = modal.querySelector('.modal-content');
+              if (modalContent) {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+              }
+            }, 10);
+          }
+        });
+
+        closeModal.addEventListener('click', () => {
+          const modalContent = modal.querySelector('.modal-content');
+          if (modalContent) {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+          }
+          setTimeout(() => {
+            modal.classList.add('hidden');
+          }, 300);
+        });
+
+        backToForm.addEventListener('click', () => {
+          const modalContent = modal.querySelector('.modal-content');
+          if (modalContent) {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+          }
+          setTimeout(() => {
+            modal.classList.add('hidden');
+          }, 300);
+        });
+
+        sendToWhatsApp.addEventListener('click', () => {
+          const values = formData[formConfig.formId];
+          if (!values) return;
+
+          const messageData = {};
+          if (formConfig.formId === 'newBusinessForm') {
+            messageData.name = values.newBusinessName;
+            messageData.type = values.newBusinessType;
+            messageData.address = values.newBusinessAddress;
+            messageData.phone = values.newBusinessPhone;
+          } else if (formConfig.formId === 'addBusinessForm') {
+            messageData.name = values.businessName;
+            messageData.type = values.businessType;
+            messageData.address = values.businessAddress;
+            messageData.phone = values.businessPhone;
+          }
+
+          const message = formConfig.messageTemplate(messageData);
+          const whatsappUrl = `https://wa.me/5491157194796?text=${encodeURIComponent(message)}`;
+
+          // Cerrar modal con animación
+          const modalContent = modal.querySelector('.modal-content');
+          if (modalContent) {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+          }
+          
+          setTimeout(() => {
+            modal.classList.add('hidden');
+            
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              setTimeout(() => {
+                successMessage.classList.add('hidden');
+                window.open(whatsappUrl, '_blank');
+              }, 1500);
+            } else {
+              window.open(whatsappUrl, '_blank');
+            }
+          }, 300);
+        });
+      });
+
+      // --- CÓDIGO PWA ---
+      let deferredPrompt;
+      const installButtons = document.querySelectorAll('.botonInstalarForm');
+
+      // Asegurar que los botones estén ocultos inicialmente
+      installButtons.forEach(btn => {
+        btn.style.display = "none";
+      });
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        console.log("✅ beforeinstallprompt capturado");
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Mostrar todos los botones de instalación
+        installButtons.forEach(btn => {
+          btn.style.display = "flex";
+          btn.style.alignItems = "center";
+          btn.style.justifyContent = "center";
+        });
+      });
+
+      // Escuchar si la app ya está instalada
+      window.addEventListener('appinstalled', () => {
+        console.log('🎉 App instalada exitosamente');
+        installButtons.forEach(btn => btn.style.display = 'none');
+        deferredPrompt = null;
+      });
+
+      installButtons.forEach(button => {
+        button.addEventListener("click", async () => {
+          if (!deferredPrompt) {
+            alert("La instalación no está disponible. Puedes instalar la app desde el menú de tu navegador (ícono de aplicación en la barra de direcciones).");
+            return;
+          }
+          deferredPrompt.prompt();
+          const choiceResult = await deferredPrompt.userChoice;
+          if (choiceResult.outcome === "accepted") {
+            console.log("✅ App instalada por el usuario");
+          } else {
+            console.log("❌ El usuario canceló la instalación");
+          }
+          deferredPrompt = null;
+        });
+      });
+    });
+  </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      // Evitar doble registro
+      if (window.serviceWorkerRegistered) return;
+      window.serviceWorkerRegistered = true;
+
+      navigator.serviceWorker.register('sw.js')
+        .then(function (registration) {
+          console.log('✅ ServiceWorker registrado:', registration.scope);
+
+          // Detectar cuando hay una nueva versión lista
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            let refreshing = false;
+
+            installingWorker.onstatechange = function () {
+              if (installingWorker.state === 'installed') {
+                // Solo si ya hay un controlador, significa que hay una actualización
+                if (navigator.serviceWorker.controller) {
+                  console.log('🔄 Nueva versión disponible. Preparando notificación...');
+
+                  // Mostrar notificación de actualización
+                  showUpdateNotification();
+                } else {
+                  console.log('📥 Primera instalación del Service Worker');
+                }
+              }
+            };
+          };
+        })
+        .catch(function (error) {
+          console.log('❌ ServiceWorker falló al registrarse:', error);
+        });
+    });
+
+    // Escuchar cambio de controlador (solo cuando el nuevo SW toma control)
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (refreshing) return;
+      refreshing = true;
+      console.log('🔁 Controlador cambiado: recargando...');
+      window.location.reload();
+    });
+
+    // Función para mostrar notificación de actualización
+    function showUpdateNotification() {
+      const existing = document.querySelector('.update-notification');
+      if (existing) return; // Evitar duplicados
+
+      const updateNotification = document.createElement('div');
+      updateNotification.className = 'update-notification';
+      updateNotification.innerHTML = `
+        <div class="update-content">
+          <p>¡Hay una nueva versión disponible!</p>
+          <button class="btn-update">Actualizar ahora</button>
+        </div>
+      `;
+      document.body.appendChild(updateNotification);
+
+      document.querySelector('.btn-update').addEventListener('click', function () {
+        navigator.serviceWorker.getRegistration().then(reg => {
+          if (reg && reg.waiting) {
+            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+    }
+  }
+</script>
+
+<style>
+  .update-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .update-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .btn-update {
+    background: #e1306c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-update:hover {
+    background: #c12757;
+    transform: translateY(-1px);
+  }
+</style>
+</body>
+</html>
