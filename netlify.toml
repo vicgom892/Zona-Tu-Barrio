@@ -1,9 +1,40 @@
 [build]
   publish = "."
 
+# REDIRECCIONES PARA NEGOCIOS (más específicas primero)
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/castelar/negocios/*"
+  to = "/castelar/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/ituzaingo/negocios/*"
+  to = "/ituzaingo/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/moron/negocios/*"
+  to = "/moron/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/ciudadela/negocios/*"
+  to = "/ciudadela/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/merlo/negocios/*"
+  to = "/merlo/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/haedo/negocios/*"
+  to = "/haedo/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/ramos-mejia/negocios/*"
+  to = "/ramos-mejia/negocios/:splat"
   status = 200
 
 # REDIRECCIONES PARA CADA LOCALIDAD
@@ -42,14 +73,10 @@
   to = "/ramos-mejia/index.html"
   status = 200
 
-  [[redirects]]
-  from = "/castelar/negocios/*"
-  to = "/castelar/negocios/:splat"
-  status = 200
-
+# CATCH-ALL para la página principal (menos específica al final)
 [[redirects]]
-  from = "/*/negocios/*"
-  to = "/:localidad/negocios/:splat"
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [[headers]]
