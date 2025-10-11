@@ -2132,18 +2132,6 @@ document.addEventListener('keydown', function(event) {
 // REGISTRO DEL SERVICE WORKER
 // =============================================
 
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/Zona-Tu-Barrio/sw.js?v=v60-unified', {
-    scope: '/Zona-Tu-Barrio/'
-  })
-  .then(registration => {
-    console.log('✅ SW Unificado registrado:', registration.scope);
-  })
-  .catch(error => {
-    console.error('❌ Error SW:', error);
-  });
-}
 </script>
  <script>
         // Usar la configuración dinámica
