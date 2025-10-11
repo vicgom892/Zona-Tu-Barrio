@@ -1,36 +1,14 @@
 {
-  "name": "Tu Barrio a un Clik - Ramos",
-  "short_name": "BarrioClik Ramos",
-  "description": "Plataforma de comercios y comunidad local en Ramos",
-  "start_url": "/Ramos/index.html",
+  "name": "Tu Barrio a un Click - ramos",
+  "short_name": "BarrioClick ramos",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "img/icon-192x192.png",
+      "src": "../shared/img/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "img/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Explorar Comercios",
-      "short_name": "Comercios",
-      "url": "./index.html#panaderias",
-      "icons": [{ "src": "img/icon-192x192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Unirse a la Comunidad",
-      "short_name": "Comunidad",
-      "url": "./comunidad.html",
-      "icons": [{ "src": "img/icon-192x192.png", "sizes": "192x192" }]
     }
   ]
 }

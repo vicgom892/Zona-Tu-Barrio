@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- CONFIGURACIÓN DE PRODUCCIÓN ---
   const APP_VERSION = 'v60-multi'; // ⬅️ ¡DEBE COINCIDIR EXACTAMENTE CON CACHE_VERSION EN sw.js!
   
+  // --- CONFIGURACIÓN DINÁMICA DE RUTAS ---
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  const BASE_PATH = isGitHubPages ? '/Zona-Tu-Barrio' : '';
+  const SW_PATH = `${BASE_PATH}/sw.js`;
+  const SCOPE_PATH = `${BASE_PATH}/`;
+  
   // --- SERVICE WORKER EN PRODUCCIÓN ---
   if ('serviceWorker' in navigator) {
     // SOLO registrar en LOCALIDADES, no en la raíz
@@ -42,14 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         !currentPath.endsWith('/index.html'));
     
     if (isLocalidad) {
-      // Registrar SW sin caché y con control de versiones
-      // En main-2.js - línea ~38
-      navigator.serviceWorker.register(`/Zona-Tu-Barrio/sw.js?v=${APP_VERSION}`, {
-        scope: '/Zona-Tu-Barrio/', 
+      // Registrar SW con rutas dinámicas para ambos entornos
+      navigator.serviceWorker.register(`${SW_PATH}?v=${APP_VERSION}`, {
+        scope: SCOPE_PATH, 
         updateViaCache: 'none'
       })
       .then(registration => {
-        console.log('✅ SW registrado en producción para localidad:', APP_VERSION);
+        console.log('✅ SW registrado:', APP_VERSION);
+        console.log('📍 Entorno:', isGitHubPages ? 'GitHub Pages' : 'Netlify');
+        console.log('🛣️  Ruta base:', BASE_PATH || '(raíz)');
 
         // Verificar actualizaciones periódicas (cada 10 minutos)
         const checkForUpdates = () => {
@@ -79,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // En producción, no mostramos errores al usuario, solo logueamos
       });
     } else {
-      console.log('🏠 En raíz - SW Selector se encargará del registro');
+      console.log('🏠 En raíz - No se registra SW para selector');
+      console.log('📍 Entorno:', isGitHubPages ? 'GitHub Pages' : 'Netlify');
     }
   }
 

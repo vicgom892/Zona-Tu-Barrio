@@ -25,8 +25,8 @@
   <link rel="apple-touch-icon" href="/Zona-Tu-Barrio/shared/img/icon-192x192.png">
   
   <!-- Manifest -->
-  <link rel="manifest" href="../castelar/manifest.json">
-  
+  <link rel="manifest" href="../manifest.json">
+   <script src="../shared/js/config.js"></script>
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -2903,5 +2903,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   gtag('config', 'G-XFQL2JFLTX');
 </script>
+
+ <script>
+        // Inicialización con configuración dinámica
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏠 Castelar - Configuración:', window.APP_CONFIG);
+            
+            // Si necesitas actualizar rutas dinámicamente en Castelar
+            const currentPath = window.location.pathname;
+            console.log('📍 Ruta actual:', currentPath);
+        });
+    </script>
 </body>
 </html>

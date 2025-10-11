@@ -1,12 +1,16 @@
 // sw.js - Service Worker Unificado para Selector y Localidades
-// Ubicación: /Zona-Tu-Barrio/sw.js
-// Versión: v60-unified
+// Versión: v60-multi (DEBE COINCIDIR con APP_VERSION en main-2.js)
 
-const CACHE_VERSION = 'v60-unified';
+// === CONFIGURACIÓN DINÁMICA DE RUTAS ===
+const isGitHubPages = self.location.hostname.includes('github.io');
+const BASE_PATH = isGitHubPages ? '/Zona-Tu-Barrio' : '';
+
+const CACHE_VERSION = 'v60-multi';
 
 const CONFIG = {
   CACHE_VERSION: CACHE_VERSION,
   CACHE_NAME: `tu-barrio-unified-${CACHE_VERSION}`,
+  BASE_PATH: BASE_PATH,
   CACHES: {
     STATIC: 'static',
     ASSETS: 'assets',
@@ -40,18 +44,22 @@ const API_CACHE = `${CONFIG.CACHES.API}-${CONFIG.CACHE_VERSION}`;
 const DYNAMIC_CACHE = `${CONFIG.CACHES.DYNAMIC}-${CONFIG.CACHE_VERSION}`;
 const BUSINESS_CACHE = `${CONFIG.CACHES.BUSINESS}-${CONFIG.CACHE_VERSION}`;
 
-// === DETECCIÓN DE CONTEXTO ===
+// === FUNCIONES DE RUTAS DINÁMICAS ===
+function getFullPath(path) {
+  return `${CONFIG.BASE_PATH}${path}`;
+}
+
 function getAppContext(pathname) {
   const path = pathname || self.location.pathname;
   
   // Si es la raíz o el selector
-  if (path === '/Zona-Tu-Barrio/' || path === '/Zona-Tu-Barrio/index.html') {
+  if (path === getFullPath('/') || path === getFullPath('/index.html')) {
     return 'selector';
   }
   
   // Detectar localidades
   for (const localidad of CONFIG.LOCALIDADES) {
-    if (path.includes(`/${localidad}/`)) {
+    if (path.includes(getFullPath(`/${localidad}/`))) {
       return localidad;
     }
   }
@@ -61,43 +69,43 @@ function getAppContext(pathname) {
 
 const APP_CONTEXT = getAppContext();
 
-// === RECURSOS POR CONTEXTO ===
+// === RECURSOS POR CONTEXTO (CON RUTAS DINÁMICAS) ===
 const SELECTOR_RESOURCES = [
   // Página principal del selector
-  '/Zona-Tu-Barrio/',
-  '/Zona-Tu-Barrio/index.html',
-  '/Zona-Tu-Barrio/manifest.json',
-  '/Zona-Tu-Barrio/robots.txt',
+  getFullPath('/'),
+  getFullPath('/index.html'),
+  getFullPath('/manifest.json'),
+  getFullPath('/robots.txt'),
   
   // Recursos compartidos críticos para el selector
-  '/Zona-Tu-Barrio/shared/css/styles.css',
-  '/Zona-Tu-Barrio/shared/css/fondo.css',
-  '/Zona-Tu-Barrio/shared/js/main-2.js',
-  '/Zona-Tu-Barrio/shared/js/install-app.js',
+  getFullPath('/shared/css/styles.css'),
+  getFullPath('/shared/css/fondo.css'),
+  getFullPath('/shared/js/main-2.js'),
+  getFullPath('/shared/js/install-app.js'),
   
   // Imágenes del selector
-  '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
-  '/Zona-Tu-Barrio/shared/img/icon-512x512.png',
-  '/Zona-Tu-Barrio/shared/img/icon-abeja-sola.png'
+  getFullPath('/shared/img/icon-192x192.png'),
+  getFullPath('/shared/img/icon-512x512.png'),
+  getFullPath('/shared/img/icon-abeja-sola.png')
 ];
 
 const SHARED_RESOURCES = [
   // Recursos compartidos entre todas las localidades
-  '/Zona-Tu-Barrio/shared/css/styles.css',
-  '/Zona-Tu-Barrio/shared/css/fondo.css',
-  '/Zona-Tu-Barrio/shared/css/negocios.css',
+  getFullPath('/shared/css/styles.css'),
+  getFullPath('/shared/css/fondo.css'),
+  getFullPath('/shared/css/negocios.css'),
   
-  '/Zona-Tu-Barrio/shared/js/main-2.js',
-  '/Zona-Tu-Barrio/shared/js/chat-2.js',
-  '/Zona-Tu-Barrio/shared/js/form.js',
-  '/Zona-Tu-Barrio/shared/js/install-app.js',
-  '/Zona-Tu-Barrio/shared/js/notificaciones.js',
-  '/Zona-Tu-Barrio/shared/js/search-functionality.js',
-  '/Zona-Tu-Barrio/shared/js/splash.js',
-  '/Zona-Tu-Barrio/shared/js/testimonials.js',
+  getFullPath('/shared/js/main-2.js'),
+  getFullPath('/shared/js/chat-2.js'),
+  getFullPath('/shared/js/form.js'),
+  getFullPath('/shared/js/install-app.js'),
+  getFullPath('/shared/js/notificaciones.js'),
+  getFullPath('/shared/js/search-functionality.js'),
+  getFullPath('/shared/js/splash.js'),
+  getFullPath('/shared/js/testimonials.js'),
   
-  '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
-  '/Zona-Tu-Barrio/shared/img/icon-512x512.png'
+  getFullPath('/shared/img/icon-192x192.png'),
+  getFullPath('/shared/img/icon-512x512.png')
 ];
 
 // Páginas comunes por localidad
@@ -113,7 +121,7 @@ const LOCALIDAD_PAGES = [
 // === FUNCIONES DE DETECCIÓN ===
 function isStaticAsset(path) {
   return /\.(html|css|js|xml|woff2?|ttf|eot|json)$/i.test(path) || 
-         path === '/Zona-Tu-Barrio/manifest.json';
+         path === getFullPath('/manifest.json');
 }
 
 function isImage(path) {
@@ -131,7 +139,7 @@ function isBusinessData(path) {
 
 function isLocalidadPage(path) {
   return CONFIG.LOCALIDADES.some(localidad => 
-    path.startsWith(`/Zona-Tu-Barrio/${localidad}/`) && 
+    path.startsWith(getFullPath(`/${localidad}/`)) && 
     LOCALIDAD_PAGES.some(page => path.endsWith(page))
   );
 }
@@ -147,6 +155,9 @@ const cacheTimestamps = {
 // === INSTALL: Precache según contexto ===
 self.addEventListener('install', (event) => {
   log('info', `🚀 Instalando SW Unificado (${APP_CONTEXT}): ${CONFIG.CACHE_VERSION}`);
+  log('info', `📍 Entorno: ${isGitHubPages ? 'GitHub Pages' : 'Netlify'}`);
+  log('info', `🛣️  Ruta base: ${CONFIG.BASE_PATH || '(raíz)'}`);
+  
   self.skipWaiting();
 
   event.waitUntil(
@@ -223,6 +234,7 @@ self.addEventListener('activate', (event) => {
           type: 'SW_UPDATED',
           version: CONFIG.CACHE_VERSION,
           context: APP_CONTEXT,
+          environment: isGitHubPages ? 'github-pages' : 'netlify',
           message: `¡Nueva versión ${CONFIG.CACHE_VERSION} activa!`
         });
       });
@@ -278,7 +290,12 @@ self.addEventListener('message', async (event) => {
       break;
 
     case 'GET_CONTEXT':
-      ports[0]?.postMessage({ type: 'APP_CONTEXT', context: APP_CONTEXT });
+      ports[0]?.postMessage({ 
+        type: 'APP_CONTEXT', 
+        context: APP_CONTEXT,
+        environment: isGitHubPages ? 'github-pages' : 'netlify',
+        basePath: CONFIG.BASE_PATH
+      });
       break;
 
     case 'REFRESH_CONTENT':
@@ -305,9 +322,9 @@ self.addEventListener('push', (event) => {
   const context = APP_CONTEXT === 'selector' ? 'tu barrio' : APP_CONTEXT;
   const options = {
     body: data.body || `Nuevas ofertas disponibles en ${context}`,
-    icon: '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
-    badge: '/Zona-Tu-Barrio/shared/img/icon-192x192.png',
-    data: { url: data.url || '/Zona-Tu-Barrio/', forceRefresh: true },
+    icon: getFullPath('/shared/img/icon-192x192.png'),
+    badge: getFullPath('/shared/img/icon-192x192.png'),
+    data: { url: data.url || getFullPath('/'), forceRefresh: true },
     vibrate: [200, 100, 200],
     actions: [
       { action: 'open', title: 'Abrir App' },
@@ -322,7 +339,7 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const urlToOpen = event.notification.data?.url || '/Zona-Tu-Barrio/';
+  const urlToOpen = event.notification.data?.url || getFullPath('/');
 
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(async clientsList => {
@@ -343,7 +360,7 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
-// === FUNCIONES AUXILIARES (las mismas que tenías) ===
+// === FUNCIONES AUXILIARES ===
 async function precacheWithRetry(cache, resources, retries = 2) {
   const successful = [], failed = [];
 
@@ -478,12 +495,11 @@ async function cacheFirstWithCleanup(request, cacheName) {
     return response;
   } catch (error) {
     log('error', `❌ Imagen falló: ${getShortUrl(request.url)}`, error);
-    return caches.match('/Zona-Tu-Barrio/shared/img/fallback-image.png') || 
+    return caches.match(getFullPath('/shared/img/fallback-image.png')) || 
            new Response('', { status: 404 });
   }
 }
 
-// Funciones auxiliares (mantener las que ya tenías)
 async function fetchWithRetry(request, options = {}) {
   const { maxRetries = CONFIG.RETRY.maxRetries } = options;
   let lastError;
@@ -583,7 +599,7 @@ function createFallbackResponse(request, type) {
   
   switch (type) {
     case 'document':
-      return caches.match('/Zona-Tu-Barrio/shared/offline.html') || 
+      return caches.match(getFullPath('/shared/offline.html')) || 
              new Response('Servicio no disponible', { status: 503 });
     
     case 'api':
@@ -594,7 +610,7 @@ function createFallbackResponse(request, type) {
       });
     
     case 'image':
-      return caches.match('/Zona-Tu-Barrio/shared/img/fallback-image.png') || 
+      return caches.match(getFullPath('/shared/img/fallback-image.png')) || 
              new Response('Imagen no disponible', { status: 503 });
     
     default:
@@ -646,7 +662,7 @@ async function refreshLocalidadContent(localidad) {
   
   log('info', `♻️ Refresh contenido para: ${localidad}`);
   
-  const pagesToRefresh = LOCALIDAD_PAGES.map(page => `/Zona-Tu-Barrio/${localidad}/${page}`);
+  const pagesToRefresh = LOCALIDAD_PAGES.map(page => getFullPath(`/${localidad}/${page}`));
   const refreshPromises = pagesToRefresh.map(async (url) => {
     try {
       const response = await fetch(url + '?t=' + Date.now(), {
@@ -689,4 +705,7 @@ function log(level, message, ...args) {
   console[level](`[SW ${CONFIG.CACHE_VERSION}] ${timestamp} ${levels[level]} ${message}`, ...args);
 }
 
-log('info', `🚀 SW Unificado cargado - Contexto: ${APP_CONTEXT} - Controla selector y todas las localidades`);
+log('info', `🚀 SW Unificado cargado - Contexto: ${APP_CONTEXT}`);
+log('info', `📍 Entorno: ${isGitHubPages ? 'GitHub Pages' : 'Netlify'}`);
+log('info', `🛣️  Ruta base: ${CONFIG.BASE_PATH || '(raíz)'}`);
+log('info', `🎯 Controla selector y todas las localidades`);

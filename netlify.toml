@@ -1,3 +1,47 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# REDIRECCIONES PARA CADA LOCALIDAD
+[[redirects]]
+  from = "/castelar/*"
+  to = "/castelar/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ituzaingo/*"
+  to = "/ituzaingo/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/moron/*"
+  to = "/moron/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ciudadela/*"
+  to = "/ciudadela/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/merlo/*"
+  to = "/merlo/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/haedo/*"
+  to = "/haedo/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/ramos-mejia/*"
+  to = "/ramos-mejia/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

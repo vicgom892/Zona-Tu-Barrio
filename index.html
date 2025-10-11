@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Barrio A Un Click - Seleccioná tu Localidad</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+    <!-- En el head de tu index.html en la raíz -->
+    <link rel="manifest" href="./manifest.json" crossorigin="use-credentials">
+    <script src="./shared/js/config.js"></script>
 
     <!-- Iconos y Manifest -->
     <link rel="icon" href="./shared/img/icon-abeja-sola.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="./shared/img/icon-192x192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="./shared/img/icon-192x192.png" />
     <link rel="mask-icon" href="./shared/img/icon-abeja-sola.png" color="#e1306c">
-  
-    <!-- En el head de tu index.html en la raíz -->
-    <link rel="manifest" href="/Zona-Tu-Barrio/manifest.json" crossorigin="use-credentials">
 
     <!-- En el head, después del manifest -->
     <meta name="apple-mobile-web-app-title" content="TuBarrioSelector">
@@ -2144,5 +2145,17 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+ <script>
+        // Usar la configuración dinámica
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📍 Configuración cargada:', window.APP_CONFIG);
+            
+            // Actualizar todos los enlaces dinámicamente
+            document.querySelectorAll('a[data-href]').forEach(link => {
+                const originalPath = link.getAttribute('data-href');
+                link.href = window.APP_CONFIG.getFullPath(originalPath);
+            });
+        });
+    </script>
 </body>
 </html>
