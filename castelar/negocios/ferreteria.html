@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ferretería - Tu Barrio A Un Click</title>
-  <link rel="manifest" href="../manifest.json">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <link rel="stylesheet" href="/Zona-Tu-Barrio/shared/css/negocios.css">
-  <link rel="icon" href="/Zona-Tu-Barrio/shared/img/icon-192x192.png">
+  <link rel="stylesheet" href="/shared/css/negocios.css">
+  <link rel="icon" href="/shared/img/icon-192x192.png">
   <meta name="description" content="Ferretería en Castelar. Herramientas, pinturas, y productos de construcción. Entregas a domicilio.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="/shared/js/config.js"></script>
 </head>
 <body data-categoria="ferreteria" class="bg-gray-100 font-sans">
 
@@ -20,7 +20,7 @@
         <div class="splash-particles" id="splashParticles"></div>
         <div class="splash-grid"></div>
         <div class="splash-logo">
-            <img src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" class="logo-icon" alt="logo de la app">
+            <img src="/shared/img/icon-192x192.png" class="logo-icon" alt="logo de la app">
         </div>
         <h1 class="splash-text">Tu Barrio A Un Clik</h1>
         <div class="loading-bar-container">
@@ -51,7 +51,7 @@
 
       <!-- Logo del negocio -->
       <a href="../index.html" class="logo-negocio group inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow-md border border-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-bounce-slow">
-        <img id="logoNegocioPC" src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" alt="Logo Negocio" class="h-10" />
+        <img id="logoNegocioPC" src="/shared/img/icon-192x192.png" alt="Logo Negocio" class="h-10" />
       </a>
 
       <!-- Botón hamburguesa móvil -->
@@ -68,7 +68,7 @@
     <div class="modal-content bg-white/95 backdrop-blur-md w-3/4 max-w-sm h-full p-6 flex flex-col shadow-lg rounded-r-xl relative">
       <!-- Header del modal -->
       <div class="flex justify-between items-center mb-4">
-        <img id="logoNegocioModal" src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" alt="Logo del Negocio" class="h-10 rounded shadow-md">
+        <img id="logoNegocioModal" src="shared/img/icon-192x192.png" alt="Logo del Negocio" class="h-10 rounded shadow-md">
         <button id="mobileMenuClose" class="text-gray-800 hover:text-red-500 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -130,25 +130,25 @@
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Ofertas Especiales</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="offer-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-1.webp" alt="Descuento en Pinturas" class="offer-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-1.webp" alt="Descuento en Pinturas" class="offer-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">20% en Pinturas</h3>
           <p class="text-gray-600">Pinturas de alta calidad con un 20% de descuento. Variedades disponibles.</p>
         </div>
 
         <div class="offer-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-2.webp" alt="Oferta en Herramientas" class="offer-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-2.webp" alt="Oferta en Herramientas" class="offer-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Herramientas Especiales</h3>
           <p class="text-gray-600">Herramientas profesionales con precios especiales. ¡No te las pierdas!</p>
         </div>
 
         <div class="offer-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-3.webp" alt="Materiales de Construcción" class="offer-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-3.webp" alt="Materiales de Construcción" class="offer-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Materiales de Construcción</h3>
           <p class="text-gray-600">Ofertas en materiales de construcción para tus proyectos.</p>
         </div>
 
         <div class="offer-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-4.webp" alt="Entrega Gratis" class="offer-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-4.webp" alt="Entrega Gratis" class="offer-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Entrega Gratis</h3>
           <p class="text-gray-600">Pedí online y obtené entrega gratuita en Castelar.</p>
         </div>
@@ -160,19 +160,19 @@
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Productos Seleccionados</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="product-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-1.webp" alt="Llaves de Alta Calidad" class="product-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-1.webp" alt="Llaves de Alta Calidad" class="product-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Llaves de Alta Calidad</h3>
           <p class="text-gray-600">Llaves resistentes y duraderas para cualquier necesidad.</p>
         </div>
 
         <div class="product-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-2.webp" alt="Taladros Profesionales" class="product-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-2.webp" alt="Taladros Profesionales" class="product-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Taladros Profesionales</h3>
           <p class="text-gray-600">Taladros potentes y precisos para trabajos exigentes.</p>
         </div>
 
         <div class="product-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-3.webp" alt="Pinturas Ecológicas" class="product-img w-full h-32 object-cover rounded-t-lg">
+          <img src="/castelar/img/ferreteria-3.webp" alt="Pinturas Ecológicas" class="product-img w-full h-32 object-cover rounded-t-lg">
           <h3 class="text-lg font-semibold text-gray-800 mt-2">Pinturas Ecológicas</h3>
           <p class="text-gray-600">Pinturas libres de compuestos orgánicos volátiles, ideales para el hogar.</p>
         </div>
@@ -184,21 +184,21 @@
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Servicios Destacados</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria.webp" alt="Herramientas Variadas" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <img src="/castelar/img/ferreteria.webp" alt="Herramientas Variadas" class="w-20 h-20 object-cover rounded" loading="lazy">
           <div>
             <h3 class="font-semibold text-gray-800">Herramientas Variadas</h3>
             <p class="text-gray-600">Amplia gama de herramientas para todos tus proyectos.</p>
           </div>
         </div>
         <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-1.webp" alt="Pinturas y Accesorios" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <img src="/castelar/img/ferreteria-1.webp" alt="Pinturas y Accesorios" class="w-20 h-20 object-cover rounded" loading="lazy">
           <div>
             <h3 class="font-semibold text-gray-800">Pinturas y Accesorios</h3>
             <p class="text-gray-600">Pinturas de alta calidad y accesorios para decoración.</p>
           </div>
         </div>
         <div class="flex items-start space-x-3 business-card bg-white rounded-lg shadow-md p-4">
-          <img src="/Zona-Tu-Barrio/castelar/img/ferreteria-2.webp" alt="Materiales de Construcción" class="w-20 h-20 object-cover rounded" loading="lazy">
+          <img src="/castelar/img/ferreteria-2.webp" alt="Materiales de Construcción" class="w-20 h-20 object-cover rounded" loading="lazy">
           <div>
             <h3 class="font-semibold text-gray-800">Materiales de Construcción</h3>
             <p class="text-gray-600">Todo lo necesario para tus proyectos de construcción y reparación.</p>
@@ -245,7 +245,7 @@
     <!-- Botón de instalación en el footer -->
     <div class="install-banner mt-4 p-3 bg-white rounded shadow-sm">
       <div class="d-flex align-items-center">
-        <img src="/Zona-Tu-Barrio/shared/img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
+        <img src="/shared/img/icon-192x192.png" alt="Logo App" class="me-3" style="width: 60px; height: 60px;">
         <div class="flex-grow-1">
           <div class="small text-muted mb-1">¿Quieres la app completa?</div>
           <button id="botonInstalar" class="btn btn-success w-100 py-2">
@@ -262,7 +262,7 @@
     let categoria = document.body.dataset.categoria || "panaderia";
     console.log("Categoría detectada:", categoria);
 
-    fetch("/Zona-Tu-Barrio/castelar/datos/ofertas-ferreteria.json")
+    fetch("/castelar/datos/ofertas-ferreteria.json")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al cargar el archivo JSON");
@@ -306,8 +306,8 @@
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/Zona-Tu-Barrio/shared/js/splash.js"></script>
-<script src="/Zona-Tu-Barrio/shared/js/install-app.js"></script>
+<script src="/shared/js/splash.js"></script>
+<script src="/shared/js/install-app.js"></script>
 <script>
   AOS.init();
 </script>

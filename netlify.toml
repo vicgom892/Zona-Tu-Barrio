@@ -42,6 +42,16 @@
   to = "/ramos-mejia/index.html"
   status = 200
 
+  [[redirects]]
+  from = "/castelar/negocios/*"
+  to = "/castelar/negocios/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*/negocios/*"
+  to = "/:localidad/negocios/:splat"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
