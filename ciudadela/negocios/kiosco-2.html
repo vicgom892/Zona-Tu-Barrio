@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiosco 24hs | Todo para tu día</title>
+    <link rel="icon" href="../../shared/img/icon-abeja-sola.png">
+    <link rel="apple-touch-icon" href="../../shared/img/icon-abeja-sola.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981; /* Verde para kiosco */
+            --neon: #34d399;
+            --metal: #a8a29e;
+            --dark: #0f172a;
+            --light: #f1f5f9;
+            --accent: #f59e0b; /* Color acento para promociones */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        /* === SPLASH SCREEN === */
+        .splash-screen {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+        .splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .splash-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 2;
+            opacity: 0.3;
+        }
+        .splash-logo {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            z-index: 3;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 2s infinite alternate;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo-icon {
+            font-size: 80px;
+            color: white;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            width: 230px;
+            height: 230px;
+        }
+        .splash-text {
+            color: #f8f9fa !important;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+        .loading-bar-container {
+            width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            z-index: 3;
+            margin-top: 20px;
+        }
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #059669);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        .skip-btn {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            z-index: 3;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards 1.5s;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4); transform: scale(1); }
+            100% { box-shadow: 0 20px 60px rgba(16, 185, 129, 0.6); transform: scale(1.05); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .splash-logo { width: 280px; height: 280px; }
+            .splash-text { font-size: 1.6rem; }
+        }
+        /* === LOGO ANIMATED === */
+        .animated-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b, #0c4a6e);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(-100px) translateY(-100px) scale(0.5);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+        }
+        .animated-logo.show {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+        }
+        .hero .logo.shrink {
+            width: 60px;
+            height: 60px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            margin: 0;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+            z-index: 1000;
+        }
+        .animated-logo img,
+        .hero .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.5));
+        }
+        /* === HERO === */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #059669 0%, #1e293b 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(52, 211, 153, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 40%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--neon), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #059669);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--neon);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.4);
+            background: linear-gradient(135deg, #059669, var(--primary));
+        }
+        /* === PROMOCIONES === */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+        .promo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        /* === SECTIONS === */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--neon);
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .service-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon);
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.1);
+        }
+        .service-icon {
+            font-size: 3rem;
+            color: var(--neon);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+        }
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .service-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        /* === CATEGORÍAS DE PRODUCTOS === */
+        .product-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .category-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon);
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.1);
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--neon);
+            margin-right: 15px;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+        }
+        .category-title {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+        .category-subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .category-products {
+            list-style: none;
+        }
+        .category-products li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .category-products li:last-child {
+            border-bottom: none;
+        }
+        .product-price {
+            color: var(--neon);
+            font-weight: 600;
+        }
+        .product-tag {
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+        }
+        /* === GALLERY === */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 250px;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        /* === CONTACT === */
+        .contact-container {
+            display: grid;
+            gap: 40px;
+            align-items: start;
+        }
+        .contact-info {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        .contact-detail i {
+            color: var(--neon);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        /* === BOTTOM NAV & FOOTER === */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 15px 0;
+            z-index: 100;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 0 20px;
+            scrollbar-width: none;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            min-width: 80px;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--neon);
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 40px;
+        }
+        .home-button-fixed {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #059669);
+            border: 2px solid var(--neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        .home-button-fixed.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .home-button-fixed.show img{
+            width: 70px;
+            height: 70px;
+        }
+        .home-button-fixed:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            background: linear-gradient(135deg, #059669, var(--primary));
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 15px; }
+            .contact-container { grid-template-columns: 1fr; }
+            .home-button-fixed {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            .product-categories {
+                grid-template-columns: 1fr;
+            }
+            .promo-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-grid"></div>
+        <div class="splash-logo">
+            <i class="fas fa-store logo-icon"></i>
+        </div>
+        <h1 class="splash-text">Kiosco 24hs</h1>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text">Abriendo las mejores ofertas...</p>
+        <button onclick="skipSplash()" class="skip-btn">Saltar</button>
+    </div>
+
+    <!-- Botón Home -->
+    <a href="../index.html" class="home-button-fixed" id="homeButton" title="Volver al Inicio">
+        <img src="../../shared/img/icon-192x192.png" alt="">
+    </a>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="logo" id="mainLogo">
+                <img src="../../shared/img/logo.png" alt="Logo">
+            </div>
+            <div class="animated-logo" id="fixedLogo">
+                <img src="../../shared/img/logo.png" alt="Logo">
+            </div>
+            <h1>Kiosco 24hs<br>Todo lo que necesitás, siempre abierto</h1>
+            <p>Golosinas, bebidas, snacks y productos esenciales. ¡Atención las 24 horas con delivery express!</p>
+            <a href="#contacto" class="btn">Pedir por WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Promoción -->
+    <section class="section">
+        <div class="promo-banner">
+            <div class="promo-text">🚚 DELIVERY GRATIS en compras mayores a $5.000 🚚</div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section class="section" id="servicios">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-clock"></i></div>
+                <h3>Abierto 24/7</h3>
+                <p>Atendemos las 24 horas, los 365 días del año. Siempre estamos para vos.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-motorcycle"></i></div>
+                <h3>Delivery Express</h3>
+                <p>Entregamos en 15-20 minutos en Castelar y zonas aledañas.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-credit-card"></i></div>
+                <h3>Múltiples Pagos</h3>
+                <p>Aceptamos efectivo, tarjetas, transferencias y Mercado Pago.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-gift"></i></div>
+                <h3>Promociones Diarias</h3>
+                <p>Ofertas especiales y combos todos los días. ¡Seguinos en redes!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorías de Productos -->
+    <section class="section" id="categorias">
+        <h2 class="section-title">Nuestros Productos</h2>
+        <div class="product-categories">
+            <!-- Golosinas y Snacks -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon"><i class="fas fa-candy-cane"></i></div>
+                    <div>
+                        <h3 class="category-title">Golosinas & Snacks</h3>
+                        <p class="category-subtitle">Dulces y salados para todos los gustos</p>
+                    </div>
+                </div>
+                <ul class="category-products">
+                    <li>
+                        <div>Alfajor Triple Clásico</div>
+                        <div class="product-price">$450</div>
+                    </li>
+                    <li>
+                        <div>Papas Lays 85g</div>
+                        <div class="product-price">$800</div>
+                    </li>
+                    <li>
+                        <div>Chocolate Block 100g</div>
+                        <div class="product-price">$750</div>
+                    </li>
+                    <li>
+                        <div>Pochoclos Dulces</div>
+                        <div class="product-price">$600</div>
+                    </li>
+                    <li>
+                        <div>Tableta de Mantecol</div>
+                        <div class="product-price">$550</div>
+                    </li>
+                    <li>
+                        <div>Chicles Beldent</div>
+                        <div class="product-price">$300</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bebidas -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon"><i class="fas fa-wine-bottle"></i></div>
+                    <div>
+                        <h3 class="category-title">Bebidas</h3>
+                        <p class="category-subtitle">Frías y calientes para cada momento</p>
+                    </div>
+                </div>
+                <ul class="category-products">
+                    <li>
+                        <div>Coca-Cola 500ml</div>
+                        <div class="product-price">$700</div>
+                    </li>
+                    <li>
+                        <div>Agua Mineral 500ml</div>
+                        <div class="product-price">$500</div>
+                    </li>
+                    <li>
+                        <div>Jugo Cepita 1L</div>
+                        <div class="product-price">$850</div>
+                    </li>
+                    <li>
+                        <div>Cerveza Lata 473ml</div>
+                        <div class="product-price">$900</div>
+                    </li>
+                    <li>
+                        <div>Energizante Speed 500ml</div>
+                        <div class="product-price">$950</div>
+                    </li>
+                    <li>
+                        <div>Café en Sobres</div>
+                        <div class="product-price">$200 c/u</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tabaco y Revistas -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon"><i class="fas fa-newspaper"></i></div>
+                    <div>
+                        <h3 class="category-title">Tabaco & Revistas</h3>
+                        <p class="category-subtitle">Productos de kiosco tradicional</p>
+                    </div>
+                </div>
+                <ul class="category-products">
+                    <li>
+                        <div>Marlboro Box</div>
+                        <div class="product-price">$2.800</div>
+                    </li>
+                    <li>
+                        <div>Revista Gente</div>
+                        <div class="product-price">$600</div>
+                    </li>
+                    <li>
+                        <div>Encendedor Bic</div>
+                        <div class="product-price">$400</div>
+                    </li>
+                    <li>
+                        <div>Revista Para Ti</div>
+                        <div class="product-price">$550</div>
+                    </li>
+                    <li>
+                        <div>Chicles Nicotinell</div>
+                        <div class="product-price">$1.200</div>
+                    </li>
+                    <li>
+                        <div>Revista Pronto</div>
+                        <div class="product-price">$500</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section class="section" id="galeria">
+        <h2 class="section-title">Nuestro Kiosco</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://placehold.co/600x400/10b981/ffffff?text=Golosinas+Variadas" alt="Golosinas Variadas">
+            </div>
+            <div class="gallery-item">
+                <img src="https://placehold.co/600x400/34d399/ffffff?text=Bebidas+Frias" alt="Bebidas Frías">
+            </div>
+            <div class="gallery-item">
+                <img src="https://placehold.co/600x400/059669/ffffff?text=Snacks+Crujientes" alt="Snacks Crujientes">
+            </div>
+            <div class="gallery-item">
+                <img src="https://placehold.co/600x400/10b981/ffffff?text=Productos+Esenciales" alt="Productos Esenciales">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="section" id="contacto">
+        <h2 class="section-title">Hacé tu Pedido</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <div class="contact-detail">
+                    <i class="fas fa-clock"></i>
+                    <span>Abierto las 24 horas, los 365 días del año</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Av. Rivadavia 1850, Castelar</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>+54 9 11 2345-6789</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Delivery en 15-20 min (Zona Castelar)</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-truck"></i>
+                    <span>Envío gratis en compras mayores a $5.000</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Aceptamos todos los medios de pago</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-bolt"></i>
+                    <span>¡Pedí por WhatsApp y te lo llevamos!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="#servicios" class="nav-item active">
+                <div class="nav-icon"><i class="fas fa-concierge-bell"></i></div>
+                <div class="nav-text">Servicios</div>
+            </a>
+            <a href="#categorias" class="nav-item">
+                <div class="nav-icon"><i class="fas fa-shopping-basket"></i></div>
+                <div class="nav-text">Productos</div>
+            </a>
+            <a href="#galeria" class="nav-item">
+                <div class="nav-icon"><i class="fas fa-images"></i></div>
+                <div class="nav-text">Galería</div>
+            </a>
+            <a href="#contacto" class="nav-item">
+                <div class="nav-icon"><i class="fas fa-shopping-cart"></i></div>
+                <div class="nav-text">Pedir</div>
+            </a>
+            <a href="https://wa.me/5491123456789" class="nav-item" target="_blank">
+                <div class="nav-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="nav-text">WhatsApp</div>
+            </a>
+            <a href="#hero" class="nav-item">
+                <div class="nav-icon"><i class="fas fa-home"></i></div>
+                <div class="nav-text">Inicio</div>
+            </a>
+        </div>
+    </nav>
+
+    <footer>
+        <p>&copy; 2024 Kiosco 24hs - Todo para tu día - Hecho con ❤️ en Castelar</p>
+    </footer>
+
+    <script>
+        // Splash screen
+        function skipSplash() {
+            document.getElementById('splash-screen').classList.add('fade-out');
+            setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 800);
+        }
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loadingBar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    skipSplash();
+                } else {
+                    width += 2;
+                    bar.style.width = width + '%';
+                }
+            }, 50);
+        });
+
+        // Home button
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('homeButton');
+            if (window.scrollY > 300) btn.classList.add('show');
+            else btn.classList.remove('show');
+        });
+
+        // Logo animado
+        window.addEventListener('scroll', () => {
+            const main = document.getElementById('mainLogo');
+            const fixed = document.getElementById('fixedLogo');
+            if (window.scrollY > 100) {
+                fixed.classList.add('show');
+                main.classList.add('shrink');
+            } else {
+                fixed.classList.remove('show');
+                main.classList.remove('shrink');
+            }
+        });
+
+        // Navegación activa
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
